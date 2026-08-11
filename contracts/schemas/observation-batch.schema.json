@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "observation-batch.schema.json",
+  "title": "S2-02 sealed observation batch",
+  "description": "A privacy-safe batch composed only of metadata, normalized field observations and opaque references.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_ref",
+    "run_ref",
+    "source_ref",
+    "route_id",
+    "source_kind",
+    "provider_contract_ref",
+    "authorization_ref",
+    "attempt_ref",
+    "envelope_ref",
+    "observed_at",
+    "binding_context_ref",
+    "coverage_status",
+    "coverage_scope_ref",
+    "payload_family",
+    "payload_version",
+    "parser_version",
+    "record_contract_version",
+    "source_integrity_ref",
+    "privacy_decision",
+    "batch_state",
+    "started_at",
+    "sealed_at",
+    "field_observation_refs",
+    "business_record_refs",
+    "coverage_ref",
+    "field_observation_count",
+    "business_record_count",
+    "source_material_persisted",
+    "privacy_safe_for_resume",
+    "resume_mode"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.observation-batch.v1"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_ref": {
+      "type": "string",
+      "pattern": "^source:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "attempt_ref": {
+      "type": "string",
+      "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"
+    },
+    "envelope_ref": {
+      "type": "string",
+      "pattern": "^envelope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "binding_context_ref": {
+      "type": "string",
+      "pattern": "^context:[A-Za-z0-9_-]{8,96}$"
+    },
+    "coverage_status": {
+      "enum": [
+        "COMPLETE",
+        "PARTIAL",
+        "UNKNOWN"
+      ]
+    },
+    "coverage_scope_ref": {
+      "type": "string",
+      "pattern": "^scope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"
+    },
+    "parser_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "record_contract_version": {
+      "const": "s2-02.business-record.v2"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "privacy_decision": {
+      "const": "PASS"
+    },
+    "batch_state": {
+      "enum": [
+        "OPEN_IN_MEMORY",
+        "SEALED_PRIVACY_SAFE",
+        "REJECTED"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sealed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "field_observation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+      },
+      "maxItems": 65536,
+      "uniqueItems": true
+    },
+    "business_record_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^business-record:[A-Za-z0-9_-]{8,96}$"
+      },
+      "maxItems": 16384,
+      "uniqueItems": true
+    },
+    "coverage_ref": {
+      "type": "string",
+      "pattern": "^coverage:[A-Za-z0-9_-]{8,96}$"
+    },
+    "field_observation_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65536
+    },
+    "business_record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16384
+    },
+    "source_material_persisted": {
+      "const": false
+    },
+    "privacy_safe_for_resume": {
+      "type": "boolean"
+    },
+    "resume_mode": {
+      "enum": [
+        "NOT_RESUMABLE",
+        "SEALED_BATCH_ONLY"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "batch_state": {
+            "const": "SEALED_PRIVACY_SAFE"
+          }
+        },
+        "required": [
+          "batch_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sealed_at": {
+            "type": "string"
+          },
+          "privacy_safe_for_resume": {
+            "const": true
+          },
+          "resume_mode": {
+            "const": "SEALED_BATCH_ONLY"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "privacy_safe_for_resume": {
+            "const": false
+          },
+          "resume_mode": {
+            "const": "NOT_RESUMABLE"
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "The semantic validator must require each count to equal its corresponding array length and every referenced object to share run, source, attempt, binding context, provider contract and source integrity."
+}

@@ -1,0 +1,22 @@
+{
+  "runtimeVersion": "0.7.0",
+  "sourceCommit": "working-copy:640ad4d0d81828cd80bfee9ff6be6c87d20a7aa6",
+  "managedPaths": [
+    "bin/hl.js",
+    "hooks/README.md",
+    "hooks/dispatcher.js",
+    "lib/hook.js",
+    "lib/install.js",
+    "lib/io.js",
+    "lib/limits.js",
+    "lib/tree.js",
+    "lib/work.js",
+    "skills/root-cause.md",
+    "skills/split-work.md",
+    "skills/test-first.md"
+  ],
+  "packageDigest": "sha256:99323df550792f5dc34a33ae7e09df17fae727f5c8d20195f736e746057bafb3",
+  "hookDefinitionDigest": "sha256:9dcc3c8b3f4c028956aa42ff34ca21e807903dff9d407d947837ac39186e5054",
+  "instructionBlockDigest": "sha256:4a87ff5ab56331b588057614ab5f1c824589017088b38404ea4923bbc3fe9320",
+  "extensions": {}
+}

@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coverage-receipt.schema.json",
+  "title": "S2-02 coverage receipt",
+  "description": "Coverage is always limited to one declared opaque scope. Partial or unknown coverage cannot support an exhaustive zero claim.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "coverage_ref",
+    "run_ref",
+    "batch_ref",
+    "provider_contract_ref",
+    "route_id",
+    "source_kind",
+    "declared_scope_ref",
+    "scope_kind",
+    "status",
+    "observed_envelope_count",
+    "accepted_record_count",
+    "rejected_event_count",
+    "zero_result_claim_allowed",
+    "evidence_ref",
+    "source_integrity_refs",
+    "measured_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.coverage-receipt.v1"
+    },
+    "coverage_ref": {
+      "type": "string",
+      "pattern": "^coverage:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "declared_scope_ref": {
+      "type": "string",
+      "pattern": "^scope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "scope_kind": {
+      "enum": [
+        "ONE_AUTHORIZED_EXPORT",
+        "ONE_DOCUMENT_SNAPSHOT",
+        "ONE_STRUCTURED_OBSERVATION",
+        "ONE_PROVIDER_BATCH"
+      ]
+    },
+    "status": {
+      "enum": [
+        "COMPLETE",
+        "PARTIAL",
+        "UNKNOWN"
+      ]
+    },
+    "observed_envelope_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "accepted_record_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rejected_event_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "zero_result_claim_allowed": {
+      "type": "boolean"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "pattern": "^evidence:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_integrity_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+      },
+      "maxItems": 4096,
+      "uniqueItems": true
+    },
+    "measured_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "PARTIAL",
+              "UNKNOWN"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "zero_result_claim_allowed": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "zero_result_claim_allowed": {
+            "const": true
+          }
+        },
+        "required": [
+          "zero_result_claim_allowed"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "COMPLETE"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "provider-qualification-summary.schema.json",
+  "title": "S2-02 Provider qualification task summary",
+  "description": "Task-level aggregation of a closed set of candidate qualification results. It never substitutes for an individual candidate result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "qualification_summary_ref",
+    "task_ref",
+    "evaluated_at",
+    "candidate_result_refs",
+    "qualified_candidate_result_refs",
+    "high_risk_candidate_result_refs",
+    "inconclusive_candidate_result_refs",
+    "rejected_candidate_result_refs",
+    "candidate_count",
+    "qualified_count",
+    "high_risk_count",
+    "inconclusive_count",
+    "rejected_count",
+    "aggregate_verdict",
+    "aggregate_reason",
+    "selected_candidate_result_ref",
+    "next_gate",
+    "live_access_authorized"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.provider-qualification-summary.v1"
+    },
+    "qualification_summary_ref": {
+      "type": "string",
+      "pattern": "^qualification-summary:[A-Za-z0-9_-]{8,96}$"
+    },
+    "task_ref": {
+      "type": "string",
+      "pattern": "^task:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_result_refs": {
+      "$ref": "#/$defs/nonempty_candidate_result_refs"
+    },
+    "qualified_candidate_result_refs": {
+      "$ref": "#/$defs/candidate_result_refs"
+    },
+    "high_risk_candidate_result_refs": {
+      "$ref": "#/$defs/candidate_result_refs"
+    },
+    "inconclusive_candidate_result_refs": {
+      "$ref": "#/$defs/candidate_result_refs"
+    },
+    "rejected_candidate_result_refs": {
+      "$ref": "#/$defs/candidate_result_refs"
+    },
+    "candidate_count": {
+      "$ref": "#/$defs/nonzero_count"
+    },
+    "qualified_count": {
+      "$ref": "#/$defs/count"
+    },
+    "high_risk_count": {
+      "$ref": "#/$defs/count"
+    },
+    "inconclusive_count": {
+      "$ref": "#/$defs/count"
+    },
+    "rejected_count": {
+      "$ref": "#/$defs/count"
+    },
+    "aggregate_verdict": {
+      "enum": [
+        "PROVIDER_QUALIFIED_FOR_BUILD",
+        "MULTIPLE_QUALIFIED_PROVIDERS_REQUIRES_SUPERVISOR_DECISION",
+        "HIGH_RISK_NEEDS_SEPARATE_USER_DECISION",
+        "INCONCLUSIVE_NEEDS_SANITIZED_SHAPE",
+        "NO_QUALIFIED_SOURCE"
+      ]
+    },
+    "aggregate_reason": {
+      "enum": [
+        "EXACTLY_ONE_CANDIDATE_QUALIFIED",
+        "MULTIPLE_CANDIDATES_QUALIFIED",
+        "NO_QUALIFIED_HIGH_RISK_PRESENT",
+        "NO_QUALIFIED_OR_HIGH_RISK_SANITIZED_SHAPE_REQUIRED",
+        "ALL_CANDIDATES_REJECTED"
+      ]
+    },
+    "selected_candidate_result_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^qualification:[A-Za-z0-9_-]{8,96}$"
+    },
+    "next_gate": {
+      "enum": [
+        "SUPERVISOR_ACCEPTANCE",
+        "SUPERVISOR_PROVIDER_SELECTION",
+        "SEPARATE_USER_DECISION",
+        "SANITIZED_SHAPE_REQUIRED",
+        "STOP_NO_SOURCE"
+      ]
+    },
+    "live_access_authorized": {
+      "const": false
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Exactly one qualified candidate",
+      "properties": {
+        "qualified_candidate_result_refs": {
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "qualified_count": {
+          "const": 1
+        },
+        "aggregate_verdict": {
+          "const": "PROVIDER_QUALIFIED_FOR_BUILD"
+        },
+        "aggregate_reason": {
+          "const": "EXACTLY_ONE_CANDIDATE_QUALIFIED"
+        },
+        "selected_candidate_result_ref": {
+          "type": "string"
+        },
+        "next_gate": {
+          "const": "SUPERVISOR_ACCEPTANCE"
+        }
+      },
+      "required": [
+        "aggregate_verdict"
+      ]
+    },
+    {
+      "title": "Multiple qualified candidates",
+      "properties": {
+        "qualified_candidate_result_refs": {
+          "minItems": 2
+        },
+        "qualified_count": {
+          "minimum": 2
+        },
+        "aggregate_verdict": {
+          "const": "MULTIPLE_QUALIFIED_PROVIDERS_REQUIRES_SUPERVISOR_DECISION"
+        },
+        "aggregate_reason": {
+          "const": "MULTIPLE_CANDIDATES_QUALIFIED"
+        },
+        "selected_candidate_result_ref": {
+          "const": null
+        },
+        "next_gate": {
+          "const": "SUPERVISOR_PROVIDER_SELECTION"
+        }
+      },
+      "required": [
+        "aggregate_verdict"
+      ]
+    },
+    {
+      "title": "No qualified candidate and at least one high-risk candidate",
+      "properties": {
+        "qualified_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "high_risk_candidate_result_refs": {
+          "minItems": 1
+        },
+        "qualified_count": {
+          "const": 0
+        },
+        "high_risk_count": {
+          "minimum": 1
+        },
+        "aggregate_verdict": {
+          "const": "HIGH_RISK_NEEDS_SEPARATE_USER_DECISION"
+        },
+        "aggregate_reason": {
+          "const": "NO_QUALIFIED_HIGH_RISK_PRESENT"
+        },
+        "selected_candidate_result_ref": {
+          "const": null
+        },
+        "next_gate": {
+          "const": "SEPARATE_USER_DECISION"
+        }
+      },
+      "required": [
+        "aggregate_verdict"
+      ]
+    },
+    {
+      "title": "No qualified or high-risk candidate and at least one shape-inconclusive candidate",
+      "properties": {
+        "qualified_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "high_risk_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "inconclusive_candidate_result_refs": {
+          "minItems": 1
+        },
+        "qualified_count": {
+          "const": 0
+        },
+        "high_risk_count": {
+          "const": 0
+        },
+        "inconclusive_count": {
+          "minimum": 1
+        },
+        "aggregate_verdict": {
+          "const": "INCONCLUSIVE_NEEDS_SANITIZED_SHAPE"
+        },
+        "aggregate_reason": {
+          "const": "NO_QUALIFIED_OR_HIGH_RISK_SANITIZED_SHAPE_REQUIRED"
+        },
+        "selected_candidate_result_ref": {
+          "const": null
+        },
+        "next_gate": {
+          "const": "SANITIZED_SHAPE_REQUIRED"
+        }
+      },
+      "required": [
+        "aggregate_verdict"
+      ]
+    },
+    {
+      "title": "All candidates rejected",
+      "properties": {
+        "qualified_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "high_risk_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "inconclusive_candidate_result_refs": {
+          "maxItems": 0
+        },
+        "rejected_candidate_result_refs": {
+          "minItems": 1
+        },
+        "qualified_count": {
+          "const": 0
+        },
+        "high_risk_count": {
+          "const": 0
+        },
+        "inconclusive_count": {
+          "const": 0
+        },
+        "rejected_count": {
+          "minimum": 1
+        },
+        "aggregate_verdict": {
+          "const": "NO_QUALIFIED_SOURCE"
+        },
+        "aggregate_reason": {
+          "const": "ALL_CANDIDATES_REJECTED"
+        },
+        "selected_candidate_result_ref": {
+          "const": null
+        },
+        "next_gate": {
+          "const": "STOP_NO_SOURCE"
+        }
+      },
+      "required": [
+        "aggregate_verdict"
+      ]
+    }
+  ],
+  "$defs": {
+    "candidate_result_ref": {
+      "type": "string",
+      "pattern": "^qualification:[A-Za-z0-9_-]{8,96}$"
+    },
+    "candidate_result_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate_result_ref"
+      },
+      "maxItems": 64,
+      "uniqueItems": true
+    },
+    "nonempty_candidate_result_refs": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/candidate_result_refs"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 64
+    },
+    "nonzero_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 64
+    }
+  },
+  "$comment": "The production semantic validator must require candidate_count to equal candidate_result_refs length; each status count to equal its corresponding status-ref array length; the four status-ref arrays to be pairwise disjoint and their union to equal candidate_result_refs; the four status counts to sum to candidate_count; and selected_candidate_result_ref to equal the sole qualified ref when aggregate_verdict is PROVIDER_QUALIFIED_FOR_BUILD."
+}

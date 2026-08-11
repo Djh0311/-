@@ -1,0 +1,3075 @@
+{
+  "cross_endpoint_join": "PROHIBITED",
+  "cross_read_join": "PROHIBITED",
+  "cross_time_join": "PROHIBITED",
+  "endpoint_kind": "FOOD",
+  "event_ref": "H34_READ_03_EVENT_01",
+  "fixture_kind": "SYNTHETIC_VALUE_FREE_OFFLINE_ONLY",
+  "historical_field_backfill": "PROHIBITED",
+  "missing_field_rule": "UNOBSERVED_IN_THIS_EVENT_NO_CROSS_READ_BACKFILL",
+  "pagination_shape": [
+    {
+      "presence": "ABSENT",
+      "shape_path": "$.data.food_spu_tags[*].current_page"
+    },
+    {
+      "presence": "ABSENT",
+      "shape_path": "$.data.food_spu_tags[*].has_next_page"
+    },
+    {
+      "presence": "ABSENT",
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*]"
+    }
+  ],
+  "payload": {
+    "code": -1000002,
+    "data": {
+      "calculate_price_from_server": false,
+      "container_operation_source": {
+        "operation_source_list": [
+          {
+            "activity_type": -1000017,
+            "content": "synthetic_text_000014",
+            "scheme": "synthetic_text_000013",
+            "sequence": -1000015,
+            "type": -1000016
+          }
+        ],
+        "poi_coupon_list": [],
+        "tag": "synthetic_text_000009",
+        "tag_icon": "synthetic_text_000011",
+        "tag_name": "synthetic_text_000010",
+        "tag_sequence": -1000012
+      },
+      "container_template": {
+        "code": -1000003,
+        "is_page": false
+      },
+      "event_tracking": {
+        "page_type": "synthetic_text_000605"
+      },
+      "experiments": [
+        {
+          "experimentKey": "synthetic_text_000567",
+          "experimentNo": -1000566,
+          "sceneKey": "synthetic_text_000568"
+        },
+        {
+          "experimentKey": "synthetic_text_000570",
+          "experimentNo": -1000569,
+          "sceneKey": "synthetic_text_000571"
+        }
+      ],
+      "first_order_tip": null,
+      "food_category_list": null,
+      "food_spu_tags": null,
+      "friend_status": -1000557,
+      "function_control": {
+        "actual_self_pick": false,
+        "change_shop_buy": false,
+        "head_coupon_display_style": -1000595,
+        "head_coupon_raised_display": -1000596,
+        "only_pickup_poi": false,
+        "self_pick_matrix_result": false,
+        "selfpick_support_oneprice": false,
+        "support_activity": false,
+        "support_capture_screen": false,
+        "support_half_layer_update": false,
+        "support_moderate_ordering_reminder_improve": false,
+        "support_multi_item_coupon": -1000586,
+        "support_new_package_in_share_model": false,
+        "support_new_page_v3": false,
+        "support_new_share_style": false,
+        "support_oneprice_tab_switch": false,
+        "support_poi_tab_v8": -1000597,
+        "support_self_pick": false,
+        "support_yellow_strip_switch": false
+      },
+      "group_buy_entrance": null,
+      "has_hotsale_tag": false,
+      "is_show_rcmd_pois": false,
+      "label_map": {
+        "synthetic_dynamic_key_000001": [
+          "synthetic_text_000579",
+          "synthetic_text_000580",
+          "synthetic_text_000581",
+          "synthetic_text_000582",
+          "synthetic_text_000583"
+        ],
+        "synthetic_dynamic_key_000002": []
+      },
+      "latest_bought": {
+        "orderlist_his": [],
+        "tag": "synthetic_text_000005",
+        "tag_icon": "synthetic_text_000007",
+        "tag_name": "synthetic_text_000006",
+        "tag_sequence": -1000008
+      },
+      "moderate_ordering_reminder": "synthetic_text_000607",
+      "new_user": false,
+      "pick_goods_tab_info": {
+        "delivery": {
+          "activity_info": null,
+          "activity_info_type": -1000610,
+          "button_icon": null,
+          "button_text": null,
+          "text": "synthetic_text_000608"
+        },
+        "self_pick": {
+          "activity_info": null,
+          "activity_info_type": -1000615,
+          "button_icon": null,
+          "button_text": null,
+          "text": "synthetic_text_000613"
+        },
+        "toast": null
+      },
+      "poi_info": {
+        "address": "synthetic_text_000072",
+        "app_delivery_tip": "synthetic_text_000029",
+        "attention_count_text": "synthetic_text_000209",
+        "avg_delivery_time": -1000025,
+        "brand_id": -1000521,
+        "bulletin": "synthetic_text_000027",
+        "buy_sku_count_threshold": -1000523,
+        "buz_code": -1000040,
+        "buz_menu_tip": "synthetic_text_000041",
+        "buz_type": -1000039,
+        "can_use_coupon": -1000038,
+        "cityId": -1000123,
+        "comment_number": -1000066,
+        "delivery_area_id": -1000030,
+        "delivery_time_icon": null,
+        "delivery_time_tip": "synthetic_text_000049",
+        "delivery_tips": "synthetic_text_000529",
+        "delivery_type": -1000043,
+        "dine_in_restaurant_label": null,
+        "discount_restrict": -1000050,
+        "discounts2": [],
+        "distance": "synthetic_text_000021",
+        "dp_comment_number": -1000067,
+        "dp_score": -1000122.5,
+        "extraStatInfo": "synthetic_text_000070",
+        "favorite_desc": "synthetic_text_000035",
+        "favorite_toast_appear_time": -1000036,
+        "favorite_toast_disappear_time": -1000037,
+        "has_favorite_coupon": false,
+        "has_poi_env": false,
+        "has_xbk": false,
+        "id": -1000019,
+        "in_delivery_range": false,
+        "invoice_support": -1000032,
+        "is_favorite": -1000033,
+        "is_meituan_delivery": false,
+        "label_info": null,
+        "latitude": -1000073,
+        "longitude": -1000074,
+        "min_price": -1000026.5,
+        "min_price_tip": "synthetic_text_000048",
+        "name": "synthetic_text_000020",
+        "new_user_discount_restrict": -1000196,
+        "new_user_discount_restrict_toast": "synthetic_text_000197",
+        "no_dine_in_restaurant_label": null,
+        "origin_brand_id": -1000520,
+        "origin_shipping_fee_tip": "synthetic_text_000045",
+        "per_cust_trans": null,
+        "platform_promotion_info": null,
+        "poi_coupon": {
+          "coupon_list": [],
+          "fold_coupon_list": [
+            {
+              "coupon_button_text": "synthetic_text_000082",
+              "coupon_condition_short_text": "synthetic_text_000081",
+              "coupon_condition_short_text_prefix": null,
+              "coupon_desc": null,
+              "coupon_id": -1000084,
+              "coupon_name": null,
+              "coupon_status": -1000083,
+              "coupon_subsidy_price": -1000094.5,
+              "coupon_subsidy_short_text": null,
+              "coupon_type": -1000078,
+              "coupon_value": -1000079.5,
+              "discount_desc": null,
+              "extends_info": null,
+              "has_subsidy": false,
+              "layout_type": -1000090,
+              "promote_text": null,
+              "tips_text": null,
+              "uds_layout_type": -1000092,
+              "word_type": -1000091
+            },
+            {
+              "coupon_button_text": "synthetic_text_000101",
+              "coupon_condition_short_text": "synthetic_text_000100",
+              "coupon_condition_short_text_prefix": null,
+              "coupon_desc": null,
+              "coupon_id": -1000103,
+              "coupon_name": null,
+              "coupon_status": -1000102,
+              "coupon_subsidy_price": -1000113.5,
+              "coupon_subsidy_short_text": null,
+              "coupon_type": -1000097,
+              "coupon_value": -1000098.5,
+              "discount_desc": null,
+              "extends_info": {
+                "memberLabelReplace": "synthetic_text_000115",
+                "memberLevel": "synthetic_text_000116",
+                "memberLevelName": "synthetic_text_000120",
+                "memberLevelShow": "synthetic_text_000118",
+                "rightCode": "synthetic_text_000119",
+                "rightTypeCode": "synthetic_text_000117"
+              },
+              "has_subsidy": false,
+              "layout_type": -1000109,
+              "promote_text": null,
+              "tips_text": null,
+              "uds_layout_type": -1000111,
+              "word_type": -1000110
+            }
+          ]
+        },
+        "poi_coupon_info": null,
+        "poi_id_str": "synthetic_text_000533",
+        "poi_impress": {
+          "impress_label": [
+            {
+              "label_color": "synthetic_text_000126",
+              "label_desc_text": "synthetic_text_000128",
+              "label_priority": -1000129,
+              "label_text": "synthetic_text_000125",
+              "label_type": -1000127
+            },
+            {
+              "label_color": "synthetic_text_000131",
+              "label_desc_text": "synthetic_text_000133",
+              "label_priority": -1000134,
+              "label_text": "synthetic_text_000130",
+              "label_type": -1000132
+            },
+            {
+              "label_color": "synthetic_text_000136",
+              "label_desc_text": "synthetic_text_000138",
+              "label_priority": -1000139,
+              "label_text": "synthetic_text_000135",
+              "label_type": -1000137
+            },
+            {
+              "label_color": "synthetic_text_000141",
+              "label_desc_text": "synthetic_text_000143",
+              "label_priority": -1000144,
+              "label_text": "synthetic_text_000140",
+              "label_type": -1000142
+            },
+            {
+              "label_color": "synthetic_text_000146",
+              "label_desc_text": "synthetic_text_000148",
+              "label_priority": -1000149,
+              "label_text": "synthetic_text_000145",
+              "label_type": -1000147
+            }
+          ],
+          "title": "synthetic_text_000124"
+        },
+        "poi_label": {
+          "labels": [
+            {
+              "label_color": "synthetic_text_000162",
+              "label_desc_text": "synthetic_text_000164",
+              "label_priority": -1000165,
+              "label_text": "synthetic_text_000161",
+              "label_type": -1000163
+            },
+            {
+              "label_color": "synthetic_text_000167",
+              "label_desc_text": "synthetic_text_000169",
+              "label_priority": -1000170,
+              "label_text": "synthetic_text_000166",
+              "label_type": -1000168
+            },
+            {
+              "label_color": "synthetic_text_000172",
+              "label_desc_text": "synthetic_text_000174",
+              "label_priority": -1000175,
+              "label_text": "synthetic_text_000171",
+              "label_type": -1000173
+            },
+            {
+              "label_color": "synthetic_text_000177",
+              "label_desc_text": "synthetic_text_000179",
+              "label_priority": -1000180,
+              "label_text": "synthetic_text_000176",
+              "label_type": -1000178
+            },
+            {
+              "label_color": "synthetic_text_000182",
+              "label_desc_text": "synthetic_text_000184",
+              "label_priority": -1000185,
+              "label_text": "synthetic_text_000181",
+              "label_type": -1000183
+            },
+            {
+              "label_color": "synthetic_text_000187",
+              "label_desc_text": "synthetic_text_000189",
+              "label_priority": -1000190,
+              "label_text": "synthetic_text_000186",
+              "label_type": -1000188
+            },
+            {
+              "label_color": "synthetic_text_000192",
+              "label_desc_text": "synthetic_text_000194",
+              "label_priority": -1000195,
+              "label_text": "synthetic_text_000191",
+              "label_type": -1000193
+            }
+          ]
+        },
+        "poi_label_new": {
+          "labels": [
+            {
+              "label_color": "synthetic_text_000200",
+              "label_desc_text": "synthetic_text_000202",
+              "label_priority": -1000203,
+              "label_text": "synthetic_text_000199",
+              "label_type": -1000201
+            },
+            {
+              "label_color": "synthetic_text_000205",
+              "label_desc_text": "synthetic_text_000207",
+              "label_priority": -1000208,
+              "label_text": "synthetic_text_000204",
+              "label_type": -1000206
+            }
+          ]
+        },
+        "poi_mark_icon": "synthetic_text_000395",
+        "poi_normal_tags": [
+          {
+            "background_color": null,
+            "border_color": null,
+            "click_expose_info": null,
+            "corner_radius": null,
+            "gradient_color": null,
+            "rule_id": -1000396,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000401,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000404",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000402,
+                "view_expose_info": null,
+                "width": "synthetic_text_000403"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000418,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": null,
+                "left_space": "synthetic_text_000424",
+                "right_space": null,
+                "text": "synthetic_text_000422",
+                "text_color": "synthetic_text_000423",
+                "type": -1000419,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000433"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          },
+          {
+            "background_color": null,
+            "border_color": null,
+            "click_expose_info": null,
+            "corner_radius": null,
+            "gradient_color": null,
+            "rule_id": -1000437,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000442,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000445",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000443,
+                "view_expose_info": null,
+                "width": "synthetic_text_000444"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000459,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": null,
+                "left_space": "synthetic_text_000465",
+                "right_space": null,
+                "text": "synthetic_text_000463",
+                "text_color": "synthetic_text_000464",
+                "type": -1000460,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000474"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          },
+          {
+            "background_color": null,
+            "border_color": null,
+            "click_expose_info": null,
+            "corner_radius": null,
+            "gradient_color": null,
+            "rule_id": -1000478,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000483,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000486",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000484,
+                "view_expose_info": null,
+                "width": "synthetic_text_000485"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000500,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": null,
+                "left_space": "synthetic_text_000506",
+                "right_space": null,
+                "text": "synthetic_text_000504",
+                "text_color": "synthetic_text_000505",
+                "type": -1000501,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000515"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          }
+        ],
+        "poi_prepare_time": "synthetic_text_000071",
+        "poi_sell_status": -1000064,
+        "poi_service_label": {
+          "service_label": [
+            {
+              "label_color": "synthetic_text_000152",
+              "label_desc_text": "synthetic_text_000154",
+              "label_priority": -1000155,
+              "label_text": "synthetic_text_000151",
+              "label_type": -1000153
+            },
+            {
+              "label_color": "synthetic_text_000157",
+              "label_desc_text": "synthetic_text_000159",
+              "label_priority": -1000160,
+              "label_text": "synthetic_text_000156",
+              "label_type": -1000158
+            }
+          ],
+          "title": "synthetic_text_000150"
+        },
+        "poi_sp_type": -1000524,
+        "poi_tags": [
+          {
+            "background_color": null,
+            "border_color": "synthetic_text_000214",
+            "click_expose_info": null,
+            "corner_radius": [
+              "synthetic_text_000215",
+              "synthetic_text_000216",
+              "synthetic_text_000217",
+              "synthetic_text_000218"
+            ],
+            "gradient_color": null,
+            "rule_id": -1000212,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000220,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000234",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000224",
+                "text_color": "synthetic_text_000225",
+                "type": -1000221,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000235"
+                },
+                "width": null
+              },
+              {
+                "background_color": "synthetic_text_000245",
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000237,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000240",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000238,
+                "view_expose_info": null,
+                "width": "synthetic_text_000239"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000254,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000268",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000258",
+                "text_color": "synthetic_text_000259",
+                "type": -1000255,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000269"
+                },
+                "width": null
+              },
+              {
+                "background_color": "synthetic_text_000279",
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000271,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000274",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000272,
+                "view_expose_info": null,
+                "width": "synthetic_text_000273"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000288,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000302",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000292",
+                "text_color": "synthetic_text_000293",
+                "type": -1000289,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000303"
+                },
+                "width": null
+              },
+              {
+                "background_color": "synthetic_text_000313",
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000305,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": "synthetic_text_000308",
+                "horizontal_padding": null,
+                "left_space": null,
+                "right_space": null,
+                "text": null,
+                "text_color": null,
+                "type": -1000306,
+                "view_expose_info": null,
+                "width": "synthetic_text_000307"
+              },
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000322,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000336",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000326",
+                "text_color": "synthetic_text_000327",
+                "type": -1000323,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000337"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          },
+          {
+            "background_color": null,
+            "border_color": "synthetic_text_000343",
+            "click_expose_info": null,
+            "corner_radius": [
+              "synthetic_text_000344",
+              "synthetic_text_000345",
+              "synthetic_text_000346",
+              "synthetic_text_000347"
+            ],
+            "gradient_color": null,
+            "rule_id": -1000341,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000349,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000363",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000353",
+                "text_color": "synthetic_text_000354",
+                "type": -1000350,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000364"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          },
+          {
+            "background_color": null,
+            "border_color": "synthetic_text_000370",
+            "click_expose_info": null,
+            "corner_radius": [
+              "synthetic_text_000371",
+              "synthetic_text_000372",
+              "synthetic_text_000373",
+              "synthetic_text_000374"
+            ],
+            "gradient_color": null,
+            "rule_id": -1000368,
+            "sub_tags": [
+              {
+                "background_color": null,
+                "background_image": null,
+                "border_color": null,
+                "cap_inset": null,
+                "category_id": -1000376,
+                "click_expose_info": null,
+                "corner_radius": null,
+                "gradient_color": null,
+                "height": null,
+                "horizontal_padding": "synthetic_text_000390",
+                "left_space": null,
+                "right_space": null,
+                "text": "synthetic_text_000380",
+                "text_color": "synthetic_text_000381",
+                "type": -1000377,
+                "view_expose_info": {
+                  "activity_id": "synthetic_text_000391"
+                },
+                "width": null
+              }
+            ],
+            "view_expose_info": null
+          }
+        ],
+        "regular_promotion_info": null,
+        "remind_infos": [],
+        "restrict_toast": "synthetic_text_000051",
+        "score": -1000065.5,
+        "selfpick_price_desc_scheme": null,
+        "share_tip": {
+          "activity_id": -1000057,
+          "channels": [
+            -1000052,
+            -1000053
+          ],
+          "description": "synthetic_text_000054",
+          "description_icon": "synthetic_text_000055",
+          "share_button_icon": "synthetic_text_000056",
+          "share_info": {
+            "content": "synthetic_text_000060",
+            "icon": "synthetic_text_000058",
+            "share_recommend": null,
+            "title": "synthetic_text_000059"
+          }
+        },
+        "shippingReduceFee": -1000046.5,
+        "shipping_fee": -1000024.5,
+        "shipping_fee_tip": "synthetic_text_000047",
+        "shipping_fee_type": -1000063,
+        "shipping_time": "synthetic_text_000023",
+        "shop_business_type": "synthetic_text_000525",
+        "speed_refund_status": -1000121,
+        "status": -1000022,
+        "story_info": {
+          "poi_logo_icon": "synthetic_text_000068",
+          "poi_tab_icon": "synthetic_text_000069"
+        },
+        "support_pay": -1000031,
+        "union_poi_feed_tab": false,
+        "use_poi_normal_tags_field": false,
+        "use_poi_tags_field": false,
+        "wm_poi_score": -1000042.5,
+        "worry_free_info": null
+      },
+      "poi_notifications": [],
+      "recommend_food_info": null,
+      "required_tag_info": null,
+      "shop_type": -1000584,
+      "shopping_cart": {
+        "activity_info": {
+          "content": "synthetic_text_000540",
+          "is_only_online": false,
+          "policy": "synthetic_text_000541",
+          "type": -1000539
+        },
+        "activity_info_list": [
+          {
+            "content": "synthetic_text_000549",
+            "is_only_online": false,
+            "policy": "synthetic_text_000550",
+            "type": -1000548
+          }
+        ],
+        "bg_color": "synthetic_text_000543",
+        "cart_icon": {
+          "empty_shopping_cart_icon": "synthetic_text_000556",
+          "shopping_cart_icon": "synthetic_text_000555",
+          "type": -1000554
+        },
+        "empty_shopping_cart_icon": "synthetic_text_000537",
+        "food_float": "synthetic_text_000553",
+        "full_minus_grad": "synthetic_text_000535",
+        "min_fee_cart_tip": -1000534.5,
+        "origin_shipping_fee_cart_tip": null,
+        "prompt_text": "synthetic_text_000544",
+        "repay_tips": "synthetic_text_000547",
+        "self_delivery_tip": "synthetic_text_000545",
+        "shipping_fee_cart_tip": "synthetic_text_000538",
+        "shopping_cart_icon": "synthetic_text_000536",
+        "user_coupon_info_list": [],
+        "weiXinBalanceButtonVO": null
+      },
+      "shopping_cart_entrance": {
+        "content": "synthetic_text_000560",
+        "not_SHOW": -1000563,
+        "shop_cart_id": "synthetic_text_000561",
+        "show": -1000562,
+        "visible": -1000559
+      },
+      "treat_friend_entrance": {
+        "desc": "synthetic_text_000574",
+        "icon": "synthetic_text_000573",
+        "title": "synthetic_text_000572"
+      }
+    },
+    "msg": "synthetic_text_000001"
+  },
+  "price_source_relations": [
+    {
+      "occurrences": 1,
+      "shape_path": "$.data.poi_info.min_price",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "occurrences": 2,
+      "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_subsidy_price",
+      "source_label": "H31_FOOD_FOLD_COUPON_LIST"
+    }
+  ],
+  "read_scope": "H34_READ_03",
+  "schema_version": "h34-sanitized-mitm-fixture-event/v1",
+  "source_input_ref": "H34_LOCKED_INPUT_03",
+  "structural_shape": {
+    "array_lengths": [
+      {
+        "lengths": [
+          1
+        ],
+        "shape_path": "$.data.container_operation_source.operation_source_list"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.container_operation_source.poi_coupon_list"
+      },
+      {
+        "lengths": [
+          2
+        ],
+        "shape_path": "$.data.experiments"
+      },
+      {
+        "lengths": [
+          5
+        ],
+        "shape_path": "$.data.label_map.synthetic_dynamic_key_000001"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.label_map.synthetic_dynamic_key_000002"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.latest_bought.orderlist_his"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.poi_info.discounts2"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.poi_info.poi_coupon.coupon_list"
+      },
+      {
+        "lengths": [
+          2
+        ],
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list"
+      },
+      {
+        "lengths": [
+          5
+        ],
+        "shape_path": "$.data.poi_info.poi_impress.impress_label"
+      },
+      {
+        "lengths": [
+          7
+        ],
+        "shape_path": "$.data.poi_info.poi_label.labels"
+      },
+      {
+        "lengths": [
+          2
+        ],
+        "shape_path": "$.data.poi_info.poi_label_new.labels"
+      },
+      {
+        "lengths": [
+          3
+        ],
+        "shape_path": "$.data.poi_info.poi_normal_tags"
+      },
+      {
+        "lengths": [
+          2,
+          2,
+          2
+        ],
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags"
+      },
+      {
+        "lengths": [
+          2
+        ],
+        "shape_path": "$.data.poi_info.poi_service_label.service_label"
+      },
+      {
+        "lengths": [
+          3
+        ],
+        "shape_path": "$.data.poi_info.poi_tags"
+      },
+      {
+        "lengths": [
+          4,
+          4,
+          4
+        ],
+        "shape_path": "$.data.poi_info.poi_tags[*].corner_radius"
+      },
+      {
+        "lengths": [
+          7,
+          1,
+          1
+        ],
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.poi_info.remind_infos"
+      },
+      {
+        "lengths": [
+          2
+        ],
+        "shape_path": "$.data.poi_info.share_tip.channels"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.poi_notifications"
+      },
+      {
+        "lengths": [
+          1
+        ],
+        "shape_path": "$.data.shopping_cart.activity_info_list"
+      },
+      {
+        "lengths": [
+          0
+        ],
+        "shape_path": "$.data.shopping_cart.user_coupon_info_list"
+      }
+    ],
+    "dynamic_key_count": 2,
+    "node_count": 725,
+    "paths": [
+      {
+        "shape_path": "$",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.code",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.calculate_price_from_server",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*].activity_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*].content",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*].scheme",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*].sequence",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.operation_source_list[*].type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.poi_coupon_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.tag",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.tag_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.tag_name",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_operation_source.tag_sequence",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_template",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_template.code",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.container_template.is_page",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.event_tracking",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.event_tracking.page_type",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.experiments",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.experiments[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.experiments[*].experimentKey",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.experiments[*].experimentNo",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.experiments[*].sceneKey",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.first_order_tip",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.food_category_list",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.food_spu_tags",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.friend_status",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.actual_self_pick",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.change_shop_buy",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.head_coupon_display_style",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.head_coupon_raised_display",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.only_pickup_poi",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.self_pick_matrix_result",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.selfpick_support_oneprice",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_activity",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_capture_screen",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_half_layer_update",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_moderate_ordering_reminder_improve",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_multi_item_coupon",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_new_package_in_share_model",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_new_page_v3",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_new_share_style",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_oneprice_tab_switch",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_poi_tab_v8",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_self_pick",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.function_control.support_yellow_strip_switch",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.group_buy_entrance",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.has_hotsale_tag",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.is_show_rcmd_pois",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.label_map",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.label_map.synthetic_dynamic_key_000001",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.label_map.synthetic_dynamic_key_000001[*]",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.label_map.synthetic_dynamic_key_000002",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought.orderlist_his",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought.tag",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought.tag_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought.tag_name",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.latest_bought.tag_sequence",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.moderate_ordering_reminder",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.new_user",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery.activity_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery.activity_info_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery.button_icon",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery.button_text",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.delivery.text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick.activity_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick.activity_info_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick.button_icon",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick.button_text",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.self_pick.text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.pick_goods_tab_info.toast",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.address",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.app_delivery_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.attention_count_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.avg_delivery_time",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.brand_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.bulletin",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.buy_sku_count_threshold",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.buz_code",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.buz_menu_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.buz_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.can_use_coupon",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.cityId",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.comment_number",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.delivery_area_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.delivery_time_icon",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.delivery_time_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.delivery_tips",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.delivery_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.dine_in_restaurant_label",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.discount_restrict",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.discounts2",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.distance",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.dp_comment_number",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.dp_score",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.extraStatInfo",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.favorite_desc",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.favorite_toast_appear_time",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.favorite_toast_disappear_time",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.has_favorite_coupon",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.has_poi_env",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.has_xbk",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.in_delivery_range",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.invoice_support",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.is_favorite",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.is_meituan_delivery",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.label_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.latitude",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.longitude",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.min_price",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.min_price_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.name",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.new_user_discount_restrict",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.new_user_discount_restrict_toast",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.no_dine_in_restaurant_label",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.origin_brand_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.origin_shipping_fee_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.per_cust_trans",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.platform_promotion_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.coupon_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_button_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_condition_short_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_condition_short_text_prefix",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_desc",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_name",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_status",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_subsidy_price",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_subsidy_short_text",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_value",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].discount_desc",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info",
+        "types": [
+          "null",
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.memberLabelReplace",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.memberLevel",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.memberLevelName",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.memberLevelShow",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.rightCode",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].extends_info.rightTypeCode",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].has_subsidy",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].layout_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].promote_text",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].tips_text",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].uds_layout_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].word_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_coupon_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_id_str",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*].label_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*].label_desc_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*].label_priority",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*].label_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.impress_label[*].label_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_impress.title",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*].label_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*].label_desc_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*].label_priority",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*].label_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label.labels[*].label_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*].label_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*].label_desc_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*].label_priority",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*].label_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_label_new.labels[*].label_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_mark_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].background_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].border_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].click_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].corner_radius",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].gradient_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].rule_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].background_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].background_image",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].border_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].cap_inset",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].category_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].click_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].corner_radius",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].gradient_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].height",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].horizontal_padding",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].left_space",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].right_space",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].text",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].text_color",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].view_expose_info",
+        "types": [
+          "null",
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].view_expose_info.activity_id",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].sub_tags[*].width",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_normal_tags[*].view_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_prepare_time",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_sell_status",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*].label_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*].label_desc_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*].label_priority",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*].label_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.service_label[*].label_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_service_label.title",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_sp_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].background_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].border_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].click_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].corner_radius",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].corner_radius[*]",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].gradient_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].rule_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].background_color",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].background_image",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].border_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].cap_inset",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].category_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].click_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].corner_radius",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].gradient_color",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].height",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].horizontal_padding",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].left_space",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].right_space",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].text",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].text_color",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].view_expose_info",
+        "types": [
+          "null",
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].view_expose_info.activity_id",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].sub_tags[*].width",
+        "types": [
+          "null",
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.poi_tags[*].view_expose_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.regular_promotion_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.remind_infos",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.restrict_toast",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.score",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.selfpick_price_desc_scheme",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.activity_id",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.channels",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.channels[*]",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.description",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.description_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_button_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_info",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_info.content",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_info.icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_info.share_recommend",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.share_tip.share_info.title",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shippingReduceFee",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shipping_fee",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shipping_fee_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shipping_fee_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shipping_time",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.shop_business_type",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.speed_refund_status",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.status",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.story_info",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.story_info.poi_logo_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.story_info.poi_tab_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.support_pay",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.union_poi_feed_tab",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.use_poi_normal_tags_field",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.use_poi_tags_field",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.wm_poi_score",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_info.worry_free_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.poi_notifications",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.recommend_food_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.required_tag_info",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.shop_type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info.content",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info.is_only_online",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info.policy",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info.type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list[*]",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list[*].content",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list[*].is_only_online",
+        "types": [
+          "boolean"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list[*].policy",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.activity_info_list[*].type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.bg_color",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.cart_icon",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.cart_icon.empty_shopping_cart_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.cart_icon.shopping_cart_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.cart_icon.type",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.empty_shopping_cart_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.food_float",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.full_minus_grad",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.min_fee_cart_tip",
+        "types": [
+          "number"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.origin_shipping_fee_cart_tip",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.prompt_text",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.repay_tips",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.self_delivery_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.shipping_fee_cart_tip",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.shopping_cart_icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.user_coupon_info_list",
+        "types": [
+          "array"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart.weiXinBalanceButtonVO",
+        "types": [
+          "null"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance.content",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance.not_SHOW",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance.shop_cart_id",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance.show",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.shopping_cart_entrance.visible",
+        "types": [
+          "integer"
+        ]
+      },
+      {
+        "shape_path": "$.data.treat_friend_entrance",
+        "types": [
+          "object"
+        ]
+      },
+      {
+        "shape_path": "$.data.treat_friend_entrance.desc",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.treat_friend_entrance.icon",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.data.treat_friend_entrance.title",
+        "types": [
+          "string"
+        ]
+      },
+      {
+        "shape_path": "$.msg",
+        "types": [
+          "string"
+        ]
+      }
+    ],
+    "scalar_counts": {
+      "boolean": 32,
+      "integer": 133,
+      "null": 245,
+      "number": 11,
+      "string": 197
+    },
+    "sensitive_key_count": 104
+  },
+  "unclassified_monetary_relations": [
+    {
+      "occurrences": 2,
+      "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_value",
+      "source_label": "H31_FOOD_FOLD_COUPON_LIST"
+    },
+    {
+      "occurrences": 1,
+      "shape_path": "$.data.poi_info.shippingReduceFee",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "occurrences": 1,
+      "shape_path": "$.data.poi_info.shipping_fee",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "occurrences": 1,
+      "shape_path": "$.data.shopping_cart.min_fee_cart_tip",
+      "source_label": "H31_FOOD_SHOPPING_CART"
+    }
+  ]
+}

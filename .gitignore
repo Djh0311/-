@@ -1,0 +1,24 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage/
+.env
+.env.*
+!.env.example
+.cache/
+tmp/
+runtime-output/
+
+# 原始采集与隔离证据不得进入本仓
+archive/
+evidence/
+raw/
+*.mitm
+*.har
+*.pcap
+*.pcapng
+*.saz

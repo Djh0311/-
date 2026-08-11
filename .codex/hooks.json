@@ -1,0 +1,54 @@
+{
+  "description": "Project hooks",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.claude/harness-lite/hooks/dispatcher.js\"",
+            "timeout": 15,
+            "additionalContextLimit": 1800
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.claude/harness-lite/hooks/dispatcher.js\"",
+            "timeout": 10,
+            "additionalContextLimit": 1800
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.claude/harness-lite/hooks/dispatcher.js\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.claude/harness-lite/hooks/dispatcher.js\"",
+            "timeout": 10,
+            "additionalContextLimit": 1800
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "observation-envelope.schema.json",
+  "title": "S2-02 publishable value-safe observation envelope",
+  "description": "Publishable metadata for one successfully parsed Provider event. Runtime or not-yet-classified source objects never enter this schema, and no source body or exact source-material length is represented.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "envelope_ref",
+    "run_ref",
+    "route_id",
+    "source_kind",
+    "provider_contract_ref",
+    "authorization_ref",
+    "attempt_ref",
+    "observation_ref",
+    "ordinal",
+    "payload_family",
+    "payload_version",
+    "shape_descriptor_ref",
+    "observed_at",
+    "ingested_at",
+    "binding_context_ref",
+    "coverage_status",
+    "coverage_scope_ref",
+    "evidence_ref",
+    "source_integrity_ref",
+    "publishable_state",
+    "source_material_state",
+    "metadata_only",
+    "source_material_persisted",
+    "source_material_exact_length_persisted",
+    "secret_material_persisted",
+    "network_transaction_metadata_persisted"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.observation-envelope.v1"
+    },
+    "envelope_ref": {
+      "type": "string",
+      "pattern": "^envelope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "attempt_ref": {
+      "type": "string",
+      "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "ordinal": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"
+    },
+    "shape_descriptor_ref": {
+      "type": "string",
+      "pattern": "^shape:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "binding_context_ref": {
+      "type": "string",
+      "pattern": "^context:[A-Za-z0-9_-]{8,96}$"
+    },
+    "coverage_status": {
+      "enum": [
+        "COMPLETE",
+        "PARTIAL",
+        "UNKNOWN"
+      ]
+    },
+    "coverage_scope_ref": {
+      "type": "string",
+      "pattern": "^scope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "pattern": "^evidence:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "publishable_state": {
+      "const": "PUBLISHABLE_AFTER_PARSE"
+    },
+    "source_material_state": {
+      "const": "DESTROYED_AFTER_PARSE"
+    },
+    "metadata_only": {
+      "const": true
+    },
+    "source_material_persisted": {
+      "const": false
+    },
+    "source_material_exact_length_persisted": {
+      "const": false
+    },
+    "secret_material_persisted": {
+      "const": false
+    },
+    "network_transaction_metadata_persisted": {
+      "const": false
+    }
+  },
+  "$comment": "A runtime RawEnvelope, pending-classification object, sensitive-stop object, ephemeral payload handle, source body, source-body hash, byte length, node count, URL, path, query, header or raw error must fail this closed schema. Sensitive or unclassified events use the separate value-free stop path and are never converted into a publishable envelope."
+}

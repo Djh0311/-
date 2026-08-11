@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "business-record-v2.schema.json",
+  "title": "S2-02 business record v2",
+  "description": "An accepted same-observation store-product-current-price fact with inlined field observations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_kind",
+    "business_record_ref",
+    "run_ref",
+    "batch_ref",
+    "observation_ref",
+    "provider_contract_ref",
+    "route_id",
+    "source_kind",
+    "observed_at",
+    "record_status",
+    "core_binding",
+    "field_observations",
+    "coverage_ref",
+    "source_integrity_ref",
+    "evidence_manifest_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.business-record.v2"
+    },
+    "record_kind": {
+      "const": "BUSINESS_OBSERVATION"
+    },
+    "business_record_ref": {
+      "type": "string",
+      "pattern": "^business-record:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "record_status": {
+      "const": "ACCEPTED"
+    },
+    "core_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binding_context_ref",
+        "store_field_ref",
+        "product_field_ref",
+        "price_field_ref",
+        "currency_field_ref",
+        "binding_status",
+        "cross_source_fill",
+        "cross_time_fill"
+      ],
+      "properties": {
+        "binding_context_ref": {
+          "type": "string",
+          "pattern": "^context:[A-Za-z0-9_-]{8,96}$"
+        },
+        "store_field_ref": {
+          "type": "string",
+          "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+        },
+        "product_field_ref": {
+          "type": "string",
+          "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+        },
+        "price_field_ref": {
+          "type": "string",
+          "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+        },
+        "currency_field_ref": {
+          "type": "string",
+          "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+        },
+        "binding_status": {
+          "const": "SAME_OBSERVATION"
+        },
+        "cross_source_fill": {
+          "const": false
+        },
+        "cross_time_fill": {
+          "const": false
+        }
+      }
+    },
+    "field_observations": {
+      "type": "array",
+      "items": {
+        "$ref": "field-observation-v2.schema.json"
+      },
+      "minItems": 4,
+      "maxItems": 64
+    },
+    "coverage_ref": {
+      "type": "string",
+      "pattern": "^coverage:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evidence_manifest_ref": {
+      "type": "string",
+      "pattern": "^evidence-manifest:[A-Za-z0-9_-]{8,96}$"
+    }
+  },
+  "$comment": "The semantic validator must resolve all four core binding refs inside field_observations; require present store identity or name, present product identity or name, unambiguous present display_price_minor and currency; and require every inlined field to share run, batch, observation, provider contract, binding context, time, and verified integrity."
+}

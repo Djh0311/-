@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adapter-checkpoint.schema.json",
+  "title": "S2-02 adapter checkpoint",
+  "description": "Exact value-safe binding for offline continuation. A continuation refers only to progress inside a sealed batch and is never a Provider cursor, source offset, reconnect handle or source-resume instruction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "checkpoint_ref",
+    "adapter_ref",
+    "adapter_version",
+    "parser_version",
+    "run_ref",
+    "route_id",
+    "source_kind",
+    "source_ref",
+    "provider_contract_ref",
+    "authorization_ref",
+    "attempt_ref",
+    "payload_family",
+    "payload_version",
+    "shape_descriptor_ref",
+    "source_integrity_ref",
+    "coverage_ref",
+    "created_at",
+    "last_completed_stage",
+    "cumulative_budget_ref",
+    "cumulative_budget",
+    "source_attempts_consumed",
+    "automatic_retry",
+    "source_reopen_permitted",
+    "sealed_batch_ref",
+    "sealed_batch_state",
+    "sealed_batch_privacy_decision",
+    "continuation_ref",
+    "continuation_semantics",
+    "resume_mode",
+    "evidence_manifest_ref",
+    "business_record_count",
+    "checkpoint_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.adapter-checkpoint.v1"
+    },
+    "checkpoint_ref": {
+      "type": "string",
+      "pattern": "^checkpoint:[A-Za-z0-9_-]{8,96}$"
+    },
+    "adapter_ref": {
+      "type": "string",
+      "pattern": "^adapter:[A-Za-z0-9_-]{8,96}$"
+    },
+    "adapter_version": {
+      "$ref": "#/$defs/version"
+    },
+    "parser_version": {
+      "$ref": "#/$defs/version"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "source_ref": {
+      "type": "string",
+      "pattern": "^source:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "attempt_ref": {
+      "type": "string",
+      "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "$ref": "#/$defs/version"
+    },
+    "shape_descriptor_ref": {
+      "type": "string",
+      "pattern": "^shape:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "coverage_ref": {
+      "type": "string",
+      "pattern": "^coverage:[A-Za-z0-9_-]{8,96}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_completed_stage": {
+      "enum": [
+        "PREFLIGHT",
+        "COLLECT",
+        "BATCH_SEAL",
+        "PERSIST",
+        "EXPORT",
+        "STOP"
+      ]
+    },
+    "cumulative_budget_ref": {
+      "type": "string",
+      "pattern": "^budget:[A-Za-z0-9_-]{8,96}$"
+    },
+    "cumulative_budget": {
+      "$ref": "#/$defs/cumulative_budget"
+    },
+    "source_attempts_consumed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "automatic_retry": {
+      "const": 0
+    },
+    "source_reopen_permitted": {
+      "const": false
+    },
+    "sealed_batch_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "sealed_batch_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "SEALED_PRIVACY_SAFE",
+        null
+      ]
+    },
+    "sealed_batch_privacy_decision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "PASS",
+        null
+      ]
+    },
+    "continuation_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^continuation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "continuation_semantics": {
+      "const": "OFFLINE_SEALED_BATCH_PROGRESS_NOT_PROVIDER_CURSOR"
+    },
+    "resume_mode": {
+      "enum": [
+        "NOT_RESUMABLE",
+        "SEALED_BATCH_ONLY",
+        "NEEDS_NEW_AUTHORIZATION"
+      ]
+    },
+    "evidence_manifest_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^evidence-manifest:[A-Za-z0-9_-]{8,96}$"
+    },
+    "business_record_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "checkpoint_state": {
+      "enum": [
+        "VALID",
+        "FAILED_CLOSED"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Not resumable",
+      "properties": {
+        "resume_mode": {
+          "const": "NOT_RESUMABLE"
+        },
+        "sealed_batch_ref": {
+          "const": null
+        },
+        "sealed_batch_state": {
+          "const": null
+        },
+        "sealed_batch_privacy_decision": {
+          "const": null
+        },
+        "continuation_ref": {
+          "const": null
+        }
+      },
+      "required": [
+        "resume_mode",
+        "sealed_batch_ref",
+        "sealed_batch_state",
+        "sealed_batch_privacy_decision",
+        "continuation_ref"
+      ]
+    },
+    {
+      "title": "Resume only sealed value-safe batch work",
+      "properties": {
+        "resume_mode": {
+          "const": "SEALED_BATCH_ONLY"
+        },
+        "sealed_batch_ref": {
+          "type": "string"
+        },
+        "sealed_batch_state": {
+          "const": "SEALED_PRIVACY_SAFE"
+        },
+        "sealed_batch_privacy_decision": {
+          "const": "PASS"
+        },
+        "continuation_ref": {
+          "type": "string"
+        },
+        "source_attempts_consumed": {
+          "const": 1
+        },
+        "checkpoint_state": {
+          "const": "VALID"
+        }
+      },
+      "required": [
+        "resume_mode",
+        "sealed_batch_ref",
+        "sealed_batch_state",
+        "sealed_batch_privacy_decision",
+        "continuation_ref",
+        "source_attempts_consumed",
+        "checkpoint_state"
+      ]
+    },
+    {
+      "title": "New authorization required",
+      "properties": {
+        "resume_mode": {
+          "const": "NEEDS_NEW_AUTHORIZATION"
+        },
+        "sealed_batch_ref": {
+          "const": null
+        },
+        "sealed_batch_state": {
+          "const": null
+        },
+        "sealed_batch_privacy_decision": {
+          "const": null
+        },
+        "continuation_ref": {
+          "const": null
+        },
+        "source_attempts_consumed": {
+          "const": 1
+        }
+      },
+      "required": [
+        "resume_mode",
+        "sealed_batch_ref",
+        "sealed_batch_state",
+        "sealed_batch_privacy_decision",
+        "continuation_ref",
+        "source_attempts_consumed"
+      ]
+    }
+  ],
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "cumulative_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pages",
+        "requests",
+        "targets",
+        "retries",
+        "evidence_bytes",
+        "concurrency",
+        "runtime_minutes",
+        "external_credits"
+      ],
+      "properties": {
+        "pages": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "requests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "targets": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retries": {
+          "const": 0
+        },
+        "evidence_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "concurrency": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "runtime_minutes": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+        },
+        "external_credits": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+        }
+      }
+    }
+  },
+  "$comment": "The recovery validator must compare every binding field and cumulative budget ref byte-for-byte with the current authority and sealed batch. SEALED_BATCH_ONLY additionally requires the referenced batch itself to validate as SEALED_PRIVACY_SAFE with privacy decision PASS. No resume mode permits a Provider call or real-source reopen."
+}

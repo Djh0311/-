@@ -1,0 +1,81 @@
+{
+  "entries": [
+    {
+      "bytes": 68,
+      "path": "autocapture/__init__.py",
+      "sha256": "95c974a1b5b0171a6029bdb30c4d4e65c3d28846bfabaeb6a1f8c8325cbcdd24"
+    },
+    {
+      "bytes": 12906,
+      "path": "autocapture/addon.py",
+      "sha256": "bdf2e5a77b84f277dae0d0c28894463d6f151672506805698b2f74a8f7c0a74e"
+    },
+    {
+      "bytes": 5849,
+      "path": "autocapture/lease.py",
+      "sha256": "a13d4e92e963e190e46f567fc29d9fd3f3be18d072f40dd762d0fa89cf86f63d"
+    },
+    {
+      "bytes": 10760,
+      "path": "autocapture/policy.py",
+      "sha256": "7e2f2206a0d1e23780eb5ede20dc55bb1081f37c1253b69030a28e8545604e44"
+    },
+    {
+      "bytes": 26593,
+      "path": "autocapture/publisher.py",
+      "sha256": "dd3d318053882df14e961508d7d05f54eee1fe841a9c5d3ad4a12543cf5bf32c"
+    },
+    {
+      "bytes": 32664,
+      "path": "autocapture/shape.py",
+      "sha256": "1b987f0349608ea08ed92ff22914c9810cfd233b0f79fb8456ef61507b689e75"
+    },
+    {
+      "bytes": 67,
+      "path": "autocapture/tests/__init__.py",
+      "sha256": "0a18cd520a066693c3786c2744334489e00370b05f4c40ef14f09be30436a5a8"
+    },
+    {
+      "bytes": 9152,
+      "path": "autocapture/tests/fakes.py",
+      "sha256": "444be0f5d6a930898428c0e518be1683550038c8756ecf8273e1b5a33ed96658"
+    },
+    {
+      "bytes": 29320,
+      "path": "autocapture/tests/test_addon.py",
+      "sha256": "8f07d5e517ead1ec4dfe25447cdd140ec875d9ead6514806fe598fdef7b75f06"
+    },
+    {
+      "bytes": 17988,
+      "path": "autocapture/tests/test_policy_and_lease.py",
+      "sha256": "187178bf797bdcab2d99db59ffa18b8e83189b9bea929454fbdd111f019a79f3"
+    },
+    {
+      "bytes": 25252,
+      "path": "autocapture/tests/test_publisher.py",
+      "sha256": "c8d9e966d1b68f664c502fa81905d8b1d06075c69d93bf246a4a5ffad26d6151"
+    },
+    {
+      "bytes": 19886,
+      "path": "autocapture/tests/test_shape.py",
+      "sha256": "43db307d32d8b569b87f4cf39514877cdac4821831c9b88d6f0b04c53f8854e4"
+    },
+    {
+      "bytes": 52661,
+      "path": "autocapture/tests/test_verifier.py",
+      "sha256": "1e8e23ef3715f4e09cd5cfe4542d37be2803a163b02347274e0c443591ee8af6"
+    },
+    {
+      "bytes": 134676,
+      "path": "autocapture/tools/verify_autocapture_build.py",
+      "sha256": "901a55b3b74247abd9a4ee4917d687e258cac0a69e7ad2d354070e38e0d9de3a"
+    },
+    {
+      "bytes": 16927,
+      "path": "docs/design/autocapture-shape-discovery-v1.md",
+      "sha256": "6747f44a62113461b727d29687c4644177f1a511cf191ba791b00602308147d6"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "schema_version": "autocapture-build-manifest.v1"
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "error-status-code.schema.json",
+  "title": "S2-02 value-free error status",
+  "description": "Stable error status with no free diagnostic text and no source-derived material.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "error_status_ref",
+    "run_ref",
+    "occurred_at",
+    "component_role",
+    "error_class",
+    "status_code",
+    "severity",
+    "retry_policy",
+    "source_attempt_consumed",
+    "business_publication_allowed",
+    "value_free"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.error-status-code.v1"
+    },
+    "error_status_ref": {
+      "type": "string",
+      "pattern": "^error-status:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "component_role": {
+      "enum": [
+        "QUALIFIER",
+        "PROVIDER",
+        "GATEWAY",
+        "PARSER",
+        "BINDER",
+        "VALIDATOR",
+        "CORE",
+        "PERSISTENCE",
+        "EVIDENCE_PUBLISHER",
+        "EXPORTER"
+      ]
+    },
+    "error_class": {
+      "enum": [
+        "QUALIFICATION",
+        "AUTHORIZATION",
+        "CAPABILITY",
+        "SOURCE_CONTRACT",
+        "PRIVACY",
+        "INTEGRITY",
+        "PARSER_CONTRACT",
+        "CONTEXT_BINDING",
+        "BUSINESS_VALIDATION",
+        "CHECKPOINT",
+        "PERSISTENCE",
+        "EVIDENCE",
+        "PUBLICATION"
+      ]
+    },
+    "status_code": {
+      "enum": [
+        "SOURCE_QUALIFICATION_REQUIRED",
+        "SOURCE_SHAPE_UNBOUND",
+        "SOURCE_OWNERSHIP_UNVERIFIED",
+        "SOURCE_PURPOSE_NOT_ALLOWED",
+        "UNAUTHORIZED_CAPABILITY",
+        "UNKNOWN_PAYLOAD_FAMILY",
+        "UNKNOWN_PAYLOAD_VERSION",
+        "EVENT_BUDGET_EXCEEDED",
+        "PRIVACY_CLASSIFICATION_FAILED",
+        "SENSITIVE_MATERIAL_DETECTED",
+        "SENSITIVE_MATERIAL_DETECTED_STOP_ROUTE",
+        "SOURCE_INTEGRITY_FAILED",
+        "INTEGRITY_UNVERIFIED",
+        "CONTRACT_VIOLATION",
+        "AMBIGUOUS_CONTEXT_BINDING",
+        "MISSING_REQUIRED_FIELD",
+        "AMBIGUOUS_PRICE",
+        "CHECKPOINT_NOT_RESUMABLE",
+        "NEEDS_NEW_AUTHORIZATION",
+        "DATABASE_WRITE_FAILED",
+        "EVIDENCE_PUBLISH_FAILED",
+        "TARGET_ALREADY_EXISTS",
+        "NO_QUALIFIED_SOURCE"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "CANDIDATE_REJECTED",
+        "EVENT_FATAL",
+        "RUN_FATAL"
+      ]
+    },
+    "retry_policy": {
+      "const": "NO_AUTOMATIC_RETRY"
+    },
+    "source_attempt_consumed": {
+      "type": "boolean"
+    },
+    "business_publication_allowed": {
+      "const": false
+    },
+    "value_free": {
+      "const": true
+    }
+  }
+}

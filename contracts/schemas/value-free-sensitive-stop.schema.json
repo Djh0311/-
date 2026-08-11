@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "value-free-sensitive-stop.schema.json",
+  "title": "S2-02 value-free sensitive stop",
+  "description": "A hard-stop receipt containing only stable classifications, opaque references and zero-value counters.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "stop_code",
+    "sensitive_stop_ref",
+    "task_ref",
+    "run_ref",
+    "provider_contract_ref",
+    "capability_ref",
+    "attempt_count",
+    "automatic_retry_count",
+    "rule_ref",
+    "occurred_at",
+    "stage_code",
+    "action",
+    "application_references_released",
+    "source_material_persisted",
+    "secret_material_persisted",
+    "content_digest_persisted",
+    "business_record_count",
+    "context_record_count",
+    "error_status_ref",
+    "cleanup_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.value-free-sensitive-stop.v1"
+    },
+    "stop_code": {
+      "const": "SENSITIVE_OR_UNKNOWN_VALUE_STOP"
+    },
+    "sensitive_stop_ref": {
+      "type": "string",
+      "pattern": "^sensitive-stop:[A-Za-z0-9_-]{8,96}$"
+    },
+    "task_ref": {
+      "type": "string",
+      "pattern": "^task:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "capability_ref": {
+      "type": "string",
+      "pattern": "^capability:[A-Za-z0-9_-]{8,96}$"
+    },
+    "attempt_count": {
+      "const": 1
+    },
+    "automatic_retry_count": {
+      "const": 0
+    },
+    "rule_ref": {
+      "type": "string",
+      "pattern": "^rule:[A-Za-z0-9_-]{8,96}$"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "stage_code": {
+      "enum": [
+        "PROVIDER_BOUNDARY",
+        "PRE_PARSE_CLASSIFICATION",
+        "NORMALIZATION",
+        "PRE_PERSISTENCE"
+      ]
+    },
+    "action": {
+      "const": "EVENT_ABORTED"
+    },
+    "application_references_released": {
+      "const": true
+    },
+    "source_material_persisted": {
+      "const": false
+    },
+    "secret_material_persisted": {
+      "const": false
+    },
+    "content_digest_persisted": {
+      "const": false
+    },
+    "business_record_count": {
+      "const": 0
+    },
+    "context_record_count": {
+      "const": 0
+    },
+    "error_status_ref": {
+      "type": "string",
+      "pattern": "^error-status:[A-Za-z0-9_-]{8,96}$"
+    },
+    "cleanup_status": {
+      "enum": [
+        "COMPLETE",
+        "FAILED_CLOSED"
+      ]
+    }
+  }
+}

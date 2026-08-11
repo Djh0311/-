@@ -1,0 +1,210 @@
+{
+  "business_scalar_written": false,
+  "credential_or_session_written": false,
+  "fixture_kind": "SYNTHETIC_VALUE_FREE_OFFLINE_ONLY",
+  "isolation": {
+    "aggregate_fixture": "PROHIBITED",
+    "cross_endpoint_join": "PROHIBITED",
+    "cross_read_join": "PROHIBITED",
+    "cross_time_join": "PROHIBITED",
+    "historical_field_backfill": "PROHIBITED"
+  },
+  "price_source_catalog": [
+    {
+      "shape_path": "$.data.poi_info.min_price",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.coupon_list[*].price",
+      "source_label": "H31_FOOD_POI_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_subsidy_price",
+      "source_label": "H31_FOOD_FOLD_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].full_discount_price",
+      "source_label": "H31_PRODUCTLIST_SPU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].min_price",
+      "source_label": "H31_PRODUCTLIST_SPU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].preferential_feeling_price",
+      "source_label": "H31_PRODUCTLIST_SPU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_data.component_data.price_component.price[*].price",
+      "source_label": "H31_PRODUCTLIST_PRICE_COMPONENT"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_data.component_data.price_component.price[*].underline_price",
+      "source_label": "H31_PRODUCTLIST_PRICE_COMPONENT"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_info.price_info.coupons_per_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_INFO_PRICE_INFO"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_info.price_info.min_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_INFO_PRICE_INFO"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_info.price_info.multi_activity_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_INFO_PRICE_INFO"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_info.price_info.origin_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_INFO_PRICE_INFO"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].render_info.price_info.show_origin_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_INFO_PRICE_INFO"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].box_price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].full_discount_price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].member_price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].origin_price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].sku_ladder_box_info.ladder_package_price",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.render_context.min_price",
+      "source_label": "H31_PRODUCTLIST_RENDER_CONTEXT"
+    }
+  ],
+  "raw_file_hash_written": false,
+  "raw_material_written": false,
+  "read_scopes": [
+    {
+      "candidate_record_count": 2,
+      "endpoint_counts": {
+        "FOOD": 1,
+        "PRODUCTLIST": 1
+      },
+      "error_codes": {},
+      "fixture_event_count": 2,
+      "fixture_files": [
+        "read_01/events/event_01.json",
+        "read_01/events/event_02.json"
+      ],
+      "read_scope": "H34_READ_01",
+      "record_count": 51,
+      "source_input_ref": "H34_LOCKED_INPUT_01"
+    },
+    {
+      "candidate_record_count": 2,
+      "endpoint_counts": {
+        "FOOD": 1,
+        "PRODUCTLIST": 1
+      },
+      "error_codes": {},
+      "fixture_event_count": 2,
+      "fixture_files": [
+        "read_02/events/event_01.json",
+        "read_02/events/event_02.json"
+      ],
+      "read_scope": "H34_READ_02",
+      "record_count": 120,
+      "source_input_ref": "H34_LOCKED_INPUT_02"
+    },
+    {
+      "candidate_record_count": 4,
+      "endpoint_counts": {
+        "FOOD": 2,
+        "PRODUCTLIST": 2
+      },
+      "error_codes": {},
+      "fixture_event_count": 4,
+      "fixture_files": [
+        "read_03/events/event_01.json",
+        "read_03/events/event_02.json",
+        "read_03/events/event_03.json",
+        "read_03/events/event_04.json"
+      ],
+      "read_scope": "H34_READ_03",
+      "record_count": 258,
+      "source_input_ref": "H34_LOCKED_INPUT_03"
+    }
+  ],
+  "request_or_response_written": false,
+  "schema_version": "h34-sanitized-mitm-fixture-manifest/v1",
+  "source_input_refs": [
+    "H34_LOCKED_INPUT_01",
+    "H34_LOCKED_INPUT_02",
+    "H34_LOCKED_INPUT_03"
+  ],
+  "unclassified_monetary_catalog": [
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.coupon_list[*].coupon_origin_value",
+      "source_label": "H31_FOOD_POI_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.coupon_list[*].coupon_total_origin_value",
+      "source_label": "H31_FOOD_POI_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.coupon_list[*].coupon_total_value",
+      "source_label": "H31_FOOD_POI_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.coupon_list[*].coupon_value",
+      "source_label": "H31_FOOD_POI_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.poi_coupon.fold_coupon_list[*].coupon_value",
+      "source_label": "H31_FOOD_FOLD_COUPON_LIST"
+    },
+    {
+      "shape_path": "$.data.poi_info.shippingReduceFee",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "shape_path": "$.data.poi_info.shipping_fee",
+      "source_label": "H31_FOOD_POI_INFO"
+    },
+    {
+      "shape_path": "$.data.shopping_cart.min_fee_cart_tip",
+      "source_label": "H31_FOOD_SHOPPING_CART"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].activity_policy.discount_by_count.discount",
+      "source_label": "H31_PRODUCTLIST_SPU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].max_discount",
+      "source_label": "H31_PRODUCTLIST_SPU"
+    },
+    {
+      "shape_path": "$.data.food_spu_tags[*].dynamic_spus[*].skus[*].activity_policy.discount_by_count.discount",
+      "source_label": "H31_PRODUCTLIST_SKU"
+    },
+    {
+      "shape_path": "$.data.render_context.delivery_fee",
+      "source_label": "H31_PRODUCTLIST_RENDER_CONTEXT"
+    },
+    {
+      "shape_path": "$.data.render_context.final_reduced_shipping_fee",
+      "source_label": "H31_PRODUCTLIST_RENDER_CONTEXT"
+    }
+  ],
+  "url_written": false
+}

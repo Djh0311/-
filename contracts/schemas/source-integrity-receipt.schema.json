@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-integrity-receipt.schema.json",
+  "title": "S2-02 source integrity receipt",
+  "description": "Value-safe integrity decision bound to one authorization, attempt, source, observation, envelope, family, version, shape and context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_integrity_ref",
+    "run_ref",
+    "route_id",
+    "source_kind",
+    "source_ref",
+    "provider_contract_ref",
+    "authorization_ref",
+    "attempt_ref",
+    "observation_ref",
+    "envelope_ref",
+    "payload_family",
+    "payload_version",
+    "shape_descriptor_ref",
+    "binding_context_ref",
+    "checked_at",
+    "checker_version",
+    "status",
+    "checks",
+    "source_material_digest_persisted",
+    "business_publication_allowed",
+    "evidence_ref",
+    "error_status_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.source-integrity-receipt.v1"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "source_ref": {
+      "type": "string",
+      "pattern": "^source:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "attempt_ref": {
+      "type": "string",
+      "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "envelope_ref": {
+      "type": "string",
+      "pattern": "^envelope:[A-Za-z0-9_-]{8,96}$"
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "$ref": "#/$defs/version"
+    },
+    "shape_descriptor_ref": {
+      "type": "string",
+      "pattern": "^shape:[A-Za-z0-9_-]{8,96}$"
+    },
+    "binding_context_ref": {
+      "type": "string",
+      "pattern": "^context:[A-Za-z0-9_-]{8,96}$"
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "checker_version": {
+      "$ref": "#/$defs/version"
+    },
+    "status": {
+      "enum": [
+        "VERIFIED",
+        "FAILED",
+        "UNKNOWN"
+      ]
+    },
+    "checks": {
+      "$ref": "#/$defs/integrity_checks"
+    },
+    "source_material_digest_persisted": {
+      "const": false
+    },
+    "business_publication_allowed": {
+      "type": "boolean"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "pattern": "^evidence:[A-Za-z0-9_-]{8,96}$"
+    },
+    "error_status_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^error-status:[A-Za-z0-9_-]{8,96}$"
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Verified",
+      "properties": {
+        "status": {
+          "const": "VERIFIED"
+        },
+        "checks": {
+          "properties": {
+            "authorization_match": {"const": true},
+            "attempt_match": {"const": true},
+            "source_match": {"const": true},
+            "provider_contract_match": {"const": true},
+            "payload_family_match": {"const": true},
+            "payload_version_match": {"const": true},
+            "shape_match": {"const": true},
+            "binding_context_match": {"const": true},
+            "sequence_valid": {"const": true},
+            "size_within_budget": {"const": true},
+            "privacy_gate_passed": {"const": true}
+          }
+        },
+        "business_publication_allowed": {
+          "const": true
+        },
+        "error_status_ref": {
+          "const": null
+        }
+      },
+      "required": [
+        "status",
+        "checks",
+        "business_publication_allowed",
+        "error_status_ref"
+      ]
+    },
+    {
+      "title": "Failed",
+      "properties": {
+        "status": {
+          "const": "FAILED"
+        },
+        "checks": {
+          "anyOf": [
+            {"properties": {"authorization_match": {"const": false}}, "required": ["authorization_match"]},
+            {"properties": {"attempt_match": {"const": false}}, "required": ["attempt_match"]},
+            {"properties": {"source_match": {"const": false}}, "required": ["source_match"]},
+            {"properties": {"provider_contract_match": {"const": false}}, "required": ["provider_contract_match"]},
+            {"properties": {"payload_family_match": {"const": false}}, "required": ["payload_family_match"]},
+            {"properties": {"payload_version_match": {"const": false}}, "required": ["payload_version_match"]},
+            {"properties": {"shape_match": {"const": false}}, "required": ["shape_match"]},
+            {"properties": {"binding_context_match": {"const": false}}, "required": ["binding_context_match"]},
+            {"properties": {"sequence_valid": {"const": false}}, "required": ["sequence_valid"]},
+            {"properties": {"size_within_budget": {"const": false}}, "required": ["size_within_budget"]},
+            {"properties": {"privacy_gate_passed": {"const": false}}, "required": ["privacy_gate_passed"]}
+          ]
+        },
+        "business_publication_allowed": {
+          "const": false
+        },
+        "error_status_ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "checks",
+        "business_publication_allowed",
+        "error_status_ref"
+      ]
+    },
+    {
+      "title": "Unknown",
+      "properties": {
+        "status": {
+          "const": "UNKNOWN"
+        },
+        "checks": {
+          "properties": {
+            "authorization_match": {"const": null},
+            "attempt_match": {"const": null},
+            "source_match": {"const": null},
+            "provider_contract_match": {"const": null},
+            "payload_family_match": {"const": null},
+            "payload_version_match": {"const": null},
+            "shape_match": {"const": null},
+            "binding_context_match": {"const": null},
+            "sequence_valid": {"const": null},
+            "size_within_budget": {"const": null},
+            "privacy_gate_passed": {"const": null}
+          }
+        },
+        "business_publication_allowed": {
+          "const": false
+        },
+        "error_status_ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "checks",
+        "business_publication_allowed",
+        "error_status_ref"
+      ]
+    }
+  ],
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "nullable_check": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "integrity_checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_match",
+        "attempt_match",
+        "source_match",
+        "provider_contract_match",
+        "payload_family_match",
+        "payload_version_match",
+        "shape_match",
+        "binding_context_match",
+        "sequence_valid",
+        "size_within_budget",
+        "privacy_gate_passed"
+      ],
+      "properties": {
+        "authorization_match": {"$ref": "#/$defs/nullable_check"},
+        "attempt_match": {"$ref": "#/$defs/nullable_check"},
+        "source_match": {"$ref": "#/$defs/nullable_check"},
+        "provider_contract_match": {"$ref": "#/$defs/nullable_check"},
+        "payload_family_match": {"$ref": "#/$defs/nullable_check"},
+        "payload_version_match": {"$ref": "#/$defs/nullable_check"},
+        "shape_match": {"$ref": "#/$defs/nullable_check"},
+        "binding_context_match": {"$ref": "#/$defs/nullable_check"},
+        "sequence_valid": {"$ref": "#/$defs/nullable_check"},
+        "size_within_budget": {"$ref": "#/$defs/nullable_check"},
+        "privacy_gate_passed": {"$ref": "#/$defs/nullable_check"}
+      }
+    }
+  },
+  "$comment": "The production validator must compare every binding field with the envelope, authorization, attempt and frozen Provider contract. No source content digest or source-material size is part of this receipt."
+}

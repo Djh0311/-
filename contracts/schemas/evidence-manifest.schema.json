@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence-manifest.schema.json",
+  "title": "S2-02 evidence manifest",
+  "description": "Non-self-referential atomic publication manifest for value-safe evidence and deterministic business exports.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_manifest_ref",
+    "run_ref",
+    "created_at",
+    "database_schema_version",
+    "record_contract_version",
+    "exporter_version",
+    "hash_algorithm",
+    "target_prestate",
+    "publish_mode",
+    "publication_status",
+    "published_output_accepted",
+    "entries",
+    "entry_count",
+    "output_hash",
+    "manifest_self_included",
+    "self_exclusion_reason",
+    "source_material_included",
+    "secret_material_included",
+    "recomputed_after_publish",
+    "reopen_verifier_ref",
+    "reopen_status",
+    "failure_status_ref",
+    "capability_ledger_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.evidence-manifest.v1"
+    },
+    "evidence_manifest_ref": {
+      "type": "string",
+      "pattern": "^evidence-manifest:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "database_schema_version": {
+      "const": "2"
+    },
+    "record_contract_version": {
+      "const": "s2-02.business-record.v2"
+    },
+    "exporter_version": {
+      "$ref": "#/$defs/version"
+    },
+    "hash_algorithm": {
+      "const": "SHA-256"
+    },
+    "target_prestate": {
+      "const": "ABSENT"
+    },
+    "publish_mode": {
+      "const": "STAGING_ATOMIC_RENAME"
+    },
+    "publication_status": {
+      "enum": [
+        "SEALED",
+        "FAILED_CLOSED"
+      ]
+    },
+    "published_output_accepted": {
+      "type": "boolean"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/manifest_entry"
+      },
+      "maxItems": 4096
+    },
+    "entry_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4096
+    },
+    "output_hash": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Digest of the canonical ordered value-safe file-entry projection. The manifest file itself is excluded."
+    },
+    "manifest_self_included": {
+      "const": false
+    },
+    "self_exclusion_reason": {
+      "const": "NON_SELF_REFERENTIAL_MANIFEST"
+    },
+    "source_material_included": {
+      "const": false
+    },
+    "secret_material_included": {
+      "const": false
+    },
+    "recomputed_after_publish": {
+      "type": "boolean"
+    },
+    "reopen_verifier_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^reopen-verifier:[A-Za-z0-9_-]{8,96}$"
+    },
+    "reopen_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_RUN"
+      ]
+    },
+    "failure_status_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^error-status:[A-Za-z0-9_-]{8,96}$"
+    },
+    "capability_ledger_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^capability-ledger:[A-Za-z0-9_-]{8,96}$"
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Sealed and independently reopened",
+      "properties": {
+        "publication_status": {
+          "const": "SEALED"
+        },
+        "published_output_accepted": {
+          "const": true
+        },
+        "entries": {
+          "minItems": 1
+        },
+        "entry_count": {
+          "minimum": 1
+        },
+        "output_hash": {
+          "$ref": "#/$defs/sha256"
+        },
+        "recomputed_after_publish": {
+          "const": true
+        },
+        "reopen_verifier_ref": {
+          "type": "string"
+        },
+        "reopen_status": {
+          "const": "PASS"
+        },
+        "failure_status_ref": {
+          "const": null
+        }
+      },
+      "required": [
+        "publication_status",
+        "published_output_accepted",
+        "entries",
+        "entry_count",
+        "output_hash",
+        "recomputed_after_publish",
+        "reopen_verifier_ref",
+        "reopen_status",
+        "failure_status_ref"
+      ]
+    },
+    {
+      "title": "Failed closed",
+      "properties": {
+        "publication_status": {
+          "const": "FAILED_CLOSED"
+        },
+        "published_output_accepted": {
+          "const": false
+        },
+        "reopen_status": {
+          "enum": [
+            "FAIL",
+            "NOT_RUN"
+          ]
+        },
+        "failure_status_ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "publication_status",
+        "published_output_accepted",
+        "reopen_status",
+        "failure_status_ref"
+      ]
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "reopen_status": {
+            "const": "NOT_RUN"
+          }
+        },
+        "required": [
+          "reopen_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reopen_verifier_ref": {
+            "const": null
+          },
+          "recomputed_after_publish": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reopen_status": {
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          }
+        },
+        "required": [
+          "reopen_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reopen_verifier_ref": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "manifest_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logical_name",
+        "relative_path",
+        "artifact_ref",
+        "artifact_kind",
+        "media_type",
+        "artifact_sha256",
+        "byte_size",
+        "row_count",
+        "privacy_class"
+      ],
+      "properties": {
+        "logical_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "relative_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$",
+          "not": {
+            "pattern": "(^|/)\\.\\.(/|$)"
+          },
+          "description": "Relative locator inside the newly published value-safe target only; never a source locator."
+        },
+        "artifact_ref": {
+          "type": "string",
+          "pattern": "^artifact:[A-Za-z0-9_-]{8,96}$"
+        },
+        "artifact_kind": {
+          "enum": [
+            "CONTROL_RECEIPT",
+            "REDACTED_BUSINESS_EVIDENCE",
+            "DETERMINISTIC_JSON_EXPORT",
+            "DETERMINISTIC_CSV_EXPORT",
+            "SUMMARY",
+            "MANIFEST_SUPPORT"
+          ]
+        },
+        "media_type": {
+          "enum": [
+            "application/json",
+            "text/csv",
+            "text/plain"
+          ]
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "byte_size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "privacy_class": {
+          "enum": [
+            "VALUE_FREE_CONTROL",
+            "REDACTED_BUSINESS_EVIDENCE",
+            "DETERMINISTIC_BUSINESS_EXPORT"
+          ]
+        }
+      }
+    }
+  },
+  "$comment": "The production validator must require entry_count to equal entries length; unique relative_path, logical_name and artifact_ref values; per-file SHA-256 and bytes to match after reopen; row_count to match parsed tabular outputs; and output_hash to be recomputed from the ordered entry projection with this manifest excluded."
+}

@@ -1,0 +1,622 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "field-observation-v2.schema.json",
+  "title": "S2-02 field observation v2",
+  "description": "One value-safe public-business field observed for one source-local entity in one context. Public raw projection and normalized value remain separate; absent fields remain explicit and are never backfilled.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "field_observation_ref",
+    "run_ref",
+    "batch_ref",
+    "observation_ref",
+    "provider_contract_ref",
+    "route_id",
+    "source_kind",
+    "entity_kind",
+    "source_local_entity_ref",
+    "payload_family",
+    "payload_version",
+    "parser_version",
+    "privacy_decision",
+    "value_safety_class",
+    "sensitive_material_persisted",
+    "field_name",
+    "observation_presence",
+    "public_value_raw",
+    "normalized_value",
+    "value_encoding",
+    "absence_reason",
+    "confidence",
+    "observed_at",
+    "binding_context_ref",
+    "anchor_ref",
+    "evidence_ref",
+    "source_integrity_ref",
+    "directness",
+    "cross_source_fill",
+    "cross_time_fill"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.field-observation.v2"
+    },
+    "field_observation_ref": {
+      "type": "string",
+      "pattern": "^field-observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "entity_kind": {
+      "enum": [
+        "STORE",
+        "CATEGORY",
+        "PRODUCT",
+        "SKU",
+        "OFFER",
+        "PROMOTION",
+        "DELIVERY"
+      ]
+    },
+    "source_local_entity_ref": {
+      "type": "string",
+      "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$",
+      "description": "Opaque value-safe reference; never a raw source key or business value."
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"
+    },
+    "parser_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "privacy_decision": {
+      "const": "PASS"
+    },
+    "value_safety_class": {
+      "const": "PUBLIC_BUSINESS_VALUE_OR_OPAQUE_REF"
+    },
+    "sensitive_material_persisted": {
+      "const": false
+    },
+    "field_name": {
+      "enum": [
+        "store_ref",
+        "store_name",
+        "category_ref",
+        "category_name",
+        "product_ref",
+        "product_name",
+        "sku_ref",
+        "sku_name",
+        "spec_text",
+        "display_price_minor",
+        "original_price_minor",
+        "activity_price_minor",
+        "currency",
+        "availability_status",
+        "promotion_text",
+        "promotion_condition",
+        "image_ref",
+        "delivery_fee_minor",
+        "packaging_fee_minor",
+        "service_fee_minor",
+        "estimated_delivery_text",
+        "delivery_availability"
+      ]
+    },
+    "observation_presence": {
+      "enum": [
+        "PRESENT",
+        "NOT_SHOWN",
+        "NOT_OBSERVED",
+        "NOT_APPLICABLE",
+        "PARSE_FAILED",
+        "SOURCE_FAILED",
+        "REDACTED",
+        "AMBIGUOUS"
+      ]
+    },
+    "public_value_raw": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[^\\r\\n]*$",
+      "description": "The smallest value-safe public-business projection, never a source fragment, credential, personal value, URL, path, header, query, traceback or raw error."
+    },
+    "normalized_value": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^\\r\\n]*$"
+        },
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "value_encoding": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "TEXT",
+        "OPAQUE_REF",
+        "MONEY_MINOR",
+        "ISO_CURRENCY",
+        "BOOLEAN",
+        "ENUM",
+        "INTEGER_LOWER_BOUND",
+        null
+      ]
+    },
+    "absence_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "NOT_SHOWN",
+        "NOT_OBSERVED",
+        "NOT_APPLICABLE",
+        "PARSE_FAILED",
+        "SOURCE_FAILED",
+        "REDACTED",
+        "AMBIGUOUS",
+        null
+      ]
+    },
+    "confidence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0(\\.\\d{1,6})?|1(\\.0{1,6})?)$",
+      "description": "Canonical decimal string in the inclusive range 0 to 1; null for every non-present observation."
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "binding_context_ref": {
+      "type": "string",
+      "pattern": "^context:[A-Za-z0-9_-]{8,96}$"
+    },
+    "anchor_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^anchor:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "pattern": "^evidence:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_integrity_ref": {
+      "type": "string",
+      "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"
+    },
+    "directness": {
+      "const": "DIRECT_SAME_OBSERVATION"
+    },
+    "cross_source_fill": {
+      "const": false
+    },
+    "cross_time_fill": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "value_encoding": {
+            "type": "string"
+          },
+          "absence_reason": {
+            "const": null
+          },
+          "confidence": {
+            "type": "string"
+          },
+          "anchor_ref": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "properties": {
+              "public_value_raw": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "public_value_raw"
+            ]
+          },
+          {
+            "properties": {
+              "normalized_value": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "normalized_value"
+            ]
+          }
+        ]
+      },
+      "else": {
+        "properties": {
+          "public_value_raw": {
+            "const": null
+          },
+          "normalized_value": {
+            "const": null
+          },
+          "value_encoding": {
+            "const": null
+          },
+          "absence_reason": {
+            "type": "string"
+          },
+          "confidence": {
+            "const": null
+          },
+          "anchor_ref": {
+            "const": null
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "NOT_SHOWN"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "NOT_SHOWN"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "NOT_OBSERVED"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "NOT_APPLICABLE"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "NOT_APPLICABLE"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "PARSE_FAILED"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "PARSE_FAILED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "SOURCE_FAILED"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "SOURCE_FAILED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "REDACTED"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "REDACTED"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_presence": {
+            "const": "AMBIGUOUS"
+          }
+        },
+        "required": [
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "absence_reason": {
+            "const": "AMBIGUOUS"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_encoding": {
+            "enum": [
+              "TEXT",
+              "OPAQUE_REF",
+              "ISO_CURRENCY",
+              "ENUM"
+            ]
+          }
+        },
+        "required": [
+          "value_encoding"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_encoding": {
+            "enum": [
+              "MONEY_MINOR",
+              "INTEGER_LOWER_BOUND"
+            ]
+          }
+        },
+        "required": [
+          "value_encoding"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "value_encoding": {
+            "const": "BOOLEAN"
+          }
+        },
+        "required": [
+          "value_encoding"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "field_name": {
+            "enum": [
+              "store_ref",
+              "category_ref",
+              "product_ref",
+              "sku_ref",
+              "image_ref"
+            ]
+          },
+          "observation_presence": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "field_name",
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,31}:[A-Za-z0-9_-]{8,96}$"
+          },
+          "value_encoding": {
+            "const": "OPAQUE_REF"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "field_name": {
+            "enum": [
+              "display_price_minor",
+              "original_price_minor",
+              "activity_price_minor",
+              "delivery_fee_minor",
+              "packaging_fee_minor",
+              "service_fee_minor"
+            ]
+          },
+          "observation_presence": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "field_name",
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "integer"
+          },
+          "value_encoding": {
+            "const": "MONEY_MINOR"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "field_name": {
+            "const": "currency"
+          },
+          "observation_presence": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "field_name",
+          "observation_presence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "normalized_value": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "value_encoding": {
+            "const": "ISO_CURRENCY"
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "Before an instance is created, a semantic privacy validator must reject credentials, sessions, personal data, source fragments, URLs, paths, headers, queries, tracebacks and raw errors in public_value_raw or normalized_value. JSON Schema success alone never proves value safety."
+}

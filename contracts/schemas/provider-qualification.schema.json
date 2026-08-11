@@ -1,0 +1,696 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "provider-qualification.schema.json",
+  "title": "S2-02 Provider candidate qualification decision",
+  "description": "Value-safe qualification result for exactly one Provider candidate. Task-level aggregation is defined by provider-qualification-summary.schema.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "qualification_ref",
+    "provider_candidate_ref",
+    "evaluated_at",
+    "route_id",
+    "source_kind",
+    "ownership_basis",
+    "allowed_purpose",
+    "basis_refs",
+    "shape_binding_status",
+    "shape_descriptor_ref",
+    "payload_family",
+    "payload_version",
+    "field_availability_ref",
+    "coverage_definition_ref",
+    "provenance_definition_ref",
+    "retention_and_destruction_ref",
+    "capability_matrix",
+    "qh_results",
+    "risk_class",
+    "privacy_review",
+    "requires_separate_user_decision",
+    "decision",
+    "decision_reasons",
+    "next_gate",
+    "live_access_authorized"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.provider-qualification.v1"
+    },
+    "qualification_ref": {
+      "type": "string",
+      "pattern": "^qualification:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_candidate_ref": {
+      "type": "string",
+      "pattern": "^provider-candidate:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE",
+        "UNRESOLVED"
+      ]
+    },
+    "ownership_basis": {
+      "enum": [
+        "USER_OWNERSHIP_DECLARATION",
+        "OFFICIAL_PUBLICATION",
+        "EXPLICIT_LICENSE",
+        "USER_SUPPLIED_ARTIFACT",
+        "UNVERIFIED"
+      ]
+    },
+    "allowed_purpose": {
+      "enum": [
+        "OFFLINE_QUALIFICATION_ONLY",
+        "OFFLINE_CONTRACT_BUILD",
+        "SEPARATELY_AUTHORIZED_SINGLE_OBSERVATION",
+        "NOT_ESTABLISHED"
+      ]
+    },
+    "basis_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^basis:[A-Za-z0-9_-]{8,96}$"
+      },
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true
+    },
+    "shape_binding_status": {
+      "enum": [
+        "NOT_BOUND",
+        "VALUE_FREE_DESCRIPTOR_BOUND"
+      ]
+    },
+    "shape_descriptor_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^shape:[A-Za-z0-9_-]{8,96}$"
+    },
+    "payload_family": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"
+    },
+    "field_availability_ref": {
+      "type": "string",
+      "pattern": "^field-availability:[A-Za-z0-9_-]{8,96}$"
+    },
+    "coverage_definition_ref": {
+      "type": "string",
+      "pattern": "^coverage-definition:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provenance_definition_ref": {
+      "type": "string",
+      "pattern": "^provenance-definition:[A-Za-z0-9_-]{8,96}$"
+    },
+    "retention_and_destruction_ref": {
+      "type": "string",
+      "pattern": "^retention-policy:[A-Za-z0-9_-]{8,96}$"
+    },
+    "capability_matrix": {
+      "$ref": "#/$defs/capability_matrix"
+    },
+    "qh_results": {
+      "$ref": "#/$defs/qh_results"
+    },
+    "risk_class": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "PROHIBITED",
+        "UNKNOWN"
+      ]
+    },
+    "privacy_review": {
+      "enum": [
+        "PASS_VALUE_SAFE",
+        "FAIL_SENSITIVE_OR_UNBOUNDED",
+        "INCONCLUSIVE"
+      ]
+    },
+    "requires_separate_user_decision": {
+      "type": "boolean"
+    },
+    "decision": {
+      "enum": [
+        "PROVIDER_REJECTED",
+        "HIGH_RISK_NEEDS_SEPARATE_USER_DECISION",
+        "INCONCLUSIVE_NEEDS_SANITIZED_SHAPE",
+        "PROVIDER_QUALIFIED_FOR_BUILD"
+      ]
+    },
+    "decision_reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision_reason"
+      },
+      "minItems": 1,
+      "maxItems": 20,
+      "uniqueItems": true
+    },
+    "next_gate": {
+      "enum": [
+        "SUPERVISOR_ACCEPTANCE",
+        "SEPARATE_USER_DECISION",
+        "SANITIZED_SHAPE_REQUIRED",
+        "STOP_NO_SOURCE"
+      ]
+    },
+    "live_access_authorized": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "shape_binding_status": {
+            "const": "VALUE_FREE_DESCRIPTOR_BOUND"
+          }
+        },
+        "required": [
+          "shape_binding_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "shape_descriptor_ref": {
+            "type": "string"
+          },
+          "payload_family": {
+            "type": "string"
+          },
+          "payload_version": {
+            "type": "string"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "shape_descriptor_ref": {
+            "const": null
+          },
+          "payload_family": {
+            "const": null
+          },
+          "payload_version": {
+            "const": null
+          }
+        }
+      }
+    }
+  ],
+  "oneOf": [
+    {
+      "title": "Qualified candidate",
+      "properties": {
+        "decision": {
+          "const": "PROVIDER_QUALIFIED_FOR_BUILD"
+        },
+        "source_kind": {
+          "not": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "ownership_basis": {
+          "not": {
+            "const": "UNVERIFIED"
+          }
+        },
+        "allowed_purpose": {
+          "enum": [
+            "OFFLINE_CONTRACT_BUILD",
+            "SEPARATELY_AUTHORIZED_SINGLE_OBSERVATION"
+          ]
+        },
+        "shape_binding_status": {
+          "const": "VALUE_FREE_DESCRIPTOR_BOUND"
+        },
+        "capability_matrix": {
+          "$ref": "#/$defs/qualified_capability_matrix"
+        },
+        "qh_results": {
+          "$ref": "#/$defs/all_qh_pass"
+        },
+        "risk_class": {
+          "enum": [
+            "LOW",
+            "MEDIUM"
+          ]
+        },
+        "privacy_review": {
+          "const": "PASS_VALUE_SAFE"
+        },
+        "requires_separate_user_decision": {
+          "const": false
+        },
+        "decision_reasons": {
+          "items": {
+            "enum": [
+              "OWNERSHIP_CONFIRMED",
+              "PURPOSE_CONFIRMED",
+              "VALUE_FREE_SHAPE_CONFIRMED",
+              "FIELD_MINIMUM_CONFIRMED",
+              "COVERAGE_DEFINED",
+              "PROVENANCE_DEFINED",
+              "RETENTION_DEFINED",
+              "CAPABILITY_SCOPE_ACCEPTABLE",
+              "QH_ALL_PASS"
+            ]
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "OWNERSHIP_CONFIRMED"
+              }
+            },
+            {
+              "contains": {
+                "const": "PURPOSE_CONFIRMED"
+              }
+            },
+            {
+              "contains": {
+                "const": "VALUE_FREE_SHAPE_CONFIRMED"
+              }
+            },
+            {
+              "contains": {
+                "const": "FIELD_MINIMUM_CONFIRMED"
+              }
+            },
+            {
+              "contains": {
+                "const": "CAPABILITY_SCOPE_ACCEPTABLE"
+              }
+            },
+            {
+              "contains": {
+                "const": "QH_ALL_PASS"
+              }
+            }
+          ]
+        },
+        "next_gate": {
+          "const": "SUPERVISOR_ACCEPTANCE"
+        }
+      },
+      "required": [
+        "decision"
+      ]
+    },
+    {
+      "title": "High-risk candidate",
+      "properties": {
+        "decision": {
+          "const": "HIGH_RISK_NEEDS_SEPARATE_USER_DECISION"
+        },
+        "risk_class": {
+          "const": "HIGH"
+        },
+        "requires_separate_user_decision": {
+          "const": true
+        },
+        "decision_reasons": {
+          "contains": {
+            "const": "HIGH_RISK_CAPABILITY_REQUIRED"
+          }
+        },
+        "next_gate": {
+          "const": "SEPARATE_USER_DECISION"
+        }
+      },
+      "required": [
+        "decision"
+      ]
+    },
+    {
+      "title": "Shape-inconclusive candidate",
+      "properties": {
+        "decision": {
+          "const": "INCONCLUSIVE_NEEDS_SANITIZED_SHAPE"
+        },
+        "shape_binding_status": {
+          "const": "NOT_BOUND"
+        },
+        "risk_class": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "UNKNOWN"
+          ]
+        },
+        "requires_separate_user_decision": {
+          "const": false
+        },
+        "decision_reasons": {
+          "contains": {
+            "const": "SHAPE_NOT_BOUND"
+          }
+        },
+        "next_gate": {
+          "const": "SANITIZED_SHAPE_REQUIRED"
+        }
+      },
+      "required": [
+        "decision"
+      ]
+    },
+    {
+      "title": "Rejected candidate",
+      "properties": {
+        "decision": {
+          "const": "PROVIDER_REJECTED"
+        },
+        "requires_separate_user_decision": {
+          "const": false
+        },
+        "decision_reasons": {
+          "contains": {
+            "enum": [
+              "OWNERSHIP_UNVERIFIED",
+              "PURPOSE_UNVERIFIED",
+              "SENSITIVE_CONTENT_RISK",
+              "PROHIBITED_DEPENDENCY",
+              "QH_FAILED"
+            ]
+          }
+        },
+        "next_gate": {
+          "const": "STOP_NO_SOURCE"
+        }
+      },
+      "required": [
+        "decision"
+      ]
+    }
+  ],
+  "$defs": {
+    "capability_requirement": {
+      "enum": [
+        "NOT_REQUIRED",
+        "REQUIRED_PENDING_SEPARATE_AUTHORIZATION",
+        "PROHIBITED",
+        "UNKNOWN"
+      ]
+    },
+    "capability_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "browser",
+        "ui",
+        "local_source_read",
+        "filesystem_write",
+        "process_spawn",
+        "certificate",
+        "system_proxy",
+        "administrator",
+        "credential_or_session",
+        "private_service",
+        "transaction",
+        "external_cost"
+      ],
+      "properties": {
+        "network": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "browser": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "ui": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "local_source_read": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "filesystem_write": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "process_spawn": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "certificate": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "system_proxy": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "administrator": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "credential_or_session": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "private_service": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "transaction": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "external_cost": {
+          "$ref": "#/$defs/capability_requirement"
+        }
+      }
+    },
+    "qualified_capability_matrix": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/capability_matrix"
+        },
+        {
+          "properties": {
+            "network": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "browser": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "ui": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "local_source_read": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "filesystem_write": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "process_spawn": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "certificate": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "system_proxy": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "administrator": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "credential_or_session": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "private_service": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "transaction": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            },
+            "external_cost": {
+              "enum": [
+                "NOT_REQUIRED",
+                "PROHIBITED"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "qh_result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN"
+      ]
+    },
+    "qh_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "QH01",
+        "QH02",
+        "QH03",
+        "QH04",
+        "QH05",
+        "QH06",
+        "QH07",
+        "QH08",
+        "QH09",
+        "QH10",
+        "QH11",
+        "QH12"
+      ],
+      "properties": {
+        "QH01": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH02": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH03": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH04": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH05": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH06": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH07": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH08": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH09": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH10": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH11": {
+          "$ref": "#/$defs/qh_result"
+        },
+        "QH12": {
+          "$ref": "#/$defs/qh_result"
+        }
+      }
+    },
+    "all_qh_pass": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/qh_results"
+        },
+        {
+          "properties": {
+            "QH01": {
+              "const": "PASS"
+            },
+            "QH02": {
+              "const": "PASS"
+            },
+            "QH03": {
+              "const": "PASS"
+            },
+            "QH04": {
+              "const": "PASS"
+            },
+            "QH05": {
+              "const": "PASS"
+            },
+            "QH06": {
+              "const": "PASS"
+            },
+            "QH07": {
+              "const": "PASS"
+            },
+            "QH08": {
+              "const": "PASS"
+            },
+            "QH09": {
+              "const": "PASS"
+            },
+            "QH10": {
+              "const": "PASS"
+            },
+            "QH11": {
+              "const": "PASS"
+            },
+            "QH12": {
+              "const": "PASS"
+            }
+          }
+        }
+      ]
+    },
+    "decision_reason": {
+      "enum": [
+        "OWNERSHIP_CONFIRMED",
+        "PURPOSE_CONFIRMED",
+        "VALUE_FREE_SHAPE_CONFIRMED",
+        "FIELD_MINIMUM_CONFIRMED",
+        "COVERAGE_DEFINED",
+        "PROVENANCE_DEFINED",
+        "RETENTION_DEFINED",
+        "CAPABILITY_SCOPE_ACCEPTABLE",
+        "QH_ALL_PASS",
+        "OWNERSHIP_UNVERIFIED",
+        "PURPOSE_UNVERIFIED",
+        "SHAPE_NOT_BOUND",
+        "SENSITIVE_CONTENT_RISK",
+        "HIGH_RISK_CAPABILITY_REQUIRED",
+        "PROHIBITED_DEPENDENCY",
+        "QH_FAILED"
+      ]
+    }
+  }
+}

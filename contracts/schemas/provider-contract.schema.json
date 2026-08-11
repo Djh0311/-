@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "provider-contract.schema.json",
+  "title": "S2-02 qualified Provider contract",
+  "description": "Frozen control-plane contract for one qualified source family. Source-specific field shape is referenced, not embedded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider_contract_ref",
+    "provider_ref",
+    "route_id",
+    "source_kind",
+    "qualification_ref",
+    "contract_state",
+    "payload_family",
+    "payload_version",
+    "shape_descriptor_ref",
+    "allowed_purpose",
+    "authorization_ref",
+    "capabilities",
+    "attempt_policy",
+    "source_material_policy",
+    "integrity_profile",
+    "parser_contract_ref",
+    "evidence_profile_ref",
+    "effective_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.provider-contract.v1"
+    },
+    "provider_contract_ref": {
+      "type": "string",
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_ref": {
+      "type": "string",
+      "pattern": "^provider:[A-Za-z0-9_-]{8,96}$"
+    },
+    "route_id": {
+      "const": "OWNED_STRUCTURED_EVENT"
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "qualification_ref": {
+      "type": "string",
+      "pattern": "^qualification:[A-Za-z0-9_-]{8,96}$"
+    },
+    "contract_state": {
+      "enum": [
+        "DRAFT",
+        "FROZEN"
+      ]
+    },
+    "payload_family": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,63}$"
+    },
+    "payload_version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$"
+    },
+    "shape_descriptor_ref": {
+      "type": "string",
+      "pattern": "^shape:[A-Za-z0-9_-]{8,96}$"
+    },
+    "allowed_purpose": {
+      "enum": [
+        "OFFLINE_CONTRACT_BUILD",
+        "SEPARATELY_AUTHORIZED_SINGLE_OBSERVATION"
+      ]
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "browser",
+        "ui",
+        "local_source_read",
+        "filesystem_write",
+        "process_spawn",
+        "certificate",
+        "system_proxy",
+        "administrator",
+        "credential_or_session",
+        "private_service",
+        "transaction",
+        "external_cost"
+      ],
+      "properties": {
+        "network": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "browser": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "ui": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "local_source_read": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "filesystem_write": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "process_spawn": {
+          "$ref": "#/$defs/capability_requirement"
+        },
+        "certificate": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "system_proxy": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "administrator": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "credential_or_session": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "private_service": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "transaction": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        },
+        "external_cost": {
+          "$ref": "#/$defs/prohibited_or_not_required"
+        }
+      }
+    },
+    "attempt_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_attempts",
+        "automatic_retry",
+        "source_reopen_on_resume"
+      ],
+      "properties": {
+        "max_attempts": {
+          "const": 1
+        },
+        "automatic_retry": {
+          "const": 0
+        },
+        "source_reopen_on_resume": {
+          "const": false
+        }
+      }
+    },
+    "source_material_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lifecycle",
+        "persistence_allowed",
+        "secret_material_allowed",
+        "network_locator_metadata_allowed",
+        "diagnostic_mode"
+      ],
+      "properties": {
+        "lifecycle": {
+          "const": "BOUNDED_MEMORY_ONLY"
+        },
+        "persistence_allowed": {
+          "const": false
+        },
+        "secret_material_allowed": {
+          "const": false
+        },
+        "network_locator_metadata_allowed": {
+          "const": false
+        },
+        "diagnostic_mode": {
+          "const": "STABLE_CODE_ONLY"
+        }
+      }
+    },
+    "integrity_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family_match_required",
+        "version_match_required",
+        "shape_match_required",
+        "budget_check_required",
+        "privacy_gate_required"
+      ],
+      "properties": {
+        "family_match_required": {
+          "const": true
+        },
+        "version_match_required": {
+          "const": true
+        },
+        "shape_match_required": {
+          "const": true
+        },
+        "budget_check_required": {
+          "const": true
+        },
+        "privacy_gate_required": {
+          "const": true
+        }
+      }
+    },
+    "parser_contract_ref": {
+      "type": "string",
+      "pattern": "^parser-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "evidence_profile_ref": {
+      "type": "string",
+      "pattern": "^evidence-profile:[A-Za-z0-9_-]{8,96}$"
+    },
+    "effective_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "capability_requirement": {
+      "enum": [
+        "NOT_REQUIRED",
+        "REQUIRED_PENDING_SEPARATE_AUTHORIZATION",
+        "PROHIBITED"
+      ]
+    },
+    "prohibited_or_not_required": {
+      "enum": [
+        "NOT_REQUIRED",
+        "PROHIBITED"
+      ]
+    }
+  },
+  "$comment": "The semantic validator must require qualification_ref to resolve to an accepted PROVIDER_QUALIFIED_FOR_BUILD candidate with exactly matching route_id, source_kind, payload family/version, shape and capability matrix. A frozen contract records pending capabilities but does not itself authorize them."
+}

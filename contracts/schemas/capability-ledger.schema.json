@@ -1,0 +1,1051 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "capability-ledger.schema.json",
+  "title": "S2-02 closed-set component capability ledger",
+  "description": "Run-level fail-closed capability ledger. Every required component carries the same complete 13-axis qualification matrix; general capability use and real-source consumption are counted separately.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capability_ledger_ref",
+    "run_ref",
+    "provider_contract_ref",
+    "authorization_ref",
+    "declared_at",
+    "qualification_axis_contract",
+    "qualification_axis_mapping",
+    "qualification_axis_set",
+    "components",
+    "real_source_consumption",
+    "closed_set_complete",
+    "duplicate_component_role_count",
+    "unmapped_capability_attempt_count",
+    "unauthorized_attempt_count",
+    "parser_io_attempt_count",
+    "ledger_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "s2-02.capability-ledger.v1"
+    },
+    "capability_ledger_ref": {
+      "type": "string",
+      "pattern": "^capability-ledger:[A-Za-z0-9_-]{8,96}$"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "provider_contract_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"
+    },
+    "declared_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "qualification_axis_contract": {
+      "const": "s2-02.provider-qualification.v1#capability_matrix"
+    },
+    "qualification_axis_mapping": {
+      "const": "IDENTICAL_AXIS_IDS_V1"
+    },
+    "qualification_axis_set": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "network"
+        },
+        {
+          "const": "browser"
+        },
+        {
+          "const": "ui"
+        },
+        {
+          "const": "local_source_read"
+        },
+        {
+          "const": "filesystem_write"
+        },
+        {
+          "const": "process_spawn"
+        },
+        {
+          "const": "certificate"
+        },
+        {
+          "const": "system_proxy"
+        },
+        {
+          "const": "administrator"
+        },
+        {
+          "const": "credential_or_session"
+        },
+        {
+          "const": "private_service"
+        },
+        {
+          "const": "transaction"
+        },
+        {
+          "const": "external_cost"
+        }
+      ],
+      "items": false,
+      "minItems": 13,
+      "maxItems": 13
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component_ledger"
+      },
+      "minItems": 8,
+      "maxItems": 8,
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "PROVIDER"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "GATEWAY"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "PARSER"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "BINDER"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "VALIDATOR"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "PERSISTENCE"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "EXPORTER"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "component_role": {
+                "const": "CORE"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "real_source_consumption": {
+      "$ref": "#/$defs/real_source_consumption"
+    },
+    "closed_set_complete": {
+      "const": true
+    },
+    "duplicate_component_role_count": {
+      "const": 0
+    },
+    "unmapped_capability_attempt_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "unauthorized_attempt_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "parser_io_attempt_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000
+    },
+    "ledger_status": {
+      "enum": [
+        "PASS",
+        "FAIL_CLOSED"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ledger_status": {
+            "const": "PASS"
+          }
+        },
+        "required": [
+          "ledger_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "closed_set_complete": {
+            "const": true
+          },
+          "duplicate_component_role_count": {
+            "const": 0
+          },
+          "unmapped_capability_attempt_count": {
+            "const": 0
+          },
+          "unauthorized_attempt_count": {
+            "const": 0
+          },
+          "parser_io_attempt_count": {
+            "const": 0
+          },
+          "components": {
+            "items": {
+              "$ref": "#/$defs/pass_component_ledger"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "unmapped_capability_attempt_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "unmapped_capability_attempt_count"
+            ]
+          },
+          {
+            "properties": {
+              "unauthorized_attempt_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "unauthorized_attempt_count"
+            ]
+          },
+          {
+            "properties": {
+              "parser_io_attempt_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "parser_io_attempt_count"
+            ]
+          },
+          {
+            "properties": {
+              "components": {
+                "contains": {
+                  "properties": {
+                    "component_status": {
+                      "const": "FAIL_CLOSED"
+                    }
+                  },
+                  "required": [
+                    "component_status"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "components"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "ledger_status": {
+            "const": "FAIL_CLOSED"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "qualification_axis_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qualification_requirement",
+        "authorization_state",
+        "general_use_attempt_count",
+        "successful_use_count",
+        "unauthorized_attempt_count",
+        "denied_attempt_count",
+        "fail_closed_enforced"
+      ],
+      "properties": {
+        "qualification_requirement": {
+          "enum": [
+            "NOT_REQUIRED",
+            "REQUIRED_PENDING_SEPARATE_AUTHORIZATION",
+            "PROHIBITED",
+            "UNKNOWN"
+          ]
+        },
+        "authorization_state": {
+          "enum": [
+            "AUTHORIZED",
+            "NOT_AUTHORIZED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "general_use_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000,
+          "description": "General capability-hook attempts. Real-source consume requests and source-consume counts are recorded only in real_source_consumption."
+        },
+        "successful_use_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "unauthorized_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "denied_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "fail_closed_enforced": {
+          "const": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "qualification_requirement": {
+                "const": "PROHIBITED"
+              }
+            },
+            "required": [
+              "qualification_requirement"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authorization_state": {
+                "const": "NOT_APPLICABLE"
+              },
+              "successful_use_count": {
+                "const": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorization_state": {
+                "enum": [
+                  "NOT_AUTHORIZED",
+                  "NOT_APPLICABLE"
+                ]
+              }
+            },
+            "required": [
+              "authorization_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "successful_use_count": {
+                "const": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "successful_use_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "successful_use_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authorization_state": {
+                "const": "AUTHORIZED"
+              },
+              "general_use_attempt_count": {
+                "minimum": 1
+              },
+              "unauthorized_attempt_count": {
+                "const": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "unauthorized_attempt_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "unauthorized_attempt_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "successful_use_count": {
+                "const": 0
+              },
+              "general_use_attempt_count": {
+                "minimum": 1
+              },
+              "denied_attempt_count": {
+                "minimum": 1
+              },
+              "fail_closed_enforced": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "pass_qualification_axis_entry": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        {
+          "properties": {
+            "qualification_requirement": {
+              "not": {
+                "const": "UNKNOWN"
+              }
+            },
+            "unauthorized_attempt_count": {
+              "const": 0
+            }
+          }
+        }
+      ]
+    },
+    "qualification_axis_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "browser",
+        "ui",
+        "local_source_read",
+        "filesystem_write",
+        "process_spawn",
+        "certificate",
+        "system_proxy",
+        "administrator",
+        "credential_or_session",
+        "private_service",
+        "transaction",
+        "external_cost"
+      ],
+      "properties": {
+        "network": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "browser": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "ui": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "local_source_read": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "filesystem_write": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "process_spawn": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "certificate": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "system_proxy": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "administrator": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "credential_or_session": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "private_service": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "transaction": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        },
+        "external_cost": {
+          "$ref": "#/$defs/qualification_axis_entry"
+        }
+      }
+    },
+    "pass_qualification_axis_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "browser",
+        "ui",
+        "local_source_read",
+        "filesystem_write",
+        "process_spawn",
+        "certificate",
+        "system_proxy",
+        "administrator",
+        "credential_or_session",
+        "private_service",
+        "transaction",
+        "external_cost"
+      ],
+      "properties": {
+        "network": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "browser": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "ui": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "local_source_read": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "filesystem_write": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "process_spawn": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "certificate": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "system_proxy": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "administrator": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "credential_or_session": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "private_service": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "transaction": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        },
+        "external_cost": {
+          "$ref": "#/$defs/pass_qualification_axis_entry"
+        }
+      }
+    },
+    "operational_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "in_memory_transform_count",
+        "database_write_count",
+        "evidence_write_count",
+        "export_write_count",
+        "orchestration_control_count"
+      ],
+      "properties": {
+        "in_memory_transform_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "database_write_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "evidence_write_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "export_write_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "orchestration_control_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        }
+      }
+    },
+    "component_ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_ref",
+        "component_role",
+        "qualification_capabilities",
+        "operational_counts",
+        "unlisted_capabilities_denied",
+        "unlisted_attempt_count",
+        "unauthorized_attempt_count",
+        "parser_io_attempt_count",
+        "component_status"
+      ],
+      "properties": {
+        "component_ref": {
+          "type": "string",
+          "pattern": "^component:[A-Za-z0-9_-]{8,96}$"
+        },
+        "component_role": {
+          "enum": [
+            "PROVIDER",
+            "GATEWAY",
+            "PARSER",
+            "BINDER",
+            "VALIDATOR",
+            "PERSISTENCE",
+            "EXPORTER",
+            "CORE"
+          ]
+        },
+        "qualification_capabilities": {
+          "$ref": "#/$defs/qualification_axis_matrix"
+        },
+        "operational_counts": {
+          "$ref": "#/$defs/operational_counts"
+        },
+        "unlisted_capabilities_denied": {
+          "const": true
+        },
+        "unlisted_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "unauthorized_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "parser_io_attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "component_status": {
+          "enum": [
+            "PASS",
+            "FAIL_CLOSED"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "component_role": {
+                "const": "PARSER"
+              }
+            },
+            "required": [
+              "component_role"
+            ]
+          },
+          "then": {
+            "properties": {
+              "operational_counts": {
+                "properties": {
+                  "database_write_count": {
+                    "const": 0
+                  },
+                  "evidence_write_count": {
+                    "const": 0
+                  },
+                  "export_write_count": {
+                    "const": 0
+                  },
+                  "orchestration_control_count": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "anyOf": [
+              {
+                "properties": {
+                  "unlisted_attempt_count": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "unlisted_attempt_count"
+                ]
+              },
+              {
+                "properties": {
+                  "unauthorized_attempt_count": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "unauthorized_attempt_count"
+                ]
+              },
+              {
+                "properties": {
+                  "parser_io_attempt_count": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "parser_io_attempt_count"
+                ]
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "component_status": {
+                "const": "FAIL_CLOSED"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "pass_component_ledger": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/component_ledger"
+        },
+        {
+          "properties": {
+            "qualification_capabilities": {
+              "$ref": "#/$defs/pass_qualification_axis_matrix"
+            },
+            "unlisted_attempt_count": {
+              "const": 0
+            },
+            "unauthorized_attempt_count": {
+              "const": 0
+            },
+            "parser_io_attempt_count": {
+              "const": 0
+            },
+            "component_status": {
+              "const": "PASS"
+            }
+          }
+        }
+      ]
+    },
+    "real_source_consumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_component_ref",
+        "authorization_state",
+        "consume_request_count",
+        "source_consume_count",
+        "successful_consume_count",
+        "denied_consume_request_count",
+        "automatic_retry_count"
+      ],
+      "properties": {
+        "consumer_component_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^component:[A-Za-z0-9_-]{8,96}$"
+        },
+        "authorization_state": {
+          "enum": [
+            "AUTHORIZED",
+            "NOT_AUTHORIZED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "consume_request_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Requests to consume a real source, including requests denied before source access."
+        },
+        "source_consume_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Actual real-source consumption attempts. It is never inferred from general capability-hook counts."
+        },
+        "successful_consume_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "denied_consume_request_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "automatic_retry_count": {
+          "const": 0
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "consume_request_count": {
+                "const": 0
+              }
+            },
+            "required": [
+              "consume_request_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "consumer_component_ref": {
+                "const": null
+              },
+              "source_consume_count": {
+                "const": 0
+              },
+              "successful_consume_count": {
+                "const": 0
+              },
+              "denied_consume_request_count": {
+                "const": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "consumer_component_ref": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorization_state": {
+                "enum": [
+                  "NOT_AUTHORIZED",
+                  "NOT_APPLICABLE"
+                ]
+              },
+              "consume_request_count": {
+                "const": 1
+              }
+            },
+            "required": [
+              "authorization_state",
+              "consume_request_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_consume_count": {
+                "const": 0
+              },
+              "successful_consume_count": {
+                "const": 0
+              },
+              "denied_consume_request_count": {
+                "const": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_consume_count": {
+                "const": 1
+              }
+            },
+            "required": [
+              "source_consume_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authorization_state": {
+                "const": "AUTHORIZED"
+              },
+              "consume_request_count": {
+                "const": 1
+              },
+              "denied_consume_request_count": {
+                "const": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "successful_consume_count": {
+                "const": 1
+              }
+            },
+            "required": [
+              "successful_consume_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_consume_count": {
+                "const": 1
+              },
+              "authorization_state": {
+                "const": "AUTHORIZED"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "denied_consume_request_count": {
+                "const": 1
+              }
+            },
+            "required": [
+              "denied_consume_request_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_consume_count": {
+                "const": 0
+              },
+              "successful_consume_count": {
+                "const": 0
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$comment": "Semantic validation must require all component and top-level totals to equal the sum of the 13 axis rows; require the real-source consumer ref to identify the PROVIDER component; require each unauthorized or unmapped attempt to be denied before side effect and force FAIL_CLOSED; and require a PASS ledger to contain exactly the eight closed-set component roles with zero unauthorized, unmapped and Parser I/O attempts. This schema records authorization evidence but never grants live-source authority."
+}
