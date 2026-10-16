@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "selected_tls_hellos": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "ignored_tls_hellos": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "selected_client_tls_established": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "selected_server_tls_established": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "selected_client_tls_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "selected_server_tls_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "upstream_connect_started": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "upstream_connected": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "upstream_connect_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "selected_upstream_connect_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_requests": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_responses": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "opaque_tcp_layers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "opaque_udp_layers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "dispatch_exceptions": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "async_exceptions": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "engine_errors": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "schema_version": {
+      "const": "p26-forwarding-diagnostic/v1"
+    },
+    "counts_at_least": {
+      "type": "boolean"
+    },
+    "active_streams": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 256
+    },
+    "peak_active_streams": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 256
+    },
+    "last_failure": {
+      "enum": [
+        null,
+        "P26_FORWARDING_EXCEPTION",
+        "P26_FORWARDING_ASYNC_EXCEPTION",
+        "P26_FORWARDING_ENGINE_ERROR",
+        "P26_FORWARDING_CONNECT_FAILED",
+        "P26_FORWARDING_CLIENT_TLS_FAILED",
+        "P26_FORWARDING_SERVER_TLS_FAILED",
+        "P26_FORWARDING_HTTP_FAILED"
+      ]
+    },
+    "upstream_tls_failure": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": "p26-upstream-tls-failure/v1"
+            },
+            "verification_status": {
+              "enum": [
+                "TLS_VERIFY_UNKNOWN",
+                "TLS_VERIFY_NO_ERROR_REPORTED",
+                "TLS_VERIFY_EXPIRED",
+                "TLS_VERIFY_NOT_YET_VALID",
+                "TLS_VERIFY_NAME_MISMATCH",
+                "TLS_VERIFY_UNTRUSTED",
+                "TLS_VERIFY_OTHER"
+              ]
+            },
+            "upstream_name_kind": {
+              "enum": [
+                "IP",
+                "HOSTNAME",
+                "ABSENT",
+                "UNKNOWN"
+              ]
+            },
+            "client_name_kind": {
+              "enum": [
+                "IP",
+                "HOSTNAME",
+                "ABSENT",
+                "UNKNOWN"
+              ]
+            },
+            "upstream_name_matches_client": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "upstream_transport_state": {
+              "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+              "enum": [
+                "CLOSED",
+                "CAN_READ",
+                "CAN_WRITE",
+                "OPEN",
+                "UNKNOWN"
+              ]
+            },
+            "client_transport_state": {
+              "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+              "enum": [
+                "CLOSED",
+                "CAN_READ",
+                "CAN_WRITE",
+                "OPEN",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "required": [
+            "schema_version",
+            "verification_status",
+            "upstream_name_kind",
+            "client_name_kind",
+            "upstream_name_matches_client"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "selected_tls_hellos",
+    "ignored_tls_hellos",
+    "selected_client_tls_established",
+    "selected_server_tls_established",
+    "selected_client_tls_failed",
+    "selected_server_tls_failed",
+    "upstream_connect_started",
+    "upstream_connected",
+    "upstream_connect_failed",
+    "selected_upstream_connect_failed",
+    "http_requests",
+    "http_responses",
+    "http_failed",
+    "opaque_tcp_layers",
+    "opaque_udp_layers",
+    "dispatch_exceptions",
+    "async_exceptions",
+    "engine_errors",
+    "schema_version",
+    "counts_at_least",
+    "active_streams",
+    "peak_active_streams",
+    "last_failure"
+  ]
+}

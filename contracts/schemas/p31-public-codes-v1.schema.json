@@ -1,0 +1,1070 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "record_count",
+    "records",
+    "source_scope",
+    "copied_into_product_rows",
+    "business_semantics_confirmed",
+    "flags_prove_customer_eligibility",
+    "codes_decoded_to_business_meaning"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-public-codes/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scope",
+          "category_ref",
+          "category_index",
+          "entry_index",
+          "field",
+          "field_label_zh",
+          "source_path",
+          "value",
+          "state",
+          "endpoint_id",
+          "source_file",
+          "source_request_ref",
+          "observed_at",
+          "window_ref",
+          "value_type"
+        ],
+        "properties": {
+          "scope": {
+            "enum": [
+              "FOOD_ROOT",
+              "CATEGORY",
+              "PRODUCTLIST_ROOT"
+            ]
+          },
+          "category_ref": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                "minLength": 1
+              }
+            ]
+          },
+          "category_index": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255
+              }
+            ]
+          },
+          "entry_index": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7999
+              }
+            ]
+          },
+          "field": {
+            "enum": [
+              "operation_activity_type_code",
+              "operation_sequence_number",
+              "operation_type_code",
+              "operation_tag_reference",
+              "operation_tag_sequence_number",
+              "food_has_hotsale_tag_flag",
+              "delivery_activity_info_type_code",
+              "shop_type_code",
+              "category_business_type_code",
+              "category_health_tag_flag",
+              "category_sequence_number",
+              "category_type_code",
+              "list_has_hotsale_tag_flag",
+              "box_price_type_code",
+              "has_required_tag_flag",
+              "required_tag_reference",
+              "support_preorder_flag",
+              "support_cake_upgrade_flag"
+            ]
+          },
+          "field_label_zh": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+          },
+          "source_path": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "state": {
+            "enum": [
+              "NOT_OBSERVED",
+              "SOURCE_NULL",
+              "SOURCE_EMPTY",
+              "PRESENT_UNCONFIRMED",
+              "NEGATIVE_SEMANTICS_UNCONFIRMED"
+            ]
+          },
+          "endpoint_id": {
+            "enum": [
+              "FOOD",
+              "PRODUCTLIST"
+            ]
+          },
+          "source_file": {
+            "type": "string",
+            "pattern": "^observation_[a-f0-9]{32}-public-fields\\.json$"
+          },
+          "source_request_ref": {
+            "type": "string",
+            "pattern": "^request:[a-f0-9]{32}$"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "window_ref": {
+            "type": "string",
+            "pattern": "^result:[a-f0-9]{32}$"
+          },
+          "value_type": {
+            "enum": [
+              "integer",
+              "boolean",
+              "text"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_activity_type_code"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_activity_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.operation_source_list[].activity_type"
+                },
+                "field_label_zh": {
+                  "const": "运营活动来源类型码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_sequence_number"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_sequence_number"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.operation_source_list[].sequence"
+                },
+                "field_label_zh": {
+                  "const": "运营项来源顺序数字（非排名证明）"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_type_code"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.operation_source_list[].type"
+                },
+                "field_label_zh": {
+                  "const": "运营项来源类型码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_tag_reference"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.tag"
+                },
+                "field_label_zh": {
+                  "const": "运营标签来源引用"
+                },
+                "value_type": {
+                  "const": "text"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_tag_sequence_number"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.tag_sequence"
+                },
+                "field_label_zh": {
+                  "const": "运营标签来源顺序数字"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "food_has_hotsale_tag_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.has_hotsale_tag"
+                },
+                "field_label_zh": {
+                  "const": "FOOD热销标签来源标记"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "delivery_activity_info_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.pick_goods_tab_info.delivery.activity_info_type"
+                },
+                "field_label_zh": {
+                  "const": "配送页签活动信息来源类型码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "shop_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.shop_type"
+                },
+                "field_label_zh": {
+                  "const": "店铺来源类型码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_business_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].buzType"
+                },
+                "field_label_zh": {
+                  "const": "分类buzType来源码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_health_tag_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].health_tag"
+                },
+                "field_label_zh": {
+                  "const": "分类health_tag来源标记（非健康认证）"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_sequence_number"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].sequence"
+                },
+                "field_label_zh": {
+                  "const": "分类来源顺序数字（非排名证明）"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].type"
+                },
+                "field_label_zh": {
+                  "const": "分类来源类型码"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "list_has_hotsale_tag_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.has_hotsale_tag"
+                },
+                "field_label_zh": {
+                  "const": "PRODUCTLIST热销标签来源标记"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "box_price_type_code"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.poi_box_price_detail.box_price_type"
+                },
+                "field_label_zh": {
+                  "const": "包装费来源类型码（非费用金额）"
+                },
+                "value_type": {
+                  "const": "integer"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "has_required_tag_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.required_tag_info.has_required_tag"
+                },
+                "field_label_zh": {
+                  "const": "必选分类来源标记（非个人购物车状态）"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "required_tag_reference"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.required_tag_info.required_tag_id"
+                },
+                "field_label_zh": {
+                  "const": "必选分类来源引用（匹配关系未推定）"
+                },
+                "value_type": {
+                  "const": "text"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "support_preorder_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.supportPreOrder"
+                },
+                "field_label_zh": {
+                  "const": "预订能力来源标记（非本次订单资格）"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "support_cake_upgrade_flag"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.support_cake_product_upgrade"
+                },
+                "field_label_zh": {
+                  "const": "蛋糕升级能力来源标记（非本次订单资格）"
+                },
+                "value_type": {
+                  "const": "boolean"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_NULL"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_EMPTY"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "const": ""
+                },
+                "value_type": {
+                  "const": "text"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "PRESENT_UNCONFIRMED"
+                },
+                "value_type": {
+                  "const": "integer"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "PRESENT_UNCONFIRMED"
+                },
+                "value_type": {
+                  "const": "boolean"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "PRESENT_UNCONFIRMED"
+                },
+                "value_type": {
+                  "const": "text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "NEGATIVE_SEMANTICS_UNCONFIRMED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value_type": {
+                  "const": "integer"
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^-[0-9]+$"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source_scope": {
+      "const": "INITIAL_PAIR_ALLOWLISTED_ROOT_AND_CATEGORY_CODES"
+    },
+    "copied_into_product_rows": {
+      "const": false
+    },
+    "business_semantics_confirmed": {
+      "const": false
+    },
+    "flags_prove_customer_eligibility": {
+      "const": false
+    },
+    "codes_decoded_to_business_meaning": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

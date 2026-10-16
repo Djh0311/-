@@ -25,7 +25,13 @@ from .registry import (
     parse_registered,
     parse_sanitized,
 )
-from .profiles import h31_food_config, h31_productlist_config
+from .profiles import (
+    h31_food_config,
+    h31_productlist_config,
+    synthetic_p1_food_config,
+    synthetic_p1_productlist_config,
+    synthetic_p1_registry,
+)
 
 __all__ = [
     "Binding",
@@ -49,4 +55,7 @@ __all__ = [
     "parse_sanitized",
     "h31_productlist_config",
     "h31_food_config",
+    "synthetic_p1_food_config",
+    "synthetic_p1_productlist_config",
+    "synthetic_p1_registry",
 ]

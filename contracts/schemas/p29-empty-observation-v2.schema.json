@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "source_association",
+    "observed_at",
+    "coverage_status",
+    "business_record_count",
+    "empty_page_is_termination",
+    "categories",
+    "raw_payload_persisted",
+    "sensitive_values_processed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p29-empty-observation/v2"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "source_association": {
+      "$ref": "p29-numeric-store-association-v1.schema.json"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "business_record_count": {
+      "const": 0
+    },
+    "empty_page_is_termination": {
+      "const": false
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "p29-category-coverage-v1.schema.json"
+      },
+      "maxItems": 256,
+      "minItems": 1
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p29-empty-observation-v2.schema.json"
+}

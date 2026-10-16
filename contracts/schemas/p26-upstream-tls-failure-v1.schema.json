@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p26-upstream-tls-failure/v1"
+    },
+    "verification_status": {
+      "enum": [
+        "TLS_VERIFY_UNKNOWN",
+        "TLS_VERIFY_NO_ERROR_REPORTED",
+        "TLS_VERIFY_EXPIRED",
+        "TLS_VERIFY_NOT_YET_VALID",
+        "TLS_VERIFY_NAME_MISMATCH",
+        "TLS_VERIFY_UNTRUSTED",
+        "TLS_VERIFY_OTHER"
+      ]
+    },
+    "upstream_name_kind": {
+      "enum": [
+        "IP",
+        "HOSTNAME",
+        "ABSENT",
+        "UNKNOWN"
+      ]
+    },
+    "client_name_kind": {
+      "enum": [
+        "IP",
+        "HOSTNAME",
+        "ABSENT",
+        "UNKNOWN"
+      ]
+    },
+    "upstream_name_matches_client": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "upstream_transport_state": {
+      "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+      "enum": [
+        "CLOSED",
+        "CAN_READ",
+        "CAN_WRITE",
+        "OPEN",
+        "UNKNOWN"
+      ]
+    },
+    "client_transport_state": {
+      "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+      "enum": [
+        "CLOSED",
+        "CAN_READ",
+        "CAN_WRITE",
+        "OPEN",
+        "UNKNOWN"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "verification_status",
+    "upstream_name_kind",
+    "client_name_kind",
+    "upstream_name_matches_client"
+  ]
+}

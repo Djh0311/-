@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p28-result-view-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_ref",
+    "batch_ref",
+    "source_kind",
+    "observed_at",
+    "payload_family",
+    "payload_version",
+    "coverage_status",
+    "coverage_scope",
+    "price_evidence",
+    "record_count",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "collection-p28-result-view/v1"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_kind": {
+      "enum": [
+        "SYNTHETIC_OFFLINE_FIXTURE",
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "payload_version": {
+      "const": "p28-observed-shop-sku-v1"
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "coverage_scope": {
+      "const": "CURRENT_LIST_RESPONSE_ONLY"
+    },
+    "price_evidence": {
+      "$ref": "p28-price-evidence-v1.schema.json"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 40000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "store",
+          "product",
+          "currency",
+          "price_unit",
+          "sku_price_meaning",
+          "display_price_meaning",
+          "business_record_ref",
+          "store_id",
+          "product_id",
+          "sku_id",
+          "category_ref",
+          "category_name",
+          "sku_spec",
+          "sku_spec_state",
+          "sku_description",
+          "sku_description_state",
+          "product_unit_text",
+          "product_unit_state",
+          "sku_price_yuan",
+          "product_display_price_yuan",
+          "source_origin_price_number",
+          "source_origin_price_state",
+          "original_price_yuan",
+          "original_price_state",
+          "activity_price_yuan",
+          "activity_price_state",
+          "packaging_fee_yuan",
+          "packaging_fee_state",
+          "availability_status",
+          "availability_status_state",
+          "promotion_state",
+          "run_ref",
+          "batch_ref",
+          "observation_ref",
+          "observed_at"
+        ],
+        "properties": {
+          "store": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$",
+            "minLength": 1
+          },
+          "product": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$",
+            "minLength": 1
+          },
+          "currency": {
+            "const": "CNY"
+          },
+          "price_unit": {
+            "const": "YUAN"
+          },
+          "sku_price_meaning": {
+            "const": "OBSERVED_SKU_CURRENT_PRICE"
+          },
+          "display_price_meaning": {
+            "const": "PRODUCT_LIST_MINIMUM_SKU_PRICE"
+          },
+          "business_record_ref": {
+            "type": "string",
+            "pattern": "^business-record:[A-Za-z0-9_-]{8,96}$"
+          },
+          "store_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,88}$"
+          },
+          "product_id": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$"
+          },
+          "sku_id": {
+            "type": "string",
+            "pattern": "^-?[0-9]+$"
+          },
+          "category_ref": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$",
+            "minLength": 1
+          },
+          "category_name": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$",
+            "minLength": 1
+          },
+          "sku_spec": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$"
+          },
+          "sku_spec_state": {
+            "enum": [
+              "PRESENT",
+              "SOURCE_EMPTY",
+              "NOT_OBSERVED"
+            ]
+          },
+          "sku_description": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$"
+          },
+          "sku_description_state": {
+            "enum": [
+              "PRESENT",
+              "SOURCE_EMPTY",
+              "NOT_OBSERVED"
+            ]
+          },
+          "product_unit_text": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$"
+          },
+          "product_unit_state": {
+            "enum": [
+              "PRESENT",
+              "SOURCE_EMPTY",
+              "NOT_OBSERVED"
+            ]
+          },
+          "sku_price_yuan": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]{2}$"
+          },
+          "product_display_price_yuan": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]{2}$"
+          },
+          "source_origin_price_number": {
+            "type": "string",
+            "maxLength": 256,
+          "pattern": "^(?:|-?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?)$"
+          },
+          "source_origin_price_state": {
+            "enum": [
+              "NOT_OBSERVED",
+              "SEMANTICS_UNCONFIRMED"
+            ]
+          },
+          "original_price_yuan": {
+            "const": ""
+          },
+          "original_price_state": {
+            "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+          },
+          "activity_price_yuan": {
+            "const": ""
+          },
+          "activity_price_state": {
+            "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+          },
+          "packaging_fee_yuan": {
+            "const": ""
+          },
+          "packaging_fee_state": {
+            "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+          },
+          "availability_status": {
+            "const": ""
+          },
+          "availability_status_state": {
+            "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+          },
+          "promotion_state": {
+            "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+          },
+          "run_ref": {
+            "type": "string",
+            "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+          },
+          "batch_ref": {
+            "type": "string",
+            "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+          },
+          "observation_ref": {
+            "type": "string",
+            "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

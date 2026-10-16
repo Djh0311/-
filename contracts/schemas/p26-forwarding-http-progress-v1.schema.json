@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded HTTP forwarding progress",
+  "description": "The response completion count observes the engine response hook; the streamed upstream EOF path is tested separately. It does not assert client delivery, successful business status, parsing or publication. Waiting ages are coarse diagnostic buckets and never impose a timeout.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p26-forwarding-http-progress/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^(identification|result):[0-9a-f]{32}$"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "PREPARED",
+        "ACTIVE",
+        "CLOSED"
+      ]
+    },
+    "http_started": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_request_bodies_completed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_response_headers_received": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_responses_completed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "http_failures": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "counts_at_least": {
+      "type": "boolean"
+    },
+    "tracking_incomplete": {
+      "type": "boolean"
+    },
+    "clock_valid": {
+      "type": "boolean"
+    },
+    "pending_by_phase": {
+      "$ref": "#/$defs/phaseCounts"
+    },
+    "oldest_wait_by_phase": {
+      "$ref": "#/$defs/phaseAges"
+    },
+    "unfinished_at_close_by_phase": {
+      "$ref": "#/$defs/phaseCounts"
+    },
+    "oldest_unfinished_at_close_by_phase": {
+      "$ref": "#/$defs/phaseAges"
+    },
+    "last_failure_phase": {
+      "enum": [
+        "REQUEST_BODY",
+        "RESPONSE_HEADERS",
+        "RESPONSE_BODY",
+        "UNKNOWN",
+        null
+      ]
+    },
+    "last_failure_route_slot": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 127
+    },
+    "recent_responses": {
+      "description": "Optional for compatibility with earlier receipts. The last 16 tracked terminal HTTP outcomes, in completion/failure order. Status codes do not establish business success or delivery to the page; no body, header, URL, error text or flow identifier is included.",
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "route_slot": {"type": ["integer", "null"], "minimum": 0, "maximum": 127},
+          "status_code": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+          "outcome": {"enum": ["RESPONSE_COMPLETE", "TRANSPORT_FAILED"]}
+        },
+        "required": ["route_slot", "status_code", "outcome"]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "window_ref",
+    "state",
+    "http_started",
+    "http_request_bodies_completed",
+    "http_response_headers_received",
+    "http_responses_completed",
+    "http_failures",
+    "counts_at_least",
+    "tracking_incomplete",
+    "clock_valid",
+    "pending_by_phase",
+    "oldest_wait_by_phase",
+    "unfinished_at_close_by_phase",
+    "oldest_unfinished_at_close_by_phase",
+    "last_failure_phase",
+    "last_failure_route_slot"
+  ],
+  "$defs": {
+    "phaseCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "REQUEST_BODY": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "RESPONSE_HEADERS": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        },
+        "RESPONSE_BODY": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64
+        }
+      },
+      "required": [
+        "REQUEST_BODY",
+        "RESPONSE_HEADERS",
+        "RESPONSE_BODY"
+      ]
+    },
+    "phaseAges": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "REQUEST_BODY": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "LT_1S",
+            "1_TO_5S",
+            "5_TO_30S",
+            "GE_30S",
+            "UNKNOWN"
+          ]
+        },
+        "RESPONSE_HEADERS": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "LT_1S",
+            "1_TO_5S",
+            "5_TO_30S",
+            "GE_30S",
+            "UNKNOWN"
+          ]
+        },
+        "RESPONSE_BODY": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "LT_1S",
+            "1_TO_5S",
+            "5_TO_30S",
+            "GE_30S",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "required": [
+        "REQUEST_BODY",
+        "RESPONSE_HEADERS",
+        "RESPONSE_BODY"
+      ]
+    }
+  }
+}

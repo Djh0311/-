@@ -3,6 +3,62 @@
 from __future__ import annotations
 
 from .parser import Binding, FoodParserConfig, ParserConfig
+from .registry import ParserRegistry
+
+
+def synthetic_p1_productlist_config() -> ParserConfig:
+    """Return the only registered profile for the in-memory Stage 03 fixture."""
+
+    category = "$.data.food_spu_tags[*]"
+    product = category + ".dynamic_spus[*]"
+    sku = product + ".skus[*]"
+    return ParserConfig(
+        payload_family="synthetic_p1_productlist",
+        payload_version="v1",
+        category_id=Binding("category_id", category + ".tag", ("string",), "category"),
+        product_price=Binding("product_price", product + ".min_price", ("number",), "product"),
+        sku_price=Binding("sku_price", sku + ".price", ("number",), "sku"),
+        observed_extensions=(
+            Binding("p1_category_ref", category + ".tag", ("string",), "category", source_label="SYNTHETIC_P1_CATEGORY"),
+            Binding("p1_category_name", category + ".name", ("string",), "category", source_label="SYNTHETIC_P1_CATEGORY"),
+            Binding("p1_sku_ref", sku + ".id", ("integer",), "sku", source_label="SYNTHETIC_P1_SKU"),
+            Binding("p1_spec_text", sku + ".spec", ("string",), "sku", source_label="SYNTHETIC_P1_SKU"),
+            Binding("p1_availability_status", sku + ".status", ("integer",), "sku", source_label="SYNTHETIC_P1_SKU"),
+            Binding("p1_promotion_type", sku + ".promotion.type", ("string",), "sku", required=False, source_label="SYNTHETIC_P1_PROMOTION"),
+            Binding("p1_promotion_scope", sku + ".promotion.scope", ("string",), "sku", required=False, source_label="SYNTHETIC_P1_PROMOTION"),
+        ),
+        price_bindings=(
+            Binding("p1_original_price", sku + ".origin_price", ("number",), "sku", required=False, source_label="SYNTHETIC_P1_SKU"),
+            Binding("p1_activity_price", sku + ".activity_price", ("number",), "sku", required=False, source_label="SYNTHETIC_P1_SKU"),
+            Binding("p1_promotion_discount", sku + ".promotion.discount", ("number",), "sku", required=False, source_label="SYNTHETIC_P1_PROMOTION"),
+            Binding("p1_promotion_discount_bps", sku + ".promotion.discount_bps", ("integer",), "sku", required=False, source_label="SYNTHETIC_P1_PROMOTION"),
+        ),
+    )
+
+
+def synthetic_p1_food_config() -> FoodParserConfig:
+    """Return the matching synthetic store and delivery profile."""
+
+    poi = "$.data.poi_info"
+    return FoodParserConfig(
+        payload_family="synthetic_p1_productlist",
+        payload_version="v1",
+        merchant_id=Binding("merchant_id", poi + ".poi_id_str", ("string",), "merchant"),
+        merchant_name=Binding("merchant_name", poi + ".name", ("string",), "merchant"),
+        price_bindings=(
+            Binding("p1_delivery_fee", poi + ".delivery_fee", ("number",), "merchant", required=False, source_label="SYNTHETIC_P1_DELIVERY"),
+            Binding("p1_delivery_min_order", poi + ".min_order", ("number",), "merchant", required=False, source_label="SYNTHETIC_P1_DELIVERY"),
+        ),
+        observed_extensions=(
+            Binding("p1_delivery_status", poi + ".delivery_status", ("string",), "merchant", required=False, source_label="SYNTHETIC_P1_DELIVERY"),
+        ),
+    )
+
+
+def synthetic_p1_registry() -> ParserRegistry:
+    """Return the closed registry that contains only the Stage 03 fake profile."""
+
+    return ParserRegistry((synthetic_p1_productlist_config(),), (synthetic_p1_food_config(),))
 
 
 def h31_productlist_config() -> ParserConfig:

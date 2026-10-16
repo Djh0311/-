@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public store detail response copy",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p29-store-detail-public-copy/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "route": {
+      "const": "/weapp/shop/v1/poi/detail"
+    },
+    "route_slot": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 127
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "page_scope": {
+      "const": "CURRENT_USER_SELECTED_STORE_PAGE"
+    },
+    "store_identity_verified": {
+      "const": false
+    },
+    "business_record_count": {
+      "const": 0
+    },
+    "response_code_status": {
+      "enum": [
+        "ZERO",
+        "NONZERO",
+        "INVALID_TYPE",
+        "ABSENT"
+      ]
+    },
+    "public_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fields",
+        "public_values",
+        "unavailable_fields",
+        "restricted_fields",
+        "sensitive_rejections",
+        "field_meanings",
+        "sensitive_values_processed",
+        "raw_payload_persisted"
+      ],
+      "properties": {
+        "fields": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "public_values": {
+          "type": "array",
+          "maxItems": 8000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "coordinates",
+              "value"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 32,
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 39999
+                    }
+                  ]
+                }
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ],
+                "maxLength": 256
+              }
+            }
+          }
+        },
+        "unavailable_fields": {
+          "type": "array",
+          "maxItems": 8000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type",
+              "reason"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  "NONSCALAR",
+                  "STRING_LENGTH",
+                  "URL_VALUE",
+                  "LINE_BREAK",
+                  "NONFINITE_NUMBER"
+                ]
+              }
+            }
+          }
+        },
+        "restricted_fields": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type",
+              "category"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "category": {
+                "enum": [
+                  "CREDENTIAL_KEY",
+                  "SESSION_KEY",
+                  "PERSONAL_KEY",
+                  "TRANSPORT_KEY",
+                  "UNCLASSIFIED_KEY"
+                ]
+              }
+            }
+          }
+        },
+        "sensitive_rejections": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "CREDENTIAL_KEY",
+            "SESSION_KEY",
+            "PERSONAL_KEY",
+            "TRANSPORT_KEY",
+            "UNCLASSIFIED_KEY"
+          ],
+          "properties": {
+            "CREDENTIAL_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "SESSION_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "PERSONAL_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "TRANSPORT_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "UNCLASSIFIED_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            }
+          }
+        },
+        "field_meanings": {
+          "const": "DEVELOPER_REVIEW_REQUIRED"
+        },
+        "sensitive_values_processed": {
+          "const": false
+        },
+        "raw_payload_persisted": {
+          "const": false
+        }
+      }
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "window_ref",
+    "route",
+    "route_slot",
+    "observed_at",
+    "page_scope",
+    "store_identity_verified",
+    "business_record_count",
+    "response_code_status",
+    "public_analysis",
+    "raw_payload_persisted",
+    "sensitive_values_processed"
+  ]
+}

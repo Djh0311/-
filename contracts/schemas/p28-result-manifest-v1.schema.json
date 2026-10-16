@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p28-result-manifest-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_ref",
+    "batch_ref",
+    "source_kind",
+    "observed_at",
+    "payload_family",
+    "payload_version",
+    "coverage_status",
+    "coverage_scope",
+    "price_evidence",
+    "record_count",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "observation_ref",
+    "result_name",
+    "files"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "collection-p28-result-manifest/v1"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "source_kind": {
+      "enum": [
+        "SYNTHETIC_OFFLINE_FIXTURE",
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "payload_version": {
+      "const": "p28-observed-shop-sku-v1"
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "coverage_scope": {
+      "const": "CURRENT_LIST_RESPONSE_ONLY"
+    },
+    "price_evidence": {
+      "$ref": "p28-price-evidence-v1.schema.json"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "result_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{2,63}$"
+    },
+    "files": {
+      "const": [
+        "records.json",
+        "records.csv",
+        "manifest.json"
+      ]
+    }
+  }
+}

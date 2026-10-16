@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "allOf": [
+    {"$ref": "#/$defs/metadata"},
+    {
+      "required": ["schema_version", "records"],
+      "properties": {
+        "schema_version": {"const": "p29-store-input-inventory/v1"},
+        "records": {"type": "array", "minItems": 1, "maxItems": 40000, "items": {"$ref": "#/$defs/record"}}
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "text": {"type": "string", "maxLength": 256, "pattern": "^[^\r\n\u0000]*$"},
+    "optional_text": {"type": ["string", "null"], "maxLength": 256, "pattern": "^[^\r\n\u0000]*$"},
+    "number": {"type": "string", "maxLength": 64, "pattern": "^[0-9]+(?:\\.[0-9]+)?$"},
+    "id": {"type": "string", "pattern": "^-?[0-9]{1,64}$"},
+    "request": {"type": "string", "pattern": "^request:[a-f0-9]{32}$"},
+    "source_file": {"type": "string", "pattern": "^(?:observation|category_render)_[a-f0-9]{32}-public-fields\\.json$"},
+    "initial_file": {"type": "string", "pattern": "^observation_[a-f0-9]{32}-public-fields\\.json$"},
+    "window": {"type": "string", "pattern": "^result:[a-f0-9]{32}$"},
+    "count": {"type": "integer", "minimum": 0, "maximum": 40000},
+    "state": {"enum": ["NOT_OBSERVED", "SOURCE_EMPTY", "PRESENT"]},
+    "metadata": {
+      "type": "object",
+      "required": [
+        "window_ref", "record_count", "input_record_count", "deduplicated_record_count",
+        "product_count", "sku_count", "category_count", "checked_initial_rows", "partial_category_rows",
+        "coverage_status", "coverage_scope", "deduplication", "price_meaning", "category_labels",
+        "cross_observation_prices_or_specs_copied", "complete_result_promotion",
+        "raw_payload_persisted", "sensitive_values_processed", "categories"
+      ],
+      "properties": {
+        "window_ref": {"$ref": "#/$defs/window"},
+        "record_count": {"type": "integer", "minimum": 1, "maximum": 40000},
+        "input_record_count": {"$ref": "#/$defs/count"},
+        "deduplicated_record_count": {"$ref": "#/$defs/count"},
+        "product_count": {"$ref": "#/$defs/count"},
+        "sku_count": {"$ref": "#/$defs/count"},
+        "category_count": {"type": "integer", "minimum": 1, "maximum": 256},
+        "checked_initial_rows": {"$ref": "#/$defs/count"},
+        "partial_category_rows": {"$ref": "#/$defs/count"},
+        "coverage_status": {"const": "PARTIAL"},
+        "coverage_scope": {"const": "CURRENT_WINDOW_OBSERVED_PUBLIC_INPUT"},
+        "deduplication": {"const": "LATEST_WHOLE_OWN_ROW_PER_CATEGORY_SKU"},
+        "price_meaning": {"const": "CATEGORY_SCOPED_RESPONSE_SKU_PRICE_NUMBER"},
+        "category_labels": {"const": "REFERENCES_WITH_EXPLICIT_SOURCE_NOT_RESPONSE_OWNED_FIELDS"},
+        "cross_observation_prices_or_specs_copied": {"const": false},
+        "complete_result_promotion": {"const": false},
+        "raw_payload_persisted": {"const": false},
+        "sensitive_values_processed": {"const": false},
+        "categories": {
+          "type": "array", "minItems": 1, "maxItems": 256,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["category_ref", "category_reference_label", "source_index", "source_file", "source_request_ref", "observed_at", "label_kind"],
+            "properties": {
+              "category_ref": {"allOf": [{"$ref": "#/$defs/text"}, {"minLength": 1}]},
+              "category_reference_label": {"allOf": [{"$ref": "#/$defs/text"}, {"minLength": 1}]},
+              "source_index": {"type": "integer", "minimum": 0, "maximum": 255},
+              "source_file": {"$ref": "#/$defs/initial_file"},
+              "source_request_ref": {"$ref": "#/$defs/request"},
+              "observed_at": {"type": "string", "format": "date-time"},
+              "label_kind": {"const": "REFERENCED_INITIAL_LIST_LABEL"}
+            }
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "category_reference_label", "product_name", "sku_spec", "sku_price_number", "product_min_price_number",
+        "product_unit", "sku_description", "sku_origin_number", "currency", "amount_unit", "source_kind",
+        "category_ref", "product_id", "sku_id", "sku_spec_state", "sku_description_state", "product_unit_state",
+        "source_file", "source_request_ref", "observed_at", "category_label_source_file",
+        "category_label_source_request_ref", "category_label_observed_at", "window_ref"
+      ],
+      "properties": {
+        "category_reference_label": {"allOf": [{"$ref": "#/$defs/text"}, {"minLength": 1}]},
+        "product_name": {"allOf": [{"$ref": "#/$defs/text"}, {"minLength": 1}]},
+        "sku_spec": {"$ref": "#/$defs/optional_text"},
+        "sku_description": {"$ref": "#/$defs/optional_text"},
+        "product_unit": {"$ref": "#/$defs/optional_text"},
+        "sku_price_number": {"$ref": "#/$defs/number"},
+        "product_min_price_number": {"$ref": "#/$defs/number"},
+        "sku_origin_number": {"anyOf": [{"$ref": "#/$defs/number"}, {"type": "null"}]},
+        "currency": {"enum": ["CNY", "UNKNOWN"]},
+        "amount_unit": {"enum": ["YUAN", "UNKNOWN"]},
+        "source_kind": {"enum": ["CHECKED_INITIAL_PAIR", "PARTIAL_CATEGORY_CANDIDATE"]},
+        "category_ref": {"allOf": [{"$ref": "#/$defs/text"}, {"minLength": 1}]},
+        "product_id": {"$ref": "#/$defs/id"}, "sku_id": {"$ref": "#/$defs/id"},
+        "sku_spec_state": {"$ref": "#/$defs/state"},
+        "sku_description_state": {"$ref": "#/$defs/state"},
+        "product_unit_state": {"$ref": "#/$defs/state"},
+        "source_file": {"$ref": "#/$defs/source_file"},
+        "source_request_ref": {"$ref": "#/$defs/request"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "category_label_source_file": {"$ref": "#/$defs/initial_file"},
+        "category_label_source_request_ref": {"$ref": "#/$defs/request"},
+        "category_label_observed_at": {"type": "string", "format": "date-time"},
+        "window_ref": {"$ref": "#/$defs/window"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"source_kind": {"const": "CHECKED_INITIAL_PAIR"}}},
+          "then": {"properties": {"currency": {"const": "CNY"}, "amount_unit": {"const": "YUAN"}, "source_file": {"$ref": "#/$defs/initial_file"}}},
+          "else": {"properties": {"currency": {"const": "UNKNOWN"}, "amount_unit": {"const": "UNKNOWN"}, "source_file": {"pattern": "^category_render_[a-f0-9]{32}-public-fields\\.json$"}}}
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "live_capture_latch": {
+            "const": "CLOSED"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "state": {
+            "const": "ACTIVE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "closed_at": {
+            "const": null
+          },
+          "live_capture_latch": {
+            "const": "OPEN"
+          },
+          "result_attempts": {
+            "const": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "PREPARED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "business_responses": {
+            "const": 0
+          },
+          "closed_at": {
+            "const": null
+          },
+          "raw_callbacks": {
+            "const": 0
+          },
+          "result_attempts": {
+            "const": 0
+          },
+          "started_at": {
+            "const": null
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "p28_batch_receipt": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_association",
+            "result_summary",
+            "public_field_path_count",
+            "public_scalar_count",
+            "raw_payload_persisted",
+            "sensitive_values_processed"
+          ],
+          "properties": {
+            "source_association": {
+              "$ref": "p26-result-association-check-v1.schema.json"
+            },
+            "result_summary": {
+              "$ref": "#/properties/result_summary/anyOf/0"
+            },
+            "public_field_path_count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8192
+            },
+            "public_scalar_count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 16000
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "sensitive_values_processed": {
+              "const": false
+            }
+          }
+        }
+      ]
+    },
+    "association_check": {
+      "anyOf": [
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "food_poi_id_str_matches_numeric_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "food_poi_id_str_matches_public_string_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "food_poi_id_str_ready": {
+              "type": "boolean"
+            },
+            "food_success_code": {
+              "type": "boolean"
+            },
+            "food_wm_poi_id_matches_numeric_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "food_wm_poi_id_matches_public_string_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "food_wm_poi_id_ready": {
+              "type": "boolean"
+            },
+            "numeric_id_is_negative": {
+              "type": "boolean"
+            },
+            "poi_id_str_equal_between_requests": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "product_poi_id_str_matches_numeric_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "product_poi_id_str_matches_public_string_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "product_poi_id_str_ready": {
+              "type": "boolean"
+            },
+            "product_success_code": {
+              "type": "boolean"
+            },
+            "product_wm_poi_id_matches_numeric_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "product_wm_poi_id_matches_public_string_id": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "product_wm_poi_id_ready": {
+              "type": "boolean"
+            },
+            "public_id_fields_equal_as_text": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "public_string_id_ready": {
+              "type": "boolean"
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "same_observation_gap_valid": {
+              "type": "boolean"
+            },
+            "schema_version": {
+              "const": "p26-result-association-check/v1"
+            },
+            "sensitive_values_processed": {
+              "const": false
+            },
+            "store_name_match": {
+              "type": "boolean"
+            },
+            "window_ref": {
+              "pattern": "^(result|identification):[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "wm_poi_id_equal_between_requests": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "merchant_container": {
+              "enum": [
+                "$.data.poi_base_info",
+                "$.data.poi_info",
+                "NOT_PROJECTED",
+                "AMBIGUOUS"
+              ]
+            }
+          },
+          "required": [
+            "food_poi_id_str_matches_numeric_id",
+            "food_poi_id_str_matches_public_string_id",
+            "food_poi_id_str_ready",
+            "food_success_code",
+            "food_wm_poi_id_matches_numeric_id",
+            "food_wm_poi_id_matches_public_string_id",
+            "food_wm_poi_id_ready",
+            "numeric_id_is_negative",
+            "poi_id_str_equal_between_requests",
+            "product_poi_id_str_matches_numeric_id",
+            "product_poi_id_str_matches_public_string_id",
+            "product_poi_id_str_ready",
+            "product_success_code",
+            "product_wm_poi_id_matches_numeric_id",
+            "product_wm_poi_id_matches_public_string_id",
+            "product_wm_poi_id_ready",
+            "public_id_fields_equal_as_text",
+            "public_string_id_ready",
+            "raw_payload_persisted",
+            "same_observation_gap_valid",
+            "schema_version",
+            "sensitive_values_processed",
+            "store_name_match",
+            "window_ref",
+            "wm_poi_id_equal_between_requests"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "automatic_retry": {
+      "const": false
+    },
+    "business_responses": {
+      "maximum": 8,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "business_responses_at_least": {
+      "type": "boolean"
+    },
+    "cleanup": {
+      "enum": [
+        "COMPLETE",
+        "INCOMPLETE"
+      ]
+    },
+    "closed_at": {
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "code": {
+      "enum": [
+        "P26_ACTIVATION_FAILED",
+        "P26_BUSINESS_JSON_INVALID",
+        "P26_CALLBACK_BUDGET",
+        "P26_CANCELLED",
+        "P26_CLOCK_INVALID",
+        "P26_CONNECTION_BUDGET",
+        "P26_DIAGNOSTIC_OUTPUT_FAILED",
+        "P26_ENCODING_INVALID",
+        "P26_ENCODING_UNSUPPORTED",
+        "P26_FIELD_LAYOUT_OBSERVED",
+        "P26_FORWARDING_ASYNC_EXCEPTION",
+        "P26_FORWARDING_CLIENT_TLS_FAILED",
+        "P26_FORWARDING_CONNECT_FAILED",
+        "P26_FORWARDING_ENGINE_ERROR",
+        "P26_FORWARDING_EXCEPTION",
+        "P26_FORWARDING_HTTP_FAILED",
+        "P26_FORWARDING_SERVER_TLS_FAILED",
+        "P26_HOST_CLOSED",
+        "P26_HOST_EXCEPTION",
+        "P26_IDENTIFICATION_CLOSED",
+        "P26_IDENTIFICATION_EXCEPTION",
+        "P26_IDENTIFICATION_NOT_STARTED",
+        "P26_RECEIVER_LOST",
+        "P26_RECEIVER_SETUP_FAILED",
+        "P26_RECEIVER_SETUP_TIMEOUT",
+        "P26_RESPONSE_COUNT_LIMIT",
+        "P26_RESPONSE_PROCESSING_TIMEOUT",
+        "P26_RESPONSE_SIZE_LIMIT",
+        "P26_RESULT_ASSEMBLY_FAILED",
+        "P26_RESULT_CLOSED",
+        "P26_RESULT_EVENT_SET_EXPIRED",
+        "P26_RESULT_EVENT_SET_INVALID",
+        "P26_RESULT_MAPPING_INVALID",
+        "P26_RESULT_NOT_STARTED",
+        "P26_RESULT_PARSE_FAILED",
+        "P26_RESULT_PRICE_RULE_CHANGED",
+        "P26_RESULT_PROFILE_INVALID",
+        "P26_RESULT_PUBLISHED",
+        "P26_RESULT_PUBLISH_FAILED",
+        "P26_RESULT_RECEIVING",
+        "P26_RESULT_SOURCE_ASSOCIATION_INVALID",
+        "P26_ROUTING_BUDGET",
+        "P26_ROUTING_IDENTIFICATION",
+        "P26_SENSITIVE_INPUT",
+        "P26_START_NOT_REQUESTED",
+        "P26_STREAM_COUNT_LIMIT",
+        "P26_STREAM_PID_UNCONFIRMED",
+        "P26_STRUCTURE_BUDGET",
+        "P26_STRUCTURE_INVALID",
+        "P26_TARGET_NOT_MATCHED",
+        "P26_TARGET_SHAPE_OBSERVED",
+        "P26_TOTAL_SIZE_LIMIT",
+        "P26_WINDOW_TIMEOUT"
+      ]
+    },
+    "decoded_bytes": {
+      "maximum": 5242880,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "encoded_bytes": {
+      "maximum": 5242880,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "event": {
+      "enum": [
+        "P26_RECEIVER_READY_NOT_STARTED",
+        "P26_RESULT_STARTED",
+        "P26_MONITOR_STATUS",
+        "P26_HOST_CLOSED"
+      ]
+    },
+    "execution_latch": {
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ]
+    },
+    "identification_attempts": {
+      "const": 0
+    },
+    "intercept_cleared": {
+      "type": "boolean"
+    },
+    "last_body_route_slot": {
+      "maximum": 127,
+      "minimum": 0,
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "live_capture_latch": {
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ]
+    },
+    "network_extension_uninstalled": {
+      "const": false
+    },
+    "parsed_records": {
+      "maximum": 40000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "pid_verified_streams": {
+      "maximum": 64,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "pid_verified_streams_at_least": {
+      "type": "boolean"
+    },
+    "privacy_mode": {
+      "enum": [
+        "STRICT_STOP",
+        "AUTHORIZED_KEY_METADATA_ONLY",
+        "SCOPED_PUBLIC_SCALARS_PRIVATE_BRANCHES_OPAQUE"
+      ]
+    },
+    "product_result": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "profile_ref": {
+      "pattern": "^profile:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "published_records": {
+      "maximum": 40000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "qualified_business_events": {
+      "maximum": 2,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "raw_callbacks": {
+      "maximum": 64,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "raw_callbacks_at_least": {
+      "type": "boolean"
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "receiver_ready": {
+      "type": "boolean"
+    },
+    "request_decoded_bytes": {
+      "maximum": 5242880,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "request_encoded_bytes": {
+      "maximum": 5242880,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "request_metadata_bodies": {
+      "maximum": 8,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "request_metadata_bodies_at_least": {
+      "type": "boolean"
+    },
+    "result_attempts": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "result_summary": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "file_names": {
+              "items": false,
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "const": "records.json"
+                },
+                {
+                  "const": "records.csv"
+                },
+                {
+                  "const": "manifest.json"
+                }
+              ],
+              "type": "array"
+            },
+            "record_count": {
+              "maximum": 40000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "result_name": {
+              "const": "first_result"
+            }
+          },
+          "required": [
+            "result_name",
+            "file_names",
+            "record_count"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "route_rejections": {
+      "additionalProperties": false,
+      "properties": {
+        "HOST_NOT_SELECTED": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "METHOD_NOT_ALLOWED": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "PATH_NOT_SUPPORTED": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "PRIVATE_ROUTE": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "HOST_NOT_SELECTED",
+        "METHOD_NOT_ALLOWED",
+        "PATH_NOT_SUPPORTED",
+        "PRIVATE_ROUTE"
+      ],
+      "type": "object"
+    },
+    "route_rejections_at_least": {
+      "type": "boolean"
+    },
+    "routing_callbacks": {
+      "maximum": 128,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "routing_callbacks_at_least": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "p26-result-diagnostic/v1"
+    },
+    "sensitive_rejections": {
+      "additionalProperties": false,
+      "properties": {
+        "CREDENTIAL_KEY": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "PERSONAL_KEY": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "SESSION_KEY": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "TRANSPORT_KEY": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "UNCLASSIFIED_KEY": {
+          "maximum": 128,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "CREDENTIAL_KEY",
+        "SESSION_KEY",
+        "PERSONAL_KEY",
+        "TRANSPORT_KEY",
+        "UNCLASSIFIED_KEY"
+      ],
+      "type": "object"
+    },
+    "source_proof": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "authorization_ref": {
+              "pattern": "^authorization:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "capability_ref": {
+              "pattern": "^capability:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "food_parameter_match": {
+              "const": true
+            },
+            "food_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_ref": {
+              "pattern": "^observation:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_scope": {
+              "pattern": "^OBS_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "price_relation": {
+              "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+            },
+            "product_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "product_parameter_match": {
+              "const": true
+            },
+            "product_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "product_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "profile_ref": {
+              "pattern": "^profile:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "read_scope": {
+              "pattern": "^READ_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "routing_parameter_key": {
+              "const": "wm_poi_id"
+            },
+            "run_ref": {
+              "pattern": "^run:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "same_observation_rule": {
+              "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+            },
+            "schema_version": {
+              "const": "p26-source-observation-proof/v1"
+            },
+            "sensitive_values_processed": {
+              "const": false
+            },
+            "store_name_match": {
+              "const": true
+            },
+            "window_ref": {
+              "pattern": "^result:[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "schema_version",
+            "window_ref",
+            "profile_ref",
+            "read_scope",
+            "observation_scope",
+            "food_request_ref",
+            "product_request_ref",
+            "food_projection_ref",
+            "product_projection_ref",
+            "food_observed_at",
+            "product_observed_at",
+            "store_name_match",
+            "food_parameter_match",
+            "product_parameter_match",
+            "routing_parameter_key",
+            "same_observation_rule",
+            "price_relation",
+            "sensitive_values_processed",
+            "raw_payload_persisted",
+            "run_ref",
+            "observation_ref",
+            "authorization_ref",
+            "capability_ref"
+          ],
+          "type": "object"
+        },
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "authorization_ref": {
+              "pattern": "^authorization:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "capability_ref": {
+              "pattern": "^capability:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "food_parameter_match": {
+              "const": true
+            },
+            "food_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_ref": {
+              "pattern": "^observation:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_scope": {
+              "pattern": "^OBS_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "price_relation": {
+              "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+            },
+            "product_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "product_parameter_match": {
+              "const": true
+            },
+            "product_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "product_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "profile_ref": {
+              "pattern": "^profile:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "read_scope": {
+              "pattern": "^READ_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "routing_parameter_key": {
+              "const": "poi_id_str"
+            },
+            "run_ref": {
+              "pattern": "^run:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "same_observation_rule": {
+              "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+            },
+            "schema_version": {
+              "const": "p26-source-observation-proof/v2"
+            },
+            "sensitive_values_processed": {
+              "const": false
+            },
+            "store_name_match": {
+              "const": true
+            },
+            "window_ref": {
+              "pattern": "^result:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "merchant_container": {
+              "const": "$.data.poi_info"
+            },
+            "secondary_routing_parameter_key": {
+              "const": "wm_poi_id"
+            },
+            "secondary_response_id_path": {
+              "const": "$.data.poi_info.id"
+            },
+            "payload_version": {
+              "const": "p26-observed-shop-v2"
+            },
+            "food_secondary_parameter_match": {
+              "const": true
+            },
+            "product_secondary_parameter_match": {
+              "const": true
+            }
+          },
+          "required": [
+            "schema_version",
+            "window_ref",
+            "profile_ref",
+            "read_scope",
+            "observation_scope",
+            "food_request_ref",
+            "product_request_ref",
+            "food_projection_ref",
+            "product_projection_ref",
+            "food_observed_at",
+            "product_observed_at",
+            "store_name_match",
+            "food_parameter_match",
+            "product_parameter_match",
+            "routing_parameter_key",
+            "same_observation_rule",
+            "price_relation",
+            "sensitive_values_processed",
+            "raw_payload_persisted",
+            "run_ref",
+            "observation_ref",
+            "authorization_ref",
+            "capability_ref",
+            "merchant_container",
+            "secondary_routing_parameter_key",
+            "secondary_response_id_path",
+            "payload_version",
+            "food_secondary_parameter_match",
+            "product_secondary_parameter_match"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "started_at": {
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "enum": [
+        "PREPARED",
+        "ACTIVE",
+        "CLOSED"
+      ]
+    },
+    "target_matches": {
+      "maximum": 8,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "target_matches_at_least": {
+      "type": "boolean"
+    },
+    "tls_client_failures": {
+      "maximum": 64,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "window_ref": {
+      "pattern": "^result:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "forwarding": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected_tls_hellos": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "ignored_tls_hellos": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "selected_client_tls_established": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "selected_server_tls_established": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "selected_client_tls_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "selected_server_tls_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "upstream_connect_started": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "upstream_connected": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "upstream_connect_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "selected_upstream_connect_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "http_requests": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "http_responses": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "http_failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "opaque_tcp_layers": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "opaque_udp_layers": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "dispatch_exceptions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "async_exceptions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "engine_errors": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "schema_version": {
+          "const": "p26-forwarding-diagnostic/v1"
+        },
+        "counts_at_least": {
+          "type": "boolean"
+        },
+        "active_streams": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "peak_active_streams": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        },
+        "last_failure": {
+          "enum": [
+            null,
+            "P26_FORWARDING_EXCEPTION",
+            "P26_FORWARDING_ASYNC_EXCEPTION",
+            "P26_FORWARDING_ENGINE_ERROR",
+            "P26_FORWARDING_CONNECT_FAILED",
+            "P26_FORWARDING_CLIENT_TLS_FAILED",
+            "P26_FORWARDING_SERVER_TLS_FAILED",
+            "P26_FORWARDING_HTTP_FAILED"
+          ]
+        },
+        "upstream_tls_failure": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "schema_version": {
+                  "const": "p26-upstream-tls-failure/v1"
+                },
+                "verification_status": {
+                  "enum": [
+                    "TLS_VERIFY_UNKNOWN",
+                    "TLS_VERIFY_NO_ERROR_REPORTED",
+                    "TLS_VERIFY_EXPIRED",
+                    "TLS_VERIFY_NOT_YET_VALID",
+                    "TLS_VERIFY_NAME_MISMATCH",
+                    "TLS_VERIFY_UNTRUSTED",
+                    "TLS_VERIFY_OTHER"
+                  ]
+                },
+                "upstream_name_kind": {
+                  "enum": [
+                    "IP",
+                    "HOSTNAME",
+                    "ABSENT",
+                    "UNKNOWN"
+                  ]
+                },
+                "client_name_kind": {
+                  "enum": [
+                    "IP",
+                    "HOSTNAME",
+                    "ABSENT",
+                    "UNKNOWN"
+                  ]
+                },
+                "upstream_name_matches_client": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "upstream_transport_state": {
+                  "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+                  "enum": [
+                    "CLOSED",
+                    "CAN_READ",
+                    "CAN_WRITE",
+                    "OPEN",
+                    "UNKNOWN"
+                  ]
+                },
+                "client_transport_state": {
+                  "description": "Engine connection flags at failure hook; not a root cause or proof of who closed the connection.",
+                  "enum": [
+                    "CLOSED",
+                    "CAN_READ",
+                    "CAN_WRITE",
+                    "OPEN",
+                    "UNKNOWN"
+                  ]
+                }
+              },
+              "required": [
+                "schema_version",
+                "verification_status",
+                "upstream_name_kind",
+                "client_name_kind",
+                "upstream_name_matches_client"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "selected_tls_hellos",
+        "ignored_tls_hellos",
+        "selected_client_tls_established",
+        "selected_server_tls_established",
+        "selected_client_tls_failed",
+        "selected_server_tls_failed",
+        "upstream_connect_started",
+        "upstream_connected",
+        "upstream_connect_failed",
+        "selected_upstream_connect_failed",
+        "http_requests",
+        "http_responses",
+        "http_failed",
+        "opaque_tcp_layers",
+        "opaque_udp_layers",
+        "dispatch_exceptions",
+        "async_exceptions",
+        "engine_errors",
+        "schema_version",
+        "counts_at_least",
+        "active_streams",
+        "peak_active_streams",
+        "last_failure"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "window_ref",
+    "state",
+    "code",
+    "identification_attempts",
+    "result_attempts",
+    "started_at",
+    "closed_at",
+    "raw_callbacks",
+    "business_responses",
+    "target_matches",
+    "routing_callbacks",
+    "encoded_bytes",
+    "decoded_bytes",
+    "live_capture_latch",
+    "execution_latch",
+    "product_result"
+  ],
+  "type": "object"
+}

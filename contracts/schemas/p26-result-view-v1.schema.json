@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "batch_ref": {
+      "pattern": "^batch:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "coverage_scope": {
+      "const": "CURRENT_LIST_RESPONSE_ONLY"
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "observed_at": {
+      "format": "date-time",
+      "maxLength": 64,
+      "type": "string"
+    },
+    "payload_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "payload_version": {
+      "enum": [
+        "p26-observed-shop-v1",
+        "p26-observed-shop-v2"
+      ]
+    },
+    "record_count": {
+      "maximum": 40000,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "records": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "batch_ref": {
+            "pattern": "^batch:[a-f0-9]{32}$",
+            "type": "string"
+          },
+          "business_record_ref": {
+            "pattern": "^business-record:p0_[0-9]{4,}$",
+            "type": "string"
+          },
+          "category_name": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "category_ref": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "currency": {
+            "const": "CNY"
+          },
+          "observation_ref": {
+            "pattern": "^observation:[a-f0-9]{32}$",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "maxLength": 64,
+            "type": "string"
+          },
+          "price_description": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "price_description_state": {
+            "enum": [
+              "PRESENT",
+              "SOURCE_NOT_PROVIDED"
+            ]
+          },
+          "price_meaning": {
+            "const": "PRODUCT_LIST_MINIMUM_SKU_PRICE"
+          },
+          "price_source_path": {
+            "const": "$.data.food_spu_tags[].dynamic_spus[].min_price"
+          },
+          "price_suffix": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "price_suffix_state": {
+            "enum": [
+              "PRESENT",
+              "SOURCE_NOT_PROVIDED"
+            ]
+          },
+          "price_unit": {
+            "const": "YUAN"
+          },
+          "price_yuan": {
+            "pattern": "^[0-9]+\\.[0-9]{2}$",
+            "type": "string"
+          },
+          "product": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "product_id": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "run_ref": {
+            "pattern": "^run:[a-f0-9]{32}$",
+            "type": "string"
+          },
+          "store": {
+            "maxLength": 256,
+            "type": "string"
+          },
+          "store_id": {
+            "maxLength": 256,
+            "type": "string"
+          }
+        },
+        "required": [
+          "store",
+          "store_id",
+          "product",
+          "product_id",
+          "category_ref",
+          "category_name",
+          "price_yuan",
+          "currency",
+          "price_unit",
+          "price_meaning",
+          "price_source_path",
+          "price_suffix",
+          "price_suffix_state",
+          "price_description",
+          "price_description_state",
+          "run_ref",
+          "batch_ref",
+          "observation_ref",
+          "business_record_ref",
+          "observed_at"
+        ],
+        "type": "object"
+      },
+      "maxItems": 40000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "run_ref": {
+      "pattern": "^run:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "collection-p26-result-view/v1"
+    },
+    "source_kind": {
+      "const": "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+    },
+    "source_proof": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "authorization_ref": {
+              "pattern": "^authorization:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "capability_ref": {
+              "pattern": "^capability:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "food_parameter_match": {
+              "const": true
+            },
+            "food_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_ref": {
+              "pattern": "^observation:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_scope": {
+              "pattern": "^OBS_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "price_relation": {
+              "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+            },
+            "product_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "product_parameter_match": {
+              "const": true
+            },
+            "product_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "product_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "profile_ref": {
+              "pattern": "^profile:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "read_scope": {
+              "pattern": "^READ_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "routing_parameter_key": {
+              "const": "wm_poi_id"
+            },
+            "run_ref": {
+              "pattern": "^run:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "same_observation_rule": {
+              "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+            },
+            "schema_version": {
+              "const": "p26-source-observation-proof/v1"
+            },
+            "sensitive_values_processed": {
+              "const": false
+            },
+            "store_name_match": {
+              "const": true
+            },
+            "window_ref": {
+              "pattern": "^result:[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "schema_version",
+            "window_ref",
+            "profile_ref",
+            "read_scope",
+            "observation_scope",
+            "food_request_ref",
+            "product_request_ref",
+            "food_projection_ref",
+            "product_projection_ref",
+            "food_observed_at",
+            "product_observed_at",
+            "store_name_match",
+            "food_parameter_match",
+            "product_parameter_match",
+            "routing_parameter_key",
+            "same_observation_rule",
+            "price_relation",
+            "sensitive_values_processed",
+            "raw_payload_persisted",
+            "run_ref",
+            "observation_ref",
+            "authorization_ref",
+            "capability_ref"
+          ],
+          "type": "object"
+        },
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "authorization_ref": {
+              "pattern": "^authorization:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "capability_ref": {
+              "pattern": "^capability:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "food_parameter_match": {
+              "const": true
+            },
+            "food_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "food_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_ref": {
+              "pattern": "^observation:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "observation_scope": {
+              "pattern": "^OBS_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "price_relation": {
+              "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+            },
+            "product_observed_at": {
+              "format": "date-time",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "product_parameter_match": {
+              "const": true
+            },
+            "product_projection_ref": {
+              "pattern": "^projection:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "product_request_ref": {
+              "pattern": "^request:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "profile_ref": {
+              "pattern": "^profile:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "raw_payload_persisted": {
+              "const": false
+            },
+            "read_scope": {
+              "pattern": "^READ_[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "routing_parameter_key": {
+              "const": "poi_id_str"
+            },
+            "run_ref": {
+              "pattern": "^run:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "same_observation_rule": {
+              "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+            },
+            "schema_version": {
+              "const": "p26-source-observation-proof/v2"
+            },
+            "sensitive_values_processed": {
+              "const": false
+            },
+            "store_name_match": {
+              "const": true
+            },
+            "window_ref": {
+              "pattern": "^result:[a-f0-9]{32}$",
+              "type": "string"
+            },
+            "merchant_container": {
+              "const": "$.data.poi_info"
+            },
+            "secondary_routing_parameter_key": {
+              "const": "wm_poi_id"
+            },
+            "secondary_response_id_path": {
+              "const": "$.data.poi_info.id"
+            },
+            "payload_version": {
+              "const": "p26-observed-shop-v2"
+            },
+            "food_secondary_parameter_match": {
+              "const": true
+            },
+            "product_secondary_parameter_match": {
+              "const": true
+            }
+          },
+          "required": [
+            "schema_version",
+            "window_ref",
+            "profile_ref",
+            "read_scope",
+            "observation_scope",
+            "food_request_ref",
+            "product_request_ref",
+            "food_projection_ref",
+            "product_projection_ref",
+            "food_observed_at",
+            "product_observed_at",
+            "store_name_match",
+            "food_parameter_match",
+            "product_parameter_match",
+            "routing_parameter_key",
+            "same_observation_rule",
+            "price_relation",
+            "sensitive_values_processed",
+            "raw_payload_persisted",
+            "run_ref",
+            "observation_ref",
+            "authorization_ref",
+            "capability_ref",
+            "merchant_container",
+            "secondary_routing_parameter_key",
+            "secondary_response_id_path",
+            "payload_version",
+            "food_secondary_parameter_match",
+            "product_secondary_parameter_match"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "unit_evidence": {
+      "const": "CURRENT_USER_PUBLIC_PAGE_CONFIRMATION_WITH_PRICE_MATCH"
+    }
+  },
+  "required": [
+    "run_ref",
+    "batch_ref",
+    "source_kind",
+    "observed_at",
+    "record_count",
+    "payload_family",
+    "payload_version",
+    "coverage_status",
+    "coverage_scope",
+    "unit_evidence",
+    "source_proof",
+    "schema_version",
+    "records"
+  ],
+  "type": "object"
+}

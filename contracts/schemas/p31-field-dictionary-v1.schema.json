@@ -1,0 +1,112 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "encoding",
+    "delimiter",
+    "boolean_cells",
+    "identifier_import_type",
+    "json_columns_require_json_decode",
+    "target_system_import_verified",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-field-dictionary/v1"
+    },
+    "encoding": {
+      "const": "UTF-8"
+    },
+    "delimiter": {
+      "const": ","
+    },
+    "boolean_cells": {
+      "const": [
+        "true",
+        "false"
+      ]
+    },
+    "identifier_import_type": {
+      "const": "TEXT"
+    },
+    "json_columns_require_json_decode": {
+      "const": true
+    },
+    "target_system_import_verified": {
+      "const": false
+    },
+    "fields": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "table",
+          "field",
+          "label_zh",
+          "type",
+          "source_path",
+          "meaning_status",
+          "empty_cell",
+          "unit"
+        ],
+        "properties": {
+          "table": {
+            "enum": [
+              "products",
+              "stores"
+            ]
+          },
+          "field": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          },
+          "label_zh": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$"
+          },
+          "type": {
+            "enum": [
+              "text",
+              "boolean",
+              "decimal-string",
+              "enum-string",
+              "json-string",
+              "string"
+            ]
+          },
+          "source_path": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[^\\r\\n\\u0000]*$"
+              }
+            ]
+          },
+          "meaning_status": {
+            "enum": [
+              "SOURCE_FIELD_MEANING_NOT_PROMOTED",
+              "PARSER_STATE",
+              "EXISTING_V4_FIELD",
+              "SOURCE_REFERENCE"
+            ]
+          },
+          "empty_cell": {
+            "const": "CONSULT_STATE_COLUMN_OR_SOURCE_BASIS"
+          },
+          "unit": {
+            "const": "NOT_INFERRED"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

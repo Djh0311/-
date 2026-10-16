@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mitmproxy-source-entry-binding-v1.schema.json",
+  "title": "Closed P20 passive mitmproxy source entry binding",
+  "description": "Value-free P20 binding for a caller-loaded passive callback reader. It contains no endpoint, URL, header, Cookie, session, raw material, value hash or free-form error and does not consume a source attempt.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "historical_target_ref", "historical_target_status", "runtime_target_ref", "target_binding_ref", "source_entry_ref", "source_entry_kind", "route_id", "source_kind", "source_purpose", "network_capability", "forbidden_capabilities", "output_root_ref", "output_root_mode", "p21_factory", "live_capture_latch", "execution_latch", "source_attempts_consumed", "automatic_retry", "source_material_persisted", "business_publication_allowed"],
+  "properties": {
+    "schema_version": {"const": "collection-mitmproxy-source-entry-binding/v1"},
+    "historical_target_ref": {"const": "TGT-HZ-XCJ-GFTJ-001"},
+    "historical_target_status": {"const": "NOT_OBSERVED"},
+    "runtime_target_ref": {"type": "string", "pattern": "^target:[A-Za-z0-9_-]{8,96}$"},
+    "target_binding_ref": {"type": "string", "pattern": "^target-binding:[A-Za-z0-9_-]{8,96}$"},
+    "source_entry_ref": {"type": "string", "pattern": "^source-entry:[A-Za-z0-9_-]{8,96}$"},
+    "source_entry_kind": {"const": "MITMPROXY_PASSIVE_CALLBACK"},
+    "route_id": {"const": "OWNED_STRUCTURED_EVENT"},
+    "source_kind": {"const": "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"},
+    "source_purpose": {"const": "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE_P0_VALIDATION"},
+    "network_capability": {"const": "SINGLE_NETWORK_SOURCE_READ"},
+    "forbidden_capabilities": {"const": ["BROWSER_UI", "WECHAT_UI", "SYSTEM_PROXY", "CA_INSTALL_OR_USE", "KEYCHAIN", "CREDENTIAL_ACCESS", "SESSION_ACCESS", "TRANSACTION"]},
+    "output_root_ref": {"type": "string", "pattern": "^output-root:[A-Za-z0-9_-]{8,96}$"},
+    "output_root_mode": {"const": "0700"},
+    "p21_factory": {"const": "IMMEDIATE_FRESH_REQUEST_ONLY"},
+    "live_capture_latch": {"const": "CLOSED"},
+    "execution_latch": {"const": "CLOSED"},
+    "source_attempts_consumed": {"const": 0},
+    "automatic_retry": {"const": false},
+    "source_material_persisted": {"const": false},
+    "business_publication_allowed": {"const": false}
+  },
+  "$comment": "The loader supplies an in-memory endpoint policy and projection at P21 time. This contract does not create a request, lock, source attempt or permission to load mitmproxy."
+}

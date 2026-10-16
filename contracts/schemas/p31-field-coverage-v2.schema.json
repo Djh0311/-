@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "counts_are_output_rows_not_unique_objects",
+    "fields",
+    "not_inferred",
+    "excluded",
+    "source_scope",
+    "all_business_fields_complete",
+    "target_system_import_verified"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-field-coverage/v2"
+    },
+    "counts_are_output_rows_not_unique_objects": {
+      "const": true
+    },
+    "fields": {
+      "type": "array",
+      "maxItems": 160,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "table",
+          "field",
+          "row_count",
+          "states"
+        ],
+        "properties": {
+          "table": {
+            "enum": [
+              "products",
+              "stores",
+              "public_texts"
+            ]
+          },
+          "field": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 40000
+          },
+          "states": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "NOT_OBSERVED",
+              "SOURCE_NULL",
+              "SOURCE_EMPTY",
+              "PRESENT_UNCONFIRMED",
+              "NEGATIVE_SEMANTICS_UNCONFIRMED"
+            ],
+            "properties": {
+              "NOT_OBSERVED": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40000
+              },
+              "SOURCE_NULL": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40000
+              },
+              "SOURCE_EMPTY": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40000
+              },
+              "PRESENT_UNCONFIRMED": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40000
+              },
+              "NEGATIVE_SEMANTICS_UNCONFIRMED": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 40000
+              }
+            }
+          }
+        }
+      }
+    },
+    "not_inferred": {
+      "const": [
+        "SOLD_OUT_FROM_STATUS_CODE",
+        "UNLIMITED_STOCK_FROM_NEGATIVE",
+        "PRECISE_SALES_WINDOW",
+        "ATTRIBUTE_OPTIONS_ARE_SKU_COMBINATIONS",
+        "BUSINESS_HOURS_FROM_SHIPPING_TIME",
+        "DELIVERY_TIME_OR_AMOUNT_UNIT"
+      ]
+    },
+    "excluded": {
+      "const": [
+        "PRIVATE_OR_CUSTOMER_LOCATION",
+        "PERSONAL_ELIGIBILITY",
+        "URL_OR_IMAGES",
+        "STYLE_OR_TRACKING_FIELDS"
+      ]
+    },
+    "source_scope": {
+      "const": "EXISTING_APPROVED_WINDOW_PUBLIC_PROJECTIONS"
+    },
+    "all_business_fields_complete": {
+      "const": false
+    },
+    "target_system_import_verified": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

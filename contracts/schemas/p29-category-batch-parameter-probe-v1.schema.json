@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "window_ref", "source_request_ref", "observed_at", "route", "source_context_result_name", "probe"],
+  "properties": {
+    "schema_version": {"const": "p29-category-batch-parameter-probe/v1"},
+    "window_ref": {"type": "string", "pattern": "^result:[a-f0-9]{32}$"},
+    "source_request_ref": {"type": "string", "pattern": "^request:[a-f0-9]{32}$"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "route": {"const": "/weapp/poi/food/render"},
+    "source_context_result_name": {"type": "string", "pattern": "^observation_[a-f0-9]{32}$"},
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "status", "root_kind", "fields", "public_scalar_count", "response_category_count", "response_product_count", "response_category_product_membership_count", "matching_category_id_count", "matching_product_id_count", "matching_memberships_by_ancestor_key_count", "unmatched_public_scalar_count", "private_key_category_counts", "parameter_role", "grammar_qualified", "termination_semantics", "same_observation_record_ready", "can_publish_complete_result", "parameter_values_persisted", "business_values_in_report", "sensitive_values_processed", "raw_payload_persisted"],
+      "properties": {
+        "key": {"const": "tag_spu_ids"},
+        "status": {"enum": ["STRUCTURE_OBSERVED", "SCOPE_UNAVAILABLE", "REQUEST_LEASE_UNAVAILABLE", "ABSENT", "INVALID_ENCODING", "NOT_A_JSON_CONTAINER", "MALFORMED_STRUCTURE", "UNAVAILABLE_PUBLIC_SCALAR"]},
+        "root_kind": {"enum": ["UNOBSERVED", "OBJECT", "ARRAY"]},
+        "fields": {
+          "type": "array", "maxItems": 128, "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["path", "type", "public_scalar_count"],
+            "properties": {
+              "path": {"type": "string", "maxLength": 512, "pattern": "^\\$"},
+              "type": {"enum": ["object", "array", "string", "number", "boolean", "null"]},
+              "public_scalar_count": {"type": "integer", "minimum": 0, "maximum": 4096}
+            }
+          }
+        },
+        "public_scalar_count": {"type": "integer", "minimum": 0, "maximum": 4096},
+        "response_category_count": {"type": "integer", "minimum": 0, "maximum": 256},
+        "response_product_count": {"type": "integer", "minimum": 0, "maximum": 8000},
+        "response_category_product_membership_count": {"type": "integer", "minimum": 0, "maximum": 8000},
+        "matching_category_id_count": {"type": "integer", "minimum": 0, "maximum": 256},
+        "matching_product_id_count": {"type": "integer", "minimum": 0, "maximum": 8000},
+        "matching_memberships_by_ancestor_key_count": {"type": "integer", "minimum": 0, "maximum": 8000},
+        "unmatched_public_scalar_count": {"type": "integer", "minimum": 0, "maximum": 4096},
+        "private_key_category_counts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["CREDENTIAL_KEY", "SESSION_KEY", "PERSONAL_KEY", "TRANSPORT_KEY", "UNCLASSIFIED_KEY"],
+          "properties": {
+            "CREDENTIAL_KEY": {"type": "integer", "minimum": 0, "maximum": 128},
+            "SESSION_KEY": {"type": "integer", "minimum": 0, "maximum": 128},
+            "PERSONAL_KEY": {"type": "integer", "minimum": 0, "maximum": 128},
+            "TRANSPORT_KEY": {"type": "integer", "minimum": 0, "maximum": 128},
+            "UNCLASSIFIED_KEY": {"type": "integer", "minimum": 0, "maximum": 128}
+          }
+        },
+        "parameter_role": {"const": "UNKNOWN"},
+        "grammar_qualified": {"const": false},
+        "termination_semantics": {"const": "UNCONFIRMED"},
+        "same_observation_record_ready": {"const": false},
+        "can_publish_complete_result": {"const": false},
+        "parameter_values_persisted": {"const": false},
+        "business_values_in_report": {"const": false},
+        "sensitive_values_processed": {"const": false},
+        "raw_payload_persisted": {"const": false}
+      }
+    }
+  }
+}

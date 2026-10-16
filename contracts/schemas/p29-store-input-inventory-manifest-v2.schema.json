@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "allOf": [
+    {"$ref": "p29-store-input-inventory-v2.schema.json#/$defs/metadata"},
+    {
+      "required": ["schema_version", "result_name", "files"],
+      "properties": {
+        "schema_version": {"const": "p29-store-input-inventory-manifest/v2"},
+        "result_name": {"type": "string", "pattern": "^store_price_inventory_[a-f0-9]{32}$"},
+        "files": {"const": ["records.json", "records.csv", "manifest.json"]}
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

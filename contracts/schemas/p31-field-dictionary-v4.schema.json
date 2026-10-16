@@ -1,0 +1,343 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "encoding",
+    "delimiter",
+    "boolean_cells",
+    "identifier_import_type",
+    "json_columns_require_json_decode",
+    "target_system_import_verified",
+    "fields",
+    "public_text_definitions",
+    "public_code_definitions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-field-dictionary/v4"
+    },
+    "encoding": {
+      "const": "UTF-8"
+    },
+    "delimiter": {
+      "const": ","
+    },
+    "boolean_cells": {
+      "const": [
+        "true",
+        "false"
+      ]
+    },
+    "identifier_import_type": {
+      "const": "TEXT"
+    },
+    "json_columns_require_json_decode": {
+      "const": true
+    },
+    "target_system_import_verified": {
+      "const": false
+    },
+    "fields": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "table",
+          "field",
+          "label_zh",
+          "type",
+          "source_path",
+          "meaning_status",
+          "empty_cell",
+          "unit"
+        ],
+        "properties": {
+          "table": {
+            "enum": [
+              "products",
+              "stores",
+              "public_texts",
+              "public_codes"
+            ]
+          },
+          "field": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          },
+          "label_zh": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^[^\\r\\n\\u0000]*$"
+          },
+          "type": {
+            "enum": [
+              "text",
+              "boolean",
+              "decimal-string",
+              "enum-string",
+              "json-string",
+              "string",
+              "null-only",
+              "integer",
+              "source-scalar"
+            ]
+          },
+          "source_path": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[^\\r\\n\\u0000]*$"
+              }
+            ]
+          },
+          "meaning_status": {
+            "enum": [
+              "SOURCE_FIELD_MEANING_NOT_PROMOTED",
+              "PARSER_STATE",
+              "EXISTING_V4_FIELD",
+              "SOURCE_REFERENCE"
+            ]
+          },
+          "empty_cell": {
+            "const": "CONSULT_STATE_COLUMN_OR_SOURCE_BASIS"
+          },
+          "unit": {
+            "const": "NOT_INFERRED"
+          }
+        }
+      }
+    },
+    "public_text_definitions": {
+      "const": [
+        {
+          "field": "operation_content_text",
+          "source_path": "$.data.container_operation_source.operation_source_list[].content",
+          "label_zh": "运营说明文字",
+          "scope": "FOOD_ROOT"
+        },
+        {
+          "field": "operation_tag_name_text",
+          "source_path": "$.data.container_operation_source.tag_name",
+          "label_zh": "运营标签名称",
+          "scope": "FOOD_ROOT"
+        },
+        {
+          "field": "moderate_ordering_reminder_text",
+          "source_path": "$.data.moderate_ordering_reminder",
+          "label_zh": "适量点餐提示",
+          "scope": "FOOD_ROOT"
+        },
+        {
+          "field": "delivery_tab_text",
+          "source_path": "$.data.pick_goods_tab_info.delivery.text",
+          "label_zh": "配送页签文字（非已选配送方式）",
+          "scope": "FOOD_ROOT"
+        },
+        {
+          "field": "self_pick_tab_text",
+          "source_path": "$.data.pick_goods_tab_info.self_pick.text",
+          "label_zh": "自取页签文字（非已选自取状态）",
+          "scope": "FOOD_ROOT"
+        },
+        {
+          "field": "category_activity_text",
+          "source_path": "$.data.food_spu_tags[].activity_info.activity_text",
+          "label_zh": "分类活动说明",
+          "scope": "CATEGORY"
+        },
+        {
+          "field": "category_activity_tag_text",
+          "source_path": "$.data.food_spu_tags[].activity_tag",
+          "label_zh": "分类活动标签",
+          "scope": "CATEGORY"
+        },
+        {
+          "field": "category_description_text",
+          "source_path": "$.data.food_spu_tags[].description",
+          "label_zh": "分类说明",
+          "scope": "CATEGORY"
+        },
+        {
+          "field": "category_fold_text",
+          "source_path": "$.data.food_spu_tags[].fold_dynamic_spus_text",
+          "label_zh": "分类展开提示",
+          "scope": "CATEGORY"
+        },
+        {
+          "field": "category_tag_description_text",
+          "source_path": "$.data.food_spu_tags[].tag_description",
+          "label_zh": "分类标签说明",
+          "scope": "CATEGORY"
+        },
+        {
+          "field": "required_tag_tips_text",
+          "source_path": "$.data.required_tag_info.tips",
+          "label_zh": "必选分类提示",
+          "scope": "PRODUCTLIST_ROOT"
+        },
+        {
+          "field": "required_tag_toast_text",
+          "source_path": "$.data.required_tag_info.toast",
+          "label_zh": "必选分类短提示",
+          "scope": "PRODUCTLIST_ROOT"
+        }
+      ]
+    },
+    "public_code_definitions": {
+      "const": [
+        {
+          "field": "operation_activity_type_code",
+          "source_path": "$.data.container_operation_source.operation_source_list[].activity_type",
+          "value_type": "integer",
+          "label_zh": "运营活动来源类型码",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "operation_sequence_number",
+          "source_path": "$.data.container_operation_source.operation_source_list[].sequence",
+          "value_type": "integer",
+          "label_zh": "运营项来源顺序数字（非排名证明）",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "operation_type_code",
+          "source_path": "$.data.container_operation_source.operation_source_list[].type",
+          "value_type": "integer",
+          "label_zh": "运营项来源类型码",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "operation_tag_reference",
+          "source_path": "$.data.container_operation_source.tag",
+          "value_type": "text",
+          "label_zh": "运营标签来源引用",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "operation_tag_sequence_number",
+          "source_path": "$.data.container_operation_source.tag_sequence",
+          "value_type": "integer",
+          "label_zh": "运营标签来源顺序数字",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "food_has_hotsale_tag_flag",
+          "source_path": "$.data.has_hotsale_tag",
+          "value_type": "boolean",
+          "label_zh": "FOOD热销标签来源标记",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "delivery_activity_info_type_code",
+          "source_path": "$.data.pick_goods_tab_info.delivery.activity_info_type",
+          "value_type": "integer",
+          "label_zh": "配送页签活动信息来源类型码",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "shop_type_code",
+          "source_path": "$.data.shop_type",
+          "value_type": "integer",
+          "label_zh": "店铺来源类型码",
+          "scope": "FOOD_ROOT",
+          "endpoint_id": "FOOD"
+        },
+        {
+          "field": "category_business_type_code",
+          "source_path": "$.data.food_spu_tags[].buzType",
+          "value_type": "integer",
+          "label_zh": "分类buzType来源码",
+          "scope": "CATEGORY",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "category_health_tag_flag",
+          "source_path": "$.data.food_spu_tags[].health_tag",
+          "value_type": "boolean",
+          "label_zh": "分类health_tag来源标记（非健康认证）",
+          "scope": "CATEGORY",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "category_sequence_number",
+          "source_path": "$.data.food_spu_tags[].sequence",
+          "value_type": "integer",
+          "label_zh": "分类来源顺序数字（非排名证明）",
+          "scope": "CATEGORY",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "category_type_code",
+          "source_path": "$.data.food_spu_tags[].type",
+          "value_type": "integer",
+          "label_zh": "分类来源类型码",
+          "scope": "CATEGORY",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "list_has_hotsale_tag_flag",
+          "source_path": "$.data.has_hotsale_tag",
+          "value_type": "boolean",
+          "label_zh": "PRODUCTLIST热销标签来源标记",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "box_price_type_code",
+          "source_path": "$.data.poi_box_price_detail.box_price_type",
+          "value_type": "integer",
+          "label_zh": "包装费来源类型码（非费用金额）",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "has_required_tag_flag",
+          "source_path": "$.data.required_tag_info.has_required_tag",
+          "value_type": "boolean",
+          "label_zh": "必选分类来源标记（非个人购物车状态）",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "required_tag_reference",
+          "source_path": "$.data.required_tag_info.required_tag_id",
+          "value_type": "text",
+          "label_zh": "必选分类来源引用（匹配关系未推定）",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "support_preorder_flag",
+          "source_path": "$.data.supportPreOrder",
+          "value_type": "boolean",
+          "label_zh": "预订能力来源标记（非本次订单资格）",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        },
+        {
+          "field": "support_cake_upgrade_flag",
+          "source_path": "$.data.support_cake_product_upgrade",
+          "value_type": "boolean",
+          "label_zh": "蛋糕升级能力来源标记（非本次订单资格）",
+          "scope": "PRODUCTLIST_ROOT",
+          "endpoint_id": "PRODUCTLIST"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

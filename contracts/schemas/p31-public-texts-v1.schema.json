@@ -1,0 +1,692 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "record_count",
+    "records",
+    "source_scope",
+    "copied_into_product_rows",
+    "business_semantics_confirmed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-public-texts/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scope",
+          "category_ref",
+          "category_index",
+          "entry_index",
+          "field",
+          "field_label_zh",
+          "source_path",
+          "value",
+          "state",
+          "endpoint_id",
+          "source_file",
+          "source_request_ref",
+          "observed_at",
+          "window_ref"
+        ],
+        "properties": {
+          "scope": {
+            "enum": [
+              "FOOD_ROOT",
+              "CATEGORY",
+              "PRODUCTLIST_ROOT"
+            ]
+          },
+          "category_ref": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                "minLength": 1
+              }
+            ]
+          },
+          "category_index": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 255
+              }
+            ]
+          },
+          "entry_index": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7999
+              }
+            ]
+          },
+          "field": {
+            "enum": [
+              "operation_content_text",
+              "operation_tag_name_text",
+              "moderate_ordering_reminder_text",
+              "delivery_tab_text",
+              "self_pick_tab_text",
+              "category_activity_text",
+              "category_activity_tag_text",
+              "category_description_text",
+              "category_fold_text",
+              "category_tag_description_text",
+              "required_tag_tips_text",
+              "required_tag_toast_text"
+            ]
+          },
+          "field_label_zh": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+          },
+          "source_path": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+              }
+            ]
+          },
+          "state": {
+            "enum": [
+              "NOT_OBSERVED",
+              "SOURCE_NULL",
+              "SOURCE_EMPTY",
+              "PRESENT_UNCONFIRMED"
+            ]
+          },
+          "endpoint_id": {
+            "enum": [
+              "FOOD",
+              "PRODUCTLIST"
+            ]
+          },
+          "source_file": {
+            "type": "string",
+            "pattern": "^observation_[a-f0-9]{32}-public-fields\\.json$"
+          },
+          "source_request_ref": {
+            "type": "string",
+            "pattern": "^request:[a-f0-9]{32}$"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "window_ref": {
+            "type": "string",
+            "pattern": "^result:[a-f0-9]{32}$"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_content_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.operation_source_list[].content"
+                },
+                "field_label_zh": {
+                  "const": "运营说明文字"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_tag_name_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.container_operation_source.tag_name"
+                },
+                "field_label_zh": {
+                  "const": "运营标签名称"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "moderate_ordering_reminder_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.moderate_ordering_reminder"
+                },
+                "field_label_zh": {
+                  "const": "适量点餐提示"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "delivery_tab_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.pick_goods_tab_info.delivery.text"
+                },
+                "field_label_zh": {
+                  "const": "配送页签文字（非已选配送方式）"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "self_pick_tab_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.pick_goods_tab_info.self_pick.text"
+                },
+                "field_label_zh": {
+                  "const": "自取页签文字（非已选自取状态）"
+                },
+                "scope": {
+                  "const": "FOOD_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "FOOD"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_activity_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].activity_info.activity_text"
+                },
+                "field_label_zh": {
+                  "const": "分类活动说明"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_activity_tag_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].activity_tag"
+                },
+                "field_label_zh": {
+                  "const": "分类活动标签"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_description_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].description"
+                },
+                "field_label_zh": {
+                  "const": "分类说明"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_fold_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].fold_dynamic_spus_text"
+                },
+                "field_label_zh": {
+                  "const": "分类展开提示"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "category_tag_description_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.food_spu_tags[].tag_description"
+                },
+                "field_label_zh": {
+                  "const": "分类标签说明"
+                },
+                "scope": {
+                  "const": "CATEGORY"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                },
+                "category_index": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "required_tag_tips_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.required_tag_info.tips"
+                },
+                "field_label_zh": {
+                  "const": "必选分类提示"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "required_tag_toast_text"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_path": {
+                  "const": "$.data.required_tag_info.toast"
+                },
+                "field_label_zh": {
+                  "const": "必选分类短提示"
+                },
+                "scope": {
+                  "const": "PRODUCTLIST_ROOT"
+                },
+                "endpoint_id": {
+                  "const": "PRODUCTLIST"
+                },
+                "category_ref": {
+                  "type": "null"
+                },
+                "category_index": {
+                  "type": "null"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_NULL"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_EMPTY"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "const": ""
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "PRESENT_UNCONFIRMED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "field": {
+                  "const": "operation_content_text"
+                },
+                "entry_index": {
+                  "type": "null"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source_scope": {
+      "const": "INITIAL_PAIR_ALLOWLISTED_ROOT_AND_CATEGORY_TEXT"
+    },
+    "copied_into_product_rows": {
+      "const": false
+    },
+    "business_semantics_confirmed": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

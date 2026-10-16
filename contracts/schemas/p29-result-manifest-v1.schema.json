@@ -1,0 +1,215 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_kind",
+    "record_count",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "source_category_count",
+    "observation_count",
+    "input_record_count",
+    "deduplicated_record_count",
+    "folded_product_references_not_loaded",
+    "category_product_references_not_loaded",
+    "coverage_status",
+    "coverage_scope",
+    "page_semantics",
+    "termination_semantics",
+    "deduplication",
+    "observations",
+    "result_name",
+    "files"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "collection-p29-result-manifest/v1"
+    },
+    "source_kind": {
+      "enum": [
+        "SYNTHETIC_OFFLINE_FIXTURE",
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "source_category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "observation_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32
+    },
+    "input_record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "deduplicated_record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "folded_product_references_not_loaded": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "category_product_references_not_loaded": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "coverage_scope": {
+      "const": "OBSERVED_COMPLETE_SNAPSHOTS_ONLY"
+    },
+    "page_semantics": {
+      "const": "UNCONFIRMED"
+    },
+    "termination_semantics": {
+      "const": "UNCONFIRMED"
+    },
+    "deduplication": {
+      "const": "LATEST_COMPLETE_ROW_PER_STORE_SKU_CATEGORY"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "run_ref",
+          "batch_ref",
+          "observed_at",
+          "window_ref",
+          "record_count",
+          "product_count",
+          "sku_count",
+          "category_count",
+          "source_association",
+          "payload_family",
+          "payload_version",
+          "price_evidence",
+          "result_name"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 32
+          },
+          "run_ref": {
+            "type": "string",
+            "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+          },
+          "batch_ref": {
+            "type": "string",
+            "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "window_ref": {
+            "type": "string",
+            "pattern": "^result:[a-f0-9]{32}$"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 40000
+          },
+          "product_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 40000
+          },
+          "sku_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 40000
+          },
+          "category_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 256
+          },
+          "source_association": {
+            "$ref": "p26-result-association-check-v1.schema.json"
+          },
+          "payload_family": {
+            "const": "meituan_wechat_miniprogram"
+          },
+          "payload_version": {
+            "const": "p28-observed-shop-sku-v1"
+          },
+          "price_evidence": {
+            "$ref": "p28-price-evidence-v1.schema.json"
+          },
+          "result_name": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^observation_[a-f0-9]{32}$"
+          }
+        }
+      },
+      "maxItems": 32,
+      "minItems": 1
+    },
+    "result_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{2,63}$"
+    },
+    "files": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "records.json"
+        },
+        {
+          "const": "records.csv"
+        },
+        {
+          "const": "manifest.json"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p29-result-manifest-v1.schema.json"
+}

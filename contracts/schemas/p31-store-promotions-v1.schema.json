@@ -1,0 +1,218 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "record_count",
+    "records",
+    "customer_eligibility_confirmed",
+    "stacking_confirmed",
+    "validity_confirmed",
+    "copied_into_product_rows"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-store-promotions/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8000
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "store_id",
+          "scope",
+          "group_index",
+          "tag_index",
+          "display_text",
+          "state",
+          "endpoint_id",
+          "source_path",
+          "source_file",
+          "source_request_ref",
+          "observed_at",
+          "window_ref"
+        ],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "maxLength": 256,
+            "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+            "minLength": 1
+          },
+          "scope": {
+            "const": "STORE_DISPLAY"
+          },
+          "group_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 7999
+          },
+          "tag_index": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 7999
+          },
+          "display_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "enum": [
+              "PRESENT_UNCONFIRMED",
+              "SOURCE_EMPTY",
+              "SOURCE_NULL",
+              "NOT_OBSERVED"
+            ]
+          },
+          "endpoint_id": {
+            "const": "FOOD"
+          },
+          "source_path": {
+            "const": "$.data.poi_info.poi_normal_tags[].sub_tags[].text"
+          },
+          "source_file": {
+            "type": "string",
+            "pattern": "^observation_[a-f0-9]{32}-public-fields\\.json$"
+          },
+          "source_request_ref": {
+            "type": "string",
+            "pattern": "^request:[a-f0-9]{32}$"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "window_ref": {
+            "type": "string",
+            "pattern": "^result:[a-f0-9]{32}$"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "NOT_OBSERVED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "group_index": {
+                  "type": "null"
+                },
+                "tag_index": {
+                  "type": "null"
+                },
+                "display_text": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "group_index": {
+                  "type": "integer"
+                },
+                "tag_index": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_NULL"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "display_text": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "SOURCE_EMPTY"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "display_text": {
+                  "const": ""
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "PRESENT_UNCONFIRMED"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "display_text": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "customer_eligibility_confirmed": {
+      "const": false
+    },
+    "stacking_confirmed": {
+      "const": false
+    },
+    "validity_confirmed": {
+      "const": false
+    },
+    "copied_into_product_rows": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

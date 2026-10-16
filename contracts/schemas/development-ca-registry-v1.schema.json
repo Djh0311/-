@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "store_root",
+    "ca_directory",
+    "ca_directory_identity",
+    "certificate_common_name",
+    "certificate_not_after",
+    "persistence",
+    "scope",
+    "user_decision",
+    "key_exported",
+    "keychain_modified",
+    "source_readiness"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "development-ca-registry/v1"
+    },
+    "store_root": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "ca_directory": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "ca_directory_identity": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "integer",
+          "minimum": 1
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "certificate_common_name": {
+      "type": "string",
+      "pattern": "^Local Collection Development CA [a-f0-9]{32}$"
+    },
+    "certificate_not_after": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "persistence": {
+      "const": "RETAIN_UNTIL_EXPLICIT_USER_REMOVAL"
+    },
+    "scope": {
+      "const": "LOCAL_DEVICE_ONLY"
+    },
+    "user_decision": {
+      "const": "CURRENT_USER_REQUESTED_PERSISTENT_DEVELOPMENT_CA"
+    },
+    "key_exported": {
+      "const": false
+    },
+    "keychain_modified": {
+      "const": false
+    },
+    "source_readiness": {
+      "const": "UNKNOWN"
+    }
+  },
+  "$id": "development-ca-registry-v1.schema.json"
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live-p0-execution-request-v1.schema.json",
+  "title": "Closed P15 application-local live P0 execution request",
+  "description": "One explicit target and source purpose with a one-time input lock. This object contains no source locator, raw material, secret, session or value-derived data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_purpose",
+    "source_kind",
+    "target_ref",
+    "source_ref",
+    "provider_contract_ref",
+    "authorization_ref",
+    "run_ref",
+    "attempt_ref",
+    "input_lock_ref",
+    "capability_ref",
+    "capabilities",
+    "issued_at",
+    "expires_at",
+    "max_attempts",
+    "automatic_retry",
+    "source_material_persisted"
+  ],
+  "properties": {
+    "schema_version": {"const": "collection-live-p0-execution-request/v1"},
+    "source_purpose": {
+      "enum": [
+        "USER_OWNED_EXPORT_P0_VALIDATION",
+        "OFFICIAL_PUBLIC_DATASET_P0_VALIDATION",
+        "APPROVED_PUBLIC_DOCUMENT_P0_VALIDATION",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE_P0_VALIDATION"
+      ]
+    },
+    "source_kind": {
+      "enum": [
+        "USER_OWNED_EXPORT",
+        "OFFICIAL_PUBLIC_DATASET",
+        "APPROVED_PUBLIC_DOCUMENT",
+        "SEPARATELY_AUTHORIZED_STRUCTURED_SOURCE"
+      ]
+    },
+    "target_ref": {"type": "string", "pattern": "^target:[A-Za-z0-9_-]{8,96}$"},
+    "source_ref": {"type": "string", "pattern": "^source:[A-Za-z0-9_-]{8,96}$"},
+    "provider_contract_ref": {"type": "string", "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"},
+    "authorization_ref": {"type": "string", "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"},
+    "run_ref": {"type": "string", "pattern": "^run:[A-Za-z0-9_-]{8,96}$"},
+    "attempt_ref": {"type": "string", "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"},
+    "input_lock_ref": {"type": "string", "pattern": "^input-lock:[A-Za-z0-9_-]{8,96}$"},
+    "capability_ref": {"type": "string", "pattern": "^capability:[A-Za-z0-9_-]{8,96}$"},
+    "capabilities": {"const": ["SINGLE_NETWORK_SOURCE_READ"]},
+    "issued_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "max_attempts": {"const": 1},
+    "automatic_retry": {"const": false},
+    "source_material_persisted": {"const": false}
+  },
+  "$comment": "Semantic validation must require the purpose-to-kind mapping, issued_at before expires_at, a matching in-memory lock binding and latches closed after every outcome. Neither this contract nor its receipt grants a network attempt by itself."
+}

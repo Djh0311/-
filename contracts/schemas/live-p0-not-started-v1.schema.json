@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live-p0-not-started-v1.schema.json",
+  "title": "Closed zero-attempt local entry stop",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "outcome",
+    "stop_code",
+    "source_attempt_consumed",
+    "automatic_retry",
+    "source_material_persisted",
+    "business_publication_allowed",
+    "live_capture_latch",
+    "execution_latch",
+    "result_published"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "collection-live-p0-not-started/v1"
+    },
+    "outcome": {
+      "const": "NOT_STARTED"
+    },
+    "stop_code": {
+      "enum": [
+        "CONFIGURATION_REJECTED",
+        "DEVELOPER_PARAMETERS_MISSING",
+        "LIVE_ADAPTER_OBSERVATION_INVALID",
+        "LIVE_ADAPTER_READER_INVALID",
+        "LIVE_ADAPTER_SCOPE_INVALID",
+        "LIVE_ATTEMPT_POLICY_INVALID",
+        "LIVE_CAPABILITY_INVALID",
+        "LIVE_HISTORICAL_TARGET_INVALID",
+        "LIVE_INPUT_DRIFT",
+        "LIVE_INPUT_LOCK_EXPIRED",
+        "LIVE_INPUT_LOCK_INVALID",
+        "LIVE_INPUT_LOCK_USED",
+        "LIVE_P0_CONSUMER_REJECTED",
+        "LIVE_P17_REQUEST_INVALID",
+        "LIVE_P17_SOURCE_POLICY_INVALID",
+        "LIVE_PARSE_REJECTED",
+        "LIVE_PRIVACY_POLICY_INVALID",
+        "LIVE_PUBLISH_REJECTED",
+        "LIVE_REQUEST_INVALID",
+        "LIVE_REQUEST_REFERENCE_INVALID",
+        "LIVE_SOURCE_PURPOSE_INVALID",
+        "LIVE_SOURCE_PURPOSE_MISMATCH",
+        "LIVE_SOURCE_READ_FAILED",
+        "LIVE_TARGET_BINDING_DRIFT",
+        "LIVE_TARGET_BINDING_INVALID",
+        "LIVE_TARGET_INVALID",
+        "LIVE_WINDOW_LIMIT",
+        "LIVE_WORKER_START_FAILED",
+        "MITMPROXY_BRIDGE_CANCELLED",
+        "MITMPROXY_BRIDGE_ENDPOINT_REJECTED",
+        "MITMPROXY_BRIDGE_EVENT_BUDGET",
+        "MITMPROXY_BRIDGE_FACTORY_INVALID",
+        "MITMPROXY_BRIDGE_FACTORY_USED",
+        "MITMPROXY_BRIDGE_LEASE_CLOSED",
+        "MITMPROXY_BRIDGE_NOT_WAITING",
+        "MITMPROXY_BRIDGE_PROJECTION_REJECTED",
+        "MITMPROXY_BRIDGE_REQUEST_DRIFT",
+        "MITMPROXY_BRIDGE_RESPONSE_BUDGET",
+        "MITMPROXY_BRIDGE_SENSITIVE_REJECTED",
+        "MITMPROXY_BRIDGE_TARGET_DRIFT",
+        "MITMPROXY_BRIDGE_TIMEOUT",
+        "MITMPROXY_BRIDGE_WINDOW_LIMIT",
+        "PREPARATION_ARGUMENTS_INVALID",
+        "PREPARATION_CANCELLED",
+        "RESULT_INPUT_INVALID",
+        "RESULT_ROOT_INVALID",
+        "RESULT_TARGET_EXISTS"
+      ]
+    },
+    "source_attempt_consumed": {
+      "const": 0
+    },
+    "automatic_retry": {
+      "const": false
+    },
+    "source_material_persisted": {
+      "const": false
+    },
+    "business_publication_allowed": {
+      "const": false
+    },
+    "live_capture_latch": {
+      "const": "CLOSED"
+    },
+    "execution_latch": {
+      "const": "CLOSED"
+    },
+    "result_published": {
+      "const": false
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p1-field-value-v1.schema.json",
+  "title": "Synthetic P1 field value v1",
+  "description": "One value-safe P1 field or explicit absence in one synthetic observation. It is separate from frozen P0 field-observation v2.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "field_name",
+    "entity_kind",
+    "source_local_entity_ref",
+    "owner_entity_kind",
+    "owner_entity_ref",
+    "source_label",
+    "observation_ref",
+    "observation_presence",
+    "normalized_value",
+    "value_encoding",
+    "absence_reason",
+    "anchor_ref"
+  ],
+  "properties": {
+    "field_name": {
+      "enum": [
+        "category_ref",
+        "category_name",
+        "sku_ref",
+        "spec_text",
+        "availability_status",
+        "original_price_minor",
+        "activity_price_minor",
+        "promotion_type",
+        "promotion_discount_minor",
+        "promotion_discount_bps",
+        "promotion_scope",
+        "delivery_fee_minor",
+        "delivery_min_order_minor",
+        "delivery_status"
+      ]
+    },
+    "entity_kind": {"enum": ["CATEGORY", "SKU", "PRODUCT", "PROMOTION", "DELIVERY"]},
+    "source_local_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "owner_entity_kind": {"enum": ["STORE", "PRODUCT", "SKU"]},
+    "owner_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "source_label": {"enum": ["SYNTHETIC_P1_CATEGORY", "SYNTHETIC_P1_SKU", "SYNTHETIC_P1_PROMOTION", "SYNTHETIC_P1_DELIVERY"]},
+    "observation_ref": {"type": "string", "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"},
+    "observation_presence": {"enum": ["PRESENT", "NOT_SHOWN", "NOT_OBSERVED", "NOT_APPLICABLE", "PARSE_FAILED", "SOURCE_FAILED", "REDACTED", "AMBIGUOUS"]},
+    "normalized_value": {"type": ["string", "integer", "null"]},
+    "value_encoding": {"enum": ["TEXT", "OPAQUE_REF", "MONEY_MINOR", "ENUM", "INTEGER_LOWER_BOUND", null]},
+    "absence_reason": {"enum": ["NOT_SHOWN", "NOT_OBSERVED", "NOT_APPLICABLE", "PARSE_FAILED", "SOURCE_FAILED", "REDACTED", "AMBIGUOUS", null]},
+    "anchor_ref": {"type": ["string", "null"], "pattern": "^anchor:[A-Za-z0-9_-]{8,96}$"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"observation_presence": {"const": "PRESENT"}}, "required": ["observation_presence"]},
+      "then": {
+        "properties": {"absence_reason": {"const": null}, "value_encoding": {"type": "string"}, "anchor_ref": {"type": "string"}},
+        "required": ["normalized_value"]
+      },
+      "else": {
+        "properties": {"normalized_value": {"const": null}, "value_encoding": {"const": null}, "anchor_ref": {"const": null}}
+      }
+    }
+  ]
+}

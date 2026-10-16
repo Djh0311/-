@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "P26 local transport preparation, never a source-readiness proof",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "transport_preparation",
+        "closure_code",
+        "current_target_binding",
+        "source_identity",
+        "flow_isolation",
+        "real_source_ready",
+        "ca_created",
+        "ca_trust",
+        "cleanup_status",
+        "required_capabilities",
+        "identification_attempts",
+        "result_attempts",
+        "live_capture_latch",
+        "execution_latch",
+        "network_extension_started",
+        "keychain_modified"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p26-transport-preparation/v1"
+        },
+        "transport_preparation": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE"
+          ]
+        },
+        "closure_code": {
+          "enum": [
+            "P26_TRANSPORT_NOT_PREPARED",
+            "P26_SPECIFIC_CAPABILITY_REQUIRED",
+            "P26_OUTPUT_NOT_GIT_IGNORED",
+            "P26_CA_CREATED_TRUST_PENDING",
+            "P26_CA_CREATION_FAILED",
+            "P26_CA_REMOVED_MANUAL_TRUST_REMOVAL_REQUIRED",
+            "RESULT_ROOT_INVALID",
+            "RESULT_TARGET_EXISTS",
+            "RESULT_INPUT_INVALID"
+          ]
+        },
+        "current_target_binding": {
+          "const": "CALLER_ATTESTED_CURRENT_CHOICE"
+        },
+        "source_identity": {
+          "const": "NOT_OBSERVED"
+        },
+        "flow_isolation": {
+          "const": "UNKNOWN"
+        },
+        "real_source_ready": {
+          "const": "UNKNOWN"
+        },
+        "ca_created": {
+          "type": "boolean"
+        },
+        "ca_trust": {
+          "const": "NOT_CONFIRMED"
+        },
+        "cleanup_status": {
+          "enum": [
+            "NOT_REQUIRED",
+            "COMPLETE",
+            "INCOMPLETE"
+          ]
+        },
+        "required_capabilities": {
+          "const": [
+            "DEDICATED_TEMPORARY_CA_CREATE_AND_USE",
+            "USER_MANUAL_CA_TRUST_AND_REMOVAL",
+            "MACOS_PID_LOCAL_CAPTURE_SETUP"
+          ]
+        },
+        "identification_attempts": {
+          "const": 0
+        },
+        "result_attempts": {
+          "const": 0
+        },
+        "live_capture_latch": {
+          "const": "CLOSED"
+        },
+        "execution_latch": {
+          "const": "CLOSED"
+        },
+        "network_extension_started": {
+          "const": false
+        },
+        "keychain_modified": {
+          "const": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "closure_code"
+      ],
+      "properties": {
+        "closure_code": {
+          "const": "P26_PREPARATION_ARGUMENTS_INVALID"
+        }
+      }
+    }
+  ]
+}

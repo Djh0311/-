@@ -78,16 +78,23 @@ class ParserConfig:
     product_price: Binding | None
     sku_price: Binding | None
     extensions: Tuple[Binding, ...] = ()
+    observed_extensions: Tuple[Binding, ...] = ()
     category_container: str = "$.data.food_spu_tags[*]"
     product_container: str = "$.data.food_spu_tags[*].dynamic_spus[*]"
     sku_container: str = "$.data.food_spu_tags[*].dynamic_spus[*].skus[*]"
     current_page_path: str = "$.data.food_spu_tags[*].current_page"
     has_next_page_path: str = "$.data.food_spu_tags[*].has_next_page"
     price_bindings: Tuple[Binding, ...] = ()
+    sku_status_types: Tuple[str, ...] = ("integer",)
+    sku_status_required: bool = True
 
     def validate(self) -> "ParserConfig":
         if not _safe_version_token(self.payload_family) or not _safe_version_token(self.payload_version):
             raise ParserError("PARSER_VERSION_UNRESOLVED")
+        if not self.sku_status_types or any(t not in {"integer","number"} for t in self.sku_status_types):
+            raise ParserError("PARSER_CONFIG_INVALID")
+        if type(self.sku_status_required) is not bool:
+            raise ParserError("PARSER_CONFIG_INVALID")
         expected = (
             self.category_container,
             self.product_container,
@@ -110,6 +117,7 @@ class ParserConfig:
         bindings = (
             (self.category_id, self.product_price, self.sku_price)
             + self.extensions
+            + self.observed_extensions
             + self.price_bindings
         )
         for binding in bindings:
@@ -117,10 +125,13 @@ class ParserConfig:
         for binding in self.price_bindings:
             if binding.source_label is None:
                 raise ParserError("PRICE_SOURCE_LABEL_UNRESOLVED")
+        for binding in self.observed_extensions:
+            if binding.source_label is None:
+                raise ParserError("PARSER_P1_SOURCE_LABEL_UNRESOLVED")
         _require_prefix(self.category_id.path, self.category_container)
         _require_prefix(self.product_price.path, self.product_container)
         _require_prefix(self.sku_price.path, self.sku_container)
-        for binding in self.extensions:
+        for binding in self.extensions + self.observed_extensions:
             prefix = {
                 "category": self.category_container,
                 "product": self.product_container,
@@ -150,21 +161,30 @@ class FoodParserConfig:
     merchant_id: Binding
     merchant_name: Binding
     price_bindings: Tuple[Binding, ...] = ()
+    observed_extensions: Tuple[Binding, ...] = ()
+    merchant_container: str = "$.data.poi_info"
 
     def validate(self) -> "FoodParserConfig":
         if not _safe_version_token(self.payload_family) or not _safe_version_token(self.payload_version):
             raise ParserError("PARSER_VERSION_UNRESOLVED")
-        for binding in (self.merchant_id, self.merchant_name) + self.price_bindings:
+        if self.merchant_container not in {"$.data.poi_info", "$.data.poi_base_info"}:
+            raise ParserError("MERCHANT_MAPPING_INVALID")
+        for binding in (self.merchant_id, self.merchant_name) + self.price_bindings + self.observed_extensions:
             binding.validate()
         if self.merchant_id.scope != "merchant" or self.merchant_name.scope != "merchant":
             raise ParserError("MERCHANT_MAPPING_INVALID")
         for binding in self.price_bindings:
             if binding.source_label is None or binding.scope not in {"merchant", "coupon", "root"}:
                 raise ParserError("PRICE_SOURCE_LABEL_UNRESOLVED")
-            prefix = "$.data.poi_info" if binding.scope != "root" else "$.data"
+            prefix = self.merchant_container if binding.scope != "root" else "$.data"
             _require_prefix(binding.path, prefix)
-        _require_prefix(self.merchant_id.path, "$.data.poi_info")
-        _require_prefix(self.merchant_name.path, "$.data.poi_info")
+        for binding in self.observed_extensions:
+            if binding.source_label is None or binding.scope not in {"merchant", "root"}:
+                raise ParserError("PARSER_P1_SOURCE_LABEL_UNRESOLVED")
+            prefix = self.merchant_container if binding.scope == "merchant" else "$.data"
+            _require_prefix(binding.path, prefix)
+        _require_prefix(self.merchant_id.path, self.merchant_container)
+        _require_prefix(self.merchant_name.path, self.merchant_container)
         return self
 
 
@@ -217,7 +237,13 @@ def parse_productlist(payload: Mapping[str, Any], config: ParserConfig) -> dict[
         )
         _expect(category_row["current_page"], ("integer",))
         _expect(category_row["has_next_page"], ("boolean",))
-        _apply_extensions(category_row, category, "category", config.extensions, config.category_container)
+        _apply_extensions(
+            category_row,
+            category,
+            "category",
+            config.extensions + config.observed_extensions,
+            config.category_container,
+        )
         products = _select(category, product_tail)
         for product in products:
             if type(product) is not dict:
@@ -235,7 +261,13 @@ def parse_productlist(payload: Mapping[str, Any], config: ParserConfig) -> dict[
                 config.price_bindings,
                 config.product_container,
             )
-            _apply_extensions(product_row, product, "product", config.extensions, config.product_container)
+            _apply_extensions(
+                product_row,
+                product,
+                "product",
+                config.extensions + config.observed_extensions,
+                config.product_container,
+            )
             skus = _select(product, sku_tail)
             for sku in skus:
                 if type(sku) is not dict:
@@ -244,8 +276,9 @@ def parse_productlist(payload: Mapping[str, Any], config: ParserConfig) -> dict[
                     "id": _required_direct(sku, "id", ("integer",)),
                     "spec": _required_direct(sku, "spec", ("string",)),
                     "price": _bound_value(sku, config.sku_price, config.sku_container),
-                    "status": _required_direct(sku, "status", ("integer",)),
                 }
+                if config.sku_status_required or "status" in sku:
+                    sku_row["status"] = _required_direct(sku, "status", config.sku_status_types)
                 _apply_price_bindings(
                     sku_row,
                     sku,
@@ -253,7 +286,13 @@ def parse_productlist(payload: Mapping[str, Any], config: ParserConfig) -> dict[
                     config.price_bindings,
                     config.sku_container,
                 )
-                _apply_extensions(sku_row, sku, "sku", config.extensions, config.sku_container)
+                _apply_extensions(
+                    sku_row,
+                    sku,
+                    "sku",
+                    config.extensions + config.observed_extensions,
+                    config.sku_container,
+                )
                 product_row["skus"].append(sku_row)
             category_row["products"].append(product_row)
         result.append(category_row)
@@ -274,13 +313,13 @@ def parse_food(payload: Mapping[str, Any], config: FoodParserConfig) -> dict[str
     config.validate()
     if type(payload) is not dict:
         raise ParserError("UNSUPPORTED_PAYLOAD")
-    poi_values = _select(payload, _tokenize("$.data.poi_info"))
+    poi_values = _select(payload, _tokenize(config.merchant_container))
     if len(poi_values) != 1 or type(poi_values[0]) is not dict:
         raise ParserError("MERCHANT_FIELD_MISSING")
     poi = poi_values[0]
     merchant = {
-        "id": _bound_value(poi, config.merchant_id, "$.data.poi_info"),
-        "name": _bound_value(poi, config.merchant_name, "$.data.poi_info"),
+        "id": _bound_value(poi, config.merchant_id, config.merchant_container),
+        "name": _bound_value(poi, config.merchant_name, config.merchant_container),
         "prices": {},
     }
     _apply_price_bindings(
@@ -288,20 +327,34 @@ def parse_food(payload: Mapping[str, Any], config: FoodParserConfig) -> dict[str
         poi,
         "merchant",
         config.price_bindings,
-        "$.data.poi_info",
+        config.merchant_container,
     )
     _apply_price_bindings(
         merchant,
         poi,
         "coupon",
         config.price_bindings,
-        "$.data.poi_info",
+        config.merchant_container,
     )
     _apply_price_bindings(
         merchant,
         payload.get("data", {}),
         "root",
         config.price_bindings,
+        "$.data",
+    )
+    _apply_extensions(
+        merchant,
+        poi,
+        "merchant",
+        config.observed_extensions,
+        config.merchant_container,
+    )
+    _apply_extensions(
+        merchant,
+        payload.get("data", {}),
+        "root",
+        config.observed_extensions,
         "$.data",
     )
     return {
@@ -358,7 +411,13 @@ def _apply_extensions(
         if binding.scope != scope:
             continue
         value = _bound_value(entity, binding, base)
-        row.setdefault("extensions", {})[binding.output_key or binding.name] = value
+        if binding.source_label is None:
+            row.setdefault("extensions", {})[binding.output_key or binding.name] = value
+        else:
+            row.setdefault("extensions", {})[binding.output_key or binding.name] = {
+                "value": value,
+                "source_label": binding.source_label,
+            }
 
 
 def _required_direct(entity: Mapping[str, Any], key: str, types: Sequence[str]) -> Any:

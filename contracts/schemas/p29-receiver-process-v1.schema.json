@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p29-receiver-process-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "output_root", "pid", "python_executable", "interpreter_prefix", "fifo_identity", "launched_at", "control", "starts_automatically", "automatic_retry", "raw_payload_persisted"],
+  "properties": {
+    "schema_version": {"const": "p29-owned-receiver-process/v1"},
+    "output_root": {"type": "string", "pattern": "^/", "maxLength": 4096},
+    "pid": {"type": "integer", "minimum": 1},
+    "python_executable": {"type": "string", "pattern": "^/", "maxLength": 4096},
+    "interpreter_prefix": {"type": "string", "pattern": "^/", "maxLength": 4096},
+    "fifo_identity": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0}},
+    "launched_at": {"type": "string", "format": "date-time"},
+    "control": {"const": "OWNED_FIFO"},
+    "input_mode": {"const": "FORWARDED_COPY"},
+    "starts_automatically": {"const": false},
+    "automatic_retry": {"const": false},
+    "raw_payload_persisted": {"const": false}
+  }
+}

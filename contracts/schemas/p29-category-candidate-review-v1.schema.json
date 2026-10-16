@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_file",
+    "window_ref",
+    "source_request_ref",
+    "observed_at",
+    "profile_family",
+    "profile_version",
+    "profile_kind",
+    "shop_scope_verified",
+    "source_context_age_within_10_seconds",
+    "candidate_row_count",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "mapping_paths",
+    "business_result_rows_added",
+    "can_publish_complete_result",
+    "coverage_status",
+    "unconfirmed_facts",
+    "raw_payload_read",
+    "business_values_in_report",
+    "sensitive_values_processed",
+    "product_result",
+    "response_code_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p29-category-candidate-review/v1"
+    },
+    "source_file": {
+      "type": "string",
+      "pattern": "^category_render_[a-f0-9]{32}-public-fields\\.json$"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "source_request_ref": {
+      "type": "string",
+      "pattern": "^request:[a-f0-9]{32}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "profile_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "profile_version": {
+      "const": "p29-observed-category-render-v1"
+    },
+    "profile_kind": {
+      "const": "LOCAL_OBSERVED_CANDIDATE_RULES"
+    },
+    "shop_scope_verified": {
+      "const": true
+    },
+    "source_context_age_within_10_seconds": {
+      "type": "boolean"
+    },
+    "candidate_row_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "mapping_paths": {
+      "const": [
+        "$.data.food_spu_tags[].dynamic_spus[].id",
+        "$.data.food_spu_tags[].dynamic_spus[].min_price",
+        "$.data.food_spu_tags[].dynamic_spus[].name",
+        "$.data.food_spu_tags[].dynamic_spus[].render_info.price_info.min_price",
+        "$.data.food_spu_tags[].dynamic_spus[].skus[].id",
+        "$.data.food_spu_tags[].dynamic_spus[].skus[].origin_price",
+        "$.data.food_spu_tags[].dynamic_spus[].skus[].price",
+        "$.data.food_spu_tags[].dynamic_spus[].skus[].spec",
+        "$.data.food_spu_tags[].dynamic_spus[].skus[].spec_desc",
+        "$.data.food_spu_tags[].dynamic_spus[].unit",
+        "$.data.food_spu_tags[].tag"
+      ]
+    },
+    "business_result_rows_added": {
+      "const": 0
+    },
+    "can_publish_complete_result": {
+      "const": false
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "unconfirmed_facts": {
+      "enum": [
+        [
+          "RESPONSE_SUCCESS_CODE",
+          "FRESH_MERCHANT_IDENTITY",
+          "CATEGORY_NAME",
+          "PRICE_CURRENCY_AND_UNIT",
+          "CATEGORY_TERMINATION"
+        ],
+        [
+          "FRESH_MERCHANT_IDENTITY",
+          "CATEGORY_NAME",
+          "PRICE_CURRENCY_AND_UNIT",
+          "CATEGORY_TERMINATION"
+        ]
+      ]
+    },
+    "raw_payload_read": {
+      "const": false
+    },
+    "business_values_in_report": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "product_result": {
+      "const": "incomplete"
+    },
+    "response_code_status": {
+      "enum": [
+        "ZERO",
+        "UNOBSERVED"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "response_code_status": {
+            "const": "ZERO"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unconfirmed_facts": {
+            "const": [
+              "FRESH_MERCHANT_IDENTITY",
+              "CATEGORY_NAME",
+              "PRICE_CURRENCY_AND_UNIT",
+              "CATEGORY_TERMINATION"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "unconfirmed_facts": {
+            "const": [
+              "RESPONSE_SUCCESS_CODE",
+              "FRESH_MERCHANT_IDENTITY",
+              "CATEGORY_NAME",
+              "PRICE_CURRENCY_AND_UNIT",
+              "CATEGORY_TERMINATION"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

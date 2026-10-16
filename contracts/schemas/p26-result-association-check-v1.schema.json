@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "food_poi_id_str_matches_numeric_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "food_poi_id_str_matches_public_string_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "food_poi_id_str_ready": {
+      "type": "boolean"
+    },
+    "food_success_code": {
+      "type": "boolean"
+    },
+    "food_wm_poi_id_matches_numeric_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "food_wm_poi_id_matches_public_string_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "food_wm_poi_id_ready": {
+      "type": "boolean"
+    },
+    "numeric_id_is_negative": {
+      "type": "boolean"
+    },
+    "poi_id_str_equal_between_requests": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "product_poi_id_str_matches_numeric_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "product_poi_id_str_matches_public_string_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "product_poi_id_str_ready": {
+      "type": "boolean"
+    },
+    "product_success_code": {
+      "type": "boolean"
+    },
+    "product_wm_poi_id_matches_numeric_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "product_wm_poi_id_matches_public_string_id": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "product_wm_poi_id_ready": {
+      "type": "boolean"
+    },
+    "public_id_fields_equal_as_text": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "public_string_id_ready": {
+      "type": "boolean"
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "same_observation_gap_valid": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "p26-result-association-check/v1"
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "store_name_match": {
+      "type": "boolean"
+    },
+    "window_ref": {
+      "pattern": "^(result|identification):[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "wm_poi_id_equal_between_requests": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "merchant_container": {
+      "enum": [
+        "$.data.poi_base_info",
+        "$.data.poi_info",
+        "NOT_PROJECTED",
+        "AMBIGUOUS"
+      ]
+    }
+  },
+  "required": [
+    "food_poi_id_str_matches_numeric_id",
+    "food_poi_id_str_matches_public_string_id",
+    "food_poi_id_str_ready",
+    "food_success_code",
+    "food_wm_poi_id_matches_numeric_id",
+    "food_wm_poi_id_matches_public_string_id",
+    "food_wm_poi_id_ready",
+    "numeric_id_is_negative",
+    "poi_id_str_equal_between_requests",
+    "product_poi_id_str_matches_numeric_id",
+    "product_poi_id_str_matches_public_string_id",
+    "product_poi_id_str_ready",
+    "product_success_code",
+    "product_wm_poi_id_matches_numeric_id",
+    "product_wm_poi_id_matches_public_string_id",
+    "product_wm_poi_id_ready",
+    "public_id_fields_equal_as_text",
+    "public_string_id_ready",
+    "raw_payload_persisted",
+    "same_observation_gap_valid",
+    "schema_version",
+    "sensitive_values_processed",
+    "store_name_match",
+    "window_ref",
+    "wm_poi_id_equal_between_requests"
+  ],
+  "type": "object"
+}

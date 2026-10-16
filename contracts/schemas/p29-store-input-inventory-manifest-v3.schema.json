@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "p29-store-input-inventory-v3.schema.json#/$defs/metadata"
+    },
+    {
+      "required": [
+        "schema_version",
+        "result_name",
+        "files",
+        "rule_profile_version",
+        "rule_profile_kind",
+        "count_zero_means_no_threshold",
+        "discount_number_proves_algorithm",
+        "zero_amount_means_free",
+        "negative_adapted_as_amount",
+        "display_only_fields_passed_through",
+        "nested_rules_concatenated",
+        "cross_observation_rule_fields_copied"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p29-store-input-inventory-manifest/v3"
+        },
+        "result_name": {
+          "type": "string",
+          "pattern": "^store_price_rules_[a-f0-9]{32}$"
+        },
+        "files": {
+          "const": [
+            "records.json",
+            "records.csv",
+            "manifest.json"
+          ]
+        },
+        "rule_profile_version": {
+          "const": "p29-observed-price-rules-v1"
+        },
+        "rule_profile_kind": {
+          "const": "LOCAL_OBSERVED_PRICE_RULE_EVIDENCE"
+        },
+        "count_zero_means_no_threshold": {
+          "const": false
+        },
+        "discount_number_proves_algorithm": {
+          "const": false
+        },
+        "zero_amount_means_free": {
+          "const": false
+        },
+        "negative_adapted_as_amount": {
+          "const": false
+        },
+        "display_only_fields_passed_through": {
+          "const": false
+        },
+        "nested_rules_concatenated": {
+          "const": false
+        },
+        "cross_observation_rule_fields_copied": {
+          "const": false
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

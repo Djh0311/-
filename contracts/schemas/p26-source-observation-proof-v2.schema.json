@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authorization_ref": {
+      "pattern": "^authorization:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "capability_ref": {
+      "pattern": "^capability:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "food_observed_at": {
+      "format": "date-time",
+      "maxLength": 64,
+      "type": "string"
+    },
+    "food_parameter_match": {
+      "const": true
+    },
+    "food_projection_ref": {
+      "pattern": "^projection:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "food_request_ref": {
+      "pattern": "^request:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "observation_ref": {
+      "pattern": "^observation:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "observation_scope": {
+      "pattern": "^OBS_[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "price_relation": {
+      "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+    },
+    "product_observed_at": {
+      "format": "date-time",
+      "maxLength": 64,
+      "type": "string"
+    },
+    "product_parameter_match": {
+      "const": true
+    },
+    "product_projection_ref": {
+      "pattern": "^projection:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "product_request_ref": {
+      "pattern": "^request:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "profile_ref": {
+      "pattern": "^profile:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "read_scope": {
+      "pattern": "^READ_[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "routing_parameter_key": {
+      "const": "poi_id_str"
+    },
+    "run_ref": {
+      "pattern": "^run:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "same_observation_rule": {
+      "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+    },
+    "schema_version": {
+      "const": "p26-source-observation-proof/v2"
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "store_name_match": {
+      "const": true
+    },
+    "window_ref": {
+      "pattern": "^result:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "merchant_container": {
+      "const": "$.data.poi_info"
+    },
+    "secondary_routing_parameter_key": {
+      "const": "wm_poi_id"
+    },
+    "secondary_response_id_path": {
+      "const": "$.data.poi_info.id"
+    },
+    "payload_version": {
+      "const": "p26-observed-shop-v2"
+    },
+    "food_secondary_parameter_match": {
+      "const": true
+    },
+    "product_secondary_parameter_match": {
+      "const": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "window_ref",
+    "profile_ref",
+    "read_scope",
+    "observation_scope",
+    "food_request_ref",
+    "product_request_ref",
+    "food_projection_ref",
+    "product_projection_ref",
+    "food_observed_at",
+    "product_observed_at",
+    "store_name_match",
+    "food_parameter_match",
+    "product_parameter_match",
+    "routing_parameter_key",
+    "same_observation_rule",
+    "price_relation",
+    "sensitive_values_processed",
+    "raw_payload_persisted",
+    "run_ref",
+    "observation_ref",
+    "authorization_ref",
+    "capability_ref",
+    "merchant_container",
+    "secondary_routing_parameter_key",
+    "secondary_response_id_path",
+    "payload_version",
+    "food_secondary_parameter_match",
+    "product_secondary_parameter_match"
+  ],
+  "type": "object"
+}

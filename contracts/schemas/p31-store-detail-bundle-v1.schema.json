@@ -1,0 +1,610 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "P31 separate store detail export bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "stores",
+    "field_dictionary",
+    "coverage",
+    "association",
+    "manifest"
+  ],
+  "properties": {
+    "stores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "record_count",
+        "records",
+        "all_detail_fields_adapted"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p31-store-details/v1"
+        },
+        "record_count": {
+          "const": 1
+        },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "store_id",
+              "store_numeric_id",
+              "source_file",
+              "observed_at",
+              "window_ref",
+              "store_name",
+              "address",
+              "phones",
+              "delivery_period",
+              "delivery_description",
+              "delivery_tip",
+              "services",
+              "tags",
+              "bulletin"
+            ],
+            "properties": {
+              "store_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "store_numeric_id": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^-?[0-9]+$"
+              },
+              "source_file": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^store_detail_[a-f0-9]{32}-public-fields\\.json$"
+              },
+              "observed_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "window_ref": {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^result:[a-f0-9]{32}$"
+              },
+              "store_name": {
+                "$ref": "#/$defs/textFact"
+              },
+              "address": {
+                "$ref": "#/$defs/textFact"
+              },
+              "phones": {
+                "$ref": "#/$defs/indexedTexts"
+              },
+              "delivery_period": {
+                "$ref": "#/$defs/textFact"
+              },
+              "delivery_description": {
+                "$ref": "#/$defs/textFact"
+              },
+              "delivery_tip": {
+                "$ref": "#/$defs/textFact"
+              },
+              "services": {
+                "$ref": "#/$defs/indexedTexts"
+              },
+              "tags": {
+                "$ref": "#/$defs/indexedTexts"
+              },
+              "bulletin": {
+                "$ref": "#/$defs/textFact"
+              }
+            }
+          }
+        },
+        "all_detail_fields_adapted": {
+          "const": false
+        }
+      }
+    },
+    "field_dictionary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "fields"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p31-store-detail-dictionary/v1"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "label_zh",
+              "source_path",
+              "kind"
+            ],
+            "properties": {
+              "field": {
+                "enum": [
+                  "store_name",
+                  "address",
+                  "phones",
+                  "delivery_period",
+                  "delivery_description",
+                  "delivery_tip",
+                  "services",
+                  "tags",
+                  "bulletin"
+                ]
+              },
+              "label_zh": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "source_path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "kind": {
+                "enum": [
+                  "TEXT",
+                  "INDEXED_TEXT"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "fields",
+        "gaps",
+        "images",
+        "personal_offers",
+        "product_result"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p31-store-detail-coverage/v1"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "state"
+            ],
+            "properties": {
+              "field": {
+                "enum": [
+                  "store_name",
+                  "address",
+                  "phones",
+                  "delivery_period",
+                  "delivery_description",
+                  "delivery_tip",
+                  "services",
+                  "tags",
+                  "bulletin"
+                ]
+              },
+              "state": {
+                "enum": [
+                  "PRESENT_AS_OBSERVED",
+                  "SOURCE_NULL",
+                  "SOURCE_EMPTY",
+                  "NOT_OBSERVED",
+                  "SOURCE_REJECTED",
+                  "PARTIAL_REJECTED"
+                ]
+              }
+            }
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field",
+              "status",
+              "explanation_zh"
+            ],
+            "properties": {
+              "field": {
+                "enum": [
+                  "opening_hours",
+                  "complete_promotion_rules",
+                  "complete_delivery_rules",
+                  "unmapped_detail_fields",
+                  "all_store_products"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "NOT_CONFIRMED",
+                  "NOT_ADAPTED"
+                ]
+              },
+              "explanation_zh": {
+                "type": "string",
+                "maxLength": 512
+              }
+            }
+          }
+        },
+        "images": {
+          "const": "EXCLUDED_BY_USER"
+        },
+        "personal_offers": {
+          "const": "EXCLUDED_BY_USER"
+        },
+        "product_result": {
+          "const": "incomplete"
+        }
+      }
+    },
+    "association": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basis",
+        "string_id_match",
+        "numeric_id_match",
+        "name_match",
+        "product_result_name",
+        "product_window_ref",
+        "detail_window_ref",
+        "product_record_count",
+        "product_store_observed_at",
+        "detail_observed_at",
+        "values_are_same_observation",
+        "product_values_modified"
+      ],
+      "properties": {
+        "basis": {
+          "const": "EXACT_PUBLIC_STRING_AND_NUMERIC_STORE_IDS"
+        },
+        "string_id_match": {
+          "const": true
+        },
+        "numeric_id_match": {
+          "const": true
+        },
+        "name_match": {
+          "type": "boolean"
+        },
+        "product_result_name": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^p31_context_codes_[a-f0-9]{32}$"
+        },
+        "product_window_ref": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^result:[a-f0-9]{32}$"
+        },
+        "detail_window_ref": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^result:[a-f0-9]{32}$"
+        },
+        "product_record_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "product_store_observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "detail_observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "values_are_same_observation": {
+          "const": false
+        },
+        "product_values_modified": {
+          "const": false
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "result_name",
+        "record_count",
+        "files",
+        "detail_root",
+        "detail_file",
+        "product_root",
+        "product_result_name",
+        "live_attempts_consumed",
+        "raw_payload_read",
+        "original_files_modified",
+        "product_result"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "p31-store-detail-manifest/v1"
+        },
+        "result_name": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^p31_store_detail_[a-f0-9]{32}$"
+        },
+        "record_count": {
+          "const": 1
+        },
+        "files": {
+          "const": [
+            "stores.json",
+            "stores.csv",
+            "field_dictionary.json",
+            "coverage.json",
+            "association.json",
+            "manifest.json"
+          ]
+        },
+        "detail_root": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "detail_file": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^store_detail_[a-f0-9]{32}-public-fields\\.json$"
+        },
+        "product_root": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "product_result_name": {
+          "type": "string",
+          "maxLength": 512,
+          "pattern": "^p31_context_codes_[a-f0-9]{32}$"
+        },
+        "live_attempts_consumed": {
+          "const": 0
+        },
+        "raw_payload_read": {
+          "const": false
+        },
+        "original_files_modified": {
+          "const": false
+        },
+        "product_result": {
+          "const": "incomplete"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "textFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "state"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256,
+          "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+        },
+        "state": {
+          "enum": [
+            "PRESENT_AS_OBSERVED",
+            "SOURCE_NULL",
+            "SOURCE_EMPTY",
+            "NOT_OBSERVED",
+            "SOURCE_REJECTED"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "SOURCE_NULL",
+                  "NOT_OBSERVED",
+                  "SOURCE_REJECTED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "SOURCE_EMPTY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": ""
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "PRESENT_AS_OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "indexedTextValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7999
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256,
+          "pattern": "^(?!.*://)[^\\r\\n\\u0000]*$"
+        },
+        "state": {
+          "enum": [
+            "PRESENT_AS_OBSERVED",
+            "SOURCE_NULL",
+            "SOURCE_EMPTY",
+            "NOT_OBSERVED",
+            "SOURCE_REJECTED"
+          ]
+        }
+      },
+      "required": [
+        "index",
+        "value",
+        "state"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "SOURCE_NULL",
+                  "NOT_OBSERVED",
+                  "SOURCE_REJECTED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "SOURCE_EMPTY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": ""
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "PRESENT_AS_OBSERVED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "indexedTexts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "state"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8000,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/indexedTextValue"
+              }
+            ]
+          }
+        },
+        "state": {
+          "enum": [
+            "PRESENT_AS_OBSERVED",
+            "SOURCE_NULL",
+            "SOURCE_EMPTY",
+            "NOT_OBSERVED",
+            "SOURCE_REJECTED",
+            "PARTIAL_REJECTED"
+          ]
+        }
+      }
+    }
+  }
+}

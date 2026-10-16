@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live-entry-diagnostic-v1.schema.json",
+  "title": "Closed P25 live-entry diagnostic",
+  "description": "Value-free preparation and phase diagnostic. It records fixed codes and capped counts only. UNKNOWN fields are not a claim that a real source, network, or field rule was checked. A local synthetic lease is not a product latch.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "program_preparation",
+    "real_source_ready",
+    "network_readiness",
+    "real_interface_rules",
+    "real_field_rules",
+    "developer_match_parameters",
+    "field_inventory",
+    "identification_boundary",
+    "unknown_conditions",
+    "not_started",
+    "receiver_ready",
+    "callback_entered",
+    "target_matched",
+    "events_complete",
+    "parse_status",
+    "publish_status",
+    "closure_status",
+    "closure_code",
+    "raw_callback_count",
+    "target_match_count",
+    "qualified_event_count",
+    "source_attempts_consumed",
+    "start_requested",
+    "product_live_capture_latch",
+    "product_execution_latch",
+    "local_receiver_armed",
+    "automatic_retry",
+    "output_precheck",
+    "local_lease_scope",
+    "max_window_seconds",
+    "cancel_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "collection-live-entry-diagnostic/v1"
+    },
+    "program_preparation": {
+      "enum": [
+        "COMPLETE",
+        "INCOMPLETE"
+      ]
+    },
+    "real_source_ready": {
+      "const": "UNKNOWN"
+    },
+    "network_readiness": {
+      "const": "UNKNOWN"
+    },
+    "real_interface_rules": {
+      "const": "UNKNOWN"
+    },
+    "real_field_rules": {
+      "const": "UNKNOWN"
+    },
+    "developer_match_parameters": {
+      "enum": [
+        "SUPPLIED",
+        "MISSING"
+      ]
+    },
+    "field_inventory": {
+      "const": "NOT_STARTED"
+    },
+    "identification_boundary": {
+      "const": "P26_AUTHORIZED_WINDOW_ONLY"
+    },
+    "unknown_conditions": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "enum": [
+          "REAL_INTERFACE_RULES",
+          "REAL_FIELD_RULES",
+          "REAL_REQUEST_PARAMETERS",
+          "NETWORK_READINESS",
+          "PROXY_STATE",
+          "TARGET_PAGE_STATE",
+          "PRIVATE_CONFIGURATION",
+          "LAST_TIMEOUT_CAUSE"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "not_started": {
+      "type": "boolean"
+    },
+    "receiver_ready": {
+      "enum": [
+        "NO",
+        "READY"
+      ]
+    },
+    "callback_entered": {
+      "enum": [
+        "NO",
+        "YES"
+      ]
+    },
+    "target_matched": {
+      "enum": [
+        "NO",
+        "YES"
+      ]
+    },
+    "events_complete": {
+      "enum": [
+        "NO",
+        "YES"
+      ]
+    },
+    "parse_status": {
+      "enum": [
+        "ACCEPTED",
+        "NOT_RUN",
+        "REJECTED",
+        "RUNNING",
+        "STOPPED"
+      ]
+    },
+    "publish_status": {
+      "enum": [
+        "NOT_RUN",
+        "PUBLISHED",
+        "REJECTED",
+        "RUNNING"
+      ]
+    },
+    "closure_status": {
+      "enum": [
+        "OPEN",
+        "CLOSED"
+      ]
+    },
+    "closure_code": {
+      "enum": [
+        "CONFIGURATION_REJECTED",
+        "DEVELOPER_PARAMETERS_MISSING",
+        "LIVE_ADAPTER_OBSERVATION_INVALID",
+        "LIVE_ADAPTER_READER_INVALID",
+        "LIVE_ADAPTER_SCOPE_INVALID",
+        "LIVE_ATTEMPT_POLICY_INVALID",
+        "LIVE_CAPABILITY_INVALID",
+        "LIVE_HISTORICAL_TARGET_INVALID",
+        "LIVE_INPUT_DRIFT",
+        "LIVE_INPUT_LOCK_EXPIRED",
+        "LIVE_INPUT_LOCK_INVALID",
+        "LIVE_INPUT_LOCK_USED",
+        "LIVE_P0_CONSUMER_REJECTED",
+        "LIVE_P17_REQUEST_INVALID",
+        "LIVE_P17_SOURCE_POLICY_INVALID",
+        "LIVE_PARSE_REJECTED",
+        "LIVE_PRIVACY_POLICY_INVALID",
+        "LIVE_PUBLISH_REJECTED",
+        "LIVE_REQUEST_INVALID",
+        "LIVE_REQUEST_REFERENCE_INVALID",
+        "LIVE_SOURCE_PURPOSE_INVALID",
+        "LIVE_SOURCE_PURPOSE_MISMATCH",
+        "LIVE_SOURCE_READ_FAILED",
+        "LIVE_TARGET_BINDING_DRIFT",
+        "LIVE_TARGET_BINDING_INVALID",
+        "LIVE_TARGET_INVALID",
+        "LIVE_WINDOW_LIMIT",
+        "LIVE_WORKER_START_FAILED",
+        "MITMPROXY_BRIDGE_CANCELLED",
+        "MITMPROXY_BRIDGE_ENDPOINT_REJECTED",
+        "MITMPROXY_BRIDGE_EVENT_BUDGET",
+        "MITMPROXY_BRIDGE_FACTORY_INVALID",
+        "MITMPROXY_BRIDGE_FACTORY_USED",
+        "MITMPROXY_BRIDGE_LEASE_CLOSED",
+        "MITMPROXY_BRIDGE_NOT_WAITING",
+        "MITMPROXY_BRIDGE_PROJECTION_REJECTED",
+        "MITMPROXY_BRIDGE_REQUEST_DRIFT",
+        "MITMPROXY_BRIDGE_RESPONSE_BUDGET",
+        "MITMPROXY_BRIDGE_SENSITIVE_REJECTED",
+        "MITMPROXY_BRIDGE_TARGET_DRIFT",
+        "MITMPROXY_BRIDGE_TIMEOUT",
+        "MITMPROXY_BRIDGE_WINDOW_LIMIT",
+        "NONE",
+        "P0_PUBLISHED",
+        "PREPARATION_ARGUMENTS_INVALID",
+        "PREPARATION_CANCELLED",
+        "RESULT_INPUT_INVALID",
+        "RESULT_ROOT_INVALID",
+        "RESULT_TARGET_EXISTS",
+        "LIVE_CURRENT_TARGET_BINDING_INVALID"
+      ]
+    },
+    "raw_callback_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 8
+    },
+    "target_match_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 8
+    },
+    "qualified_event_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "source_attempts_consumed": {
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "start_requested": {
+      "type": "boolean"
+    },
+    "product_live_capture_latch": {
+      "const": "CLOSED"
+    },
+    "product_execution_latch": {
+      "const": "CLOSED"
+    },
+    "local_receiver_armed": {
+      "type": "boolean"
+    },
+    "automatic_retry": {
+      "const": false
+    },
+    "output_precheck": {
+      "enum": [
+        "NOT_RUN",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "local_lease_scope": {
+      "const": "NOT_PRODUCT_LATCH"
+    },
+    "max_window_seconds": {
+      "const": 120
+    },
+    "cancel_status": {
+      "enum": [
+        "NOT_REQUESTED",
+        "REQUESTED",
+        "CLOSED",
+        "PUBLICATION_IN_PROGRESS"
+      ]
+    }
+  }
+}

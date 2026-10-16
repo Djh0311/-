@@ -28,7 +28,21 @@
 
 明确未带入：历史 raw/live evidence、旧 Harness runtime 与控制面、旧 leaf/stage/done/report/audit/usage、旧 authority/dispatch/task graph、H5/Wechat 实验源码、其它 worktree 内容、历史 raw projection 工具。它们只存在于仓外受控归档，且不是新仓运行依赖。
 
-## Harness Lite 0.7
+## 初始 Harness Lite 0.7（历史迁移收据）
+
+`2026-08-11` 重建时的协作与生命周期权威是 Harness Lite 0.7。以下 0.7 载体、摘要和宿主状态保留为历史事实；当前版本以本文的 0.13.0 升级收据为准。爬虫产品内容仍以用户当前目标和项目计划为范围来源，历史任务包和报告不恢复为执行授权。
+
+### Lite authority carrier
+
+- 唯一方案权威：`/Users/yoyi/Documents/Codex/2026-07-26/users-yoyi-documents-codex-2026-07/outputs/harness-lite-0.7-upgrade-plan-2026-08-10.md`
+- 干净源码：`/Users/yoyi/harness engineering/harness-lite-0.7-authority`
+- branch / commit / tree：`codex/harness-lite-0.7-authority-clean` / `90b5f8c14a71a415d87374821fff4af35ad6372e` / `1ba67855a5c3b25138e3ad8dafdd7ce243c2a40f`
+- 精确安装载体：`/Users/yoyi/Documents/Codex/2026-07-26/users-yoyi-documents-codex-2026-07/outputs/harness-lite-0.7.0-runtime-source-90b5f8c.tar.gz`
+- 载体 manifest：`/Users/yoyi/Documents/Codex/2026-07-26/users-yoyi-documents-codex-2026-07/outputs/harness-lite-0.7.0-runtime-source-90b5f8c.manifest.json`
+- manifest SHA-256：`3f43ad3c55a467f6055dfcb9d543312ff79ed914711c05bb878d872ef6abfae0`
+- managed files：12；载体为 local / unreleased / unpushed；`licenseDeclared=false`
+
+`ownership.json` 中的 `sourceCommit=working-copy:640ad4d…` 是恢复的 0.7 working-copy 历史字段，不是源码权威 HEAD。精确权威由上面的 `90b5f8c…`、tree、bundle SHA 和 package digest 共同锁定；不得改写 ownership 来伪装该字段。
 
 - 源码权威 commit：`90b5f8c14a71a415d87374821fff4af35ad6372e`
 - runtime source bundle SHA-256：`d0b445e3362f76d93c248d639f1368ca0a3a84a3e88a828f43ea00a0e87e310b`
@@ -43,9 +57,94 @@
 - observed：四事件均 false（未做真实宿主事件观测）
 - native pre-push：未安装
 
+因此当前只证明 installed 和 configured；尚未证明 trusted、observed 或 effective，也不把本地载体冒充已发布版本。
+
 机制预算保持：新增用户命令 0、持久状态 0、非 push 门禁 0、Hook 事件 0、内部命令 0、技能 0、风险模块 0、项目专属 Core 兼容 0。
 
-## 本次直接验证
+## 2026-10-07 Harness Lite 0.13.0 升级收据
+
+本次用户明确批准备份和项目级 Harness 升级。使用固定 `v0.13.0` 源码提交 `aac6bd5fe721aa126cf6d9203e5d96d2db540913`，未带入远端工作区未提交的 Cursor 适配、私有配置或源仓计划。
+
+### 当前载体与保留边界
+
+- 升级前 identity / version：`official-07` / `0.7.0`；升级后：`current` / `0.13.0`。
+- profile：`project`；managed files：20；没有安装全局 managed runtime 或原生 pre-push。
+- package digest：`sha256:0ab9bee59a2f151f129841d03b8e40e915a4804e573310f806fefbadb8709f32`。
+- instruction digest：`sha256:3039aeda829abc6b0577e6a5c68e0d8ac978d5c02eb3e81738a8f1b592e53575`。
+- Codex Hook definition digest：`sha256:b17ccf006df0b3c983b121614e3f5ea6ee732d3f050c92ea26a3d62514245188`。
+- 上游 `sourceCommit=working-copy:0.13.0-candidate` 原字段保持不变；精确 Git 来源由上述固定提交单独证明，不改写 ownership 冒充不同来源。
+- 原字节备份：`meituan-harness-backup-20261007-A46QNa`，位于本机用户缓存目录；57 个 Harness/协作文件已复制校验，132 个受保护源码/计划文件和既有 Git HEAD 保持不变。备份未读取认证文件、历史 raw、归档或实际采集数据。
+- 安装器回退载体：`.claude/.harness-lite.rollback-mqCLqQ/harness-lite`；其中旧 runtime 与升级前备份字节和权限完全一致。2026-10-08 重构时它随官方 uninstall 移除（见下一节），内容仍在备份中。
+- current leaf / stage 仍为 `P23-fresh-listener-window-single-p0-attempt` / `stage-04s-continuation-single-live-p0`；唯一 current leaf 和原计划未移动或改写。
+- `docs/harness/authorization.json` 初始化为 `authorized=false`，并加入本地 Git 排除项；本次升级不是 P23 执行授权，两个采集 latch 继续关闭。
+
+### Devin 适配与证据上限
+
+`.devin/hooks.v1.json` 和 `.devin/hooks/harness-lite.cjs` 是项目自有的边界适配，不属于上游 20 文件 runtime。它只在 SessionStart/UserPromptSubmit 中只读投影新版上下文，并在 shell PreToolUse 保留 push 停点；不签发执行或 push 授权，不生成 Codex 观测账，不配置 Stop 自动续跑，不保存 prompt、transcript 或凭据。
+
+适配配置及隔离 fixture 只证明配置、wire 和行为分支。Codex installed/configured 已校验；真实 Codex trust/observed、真实 Devin Hook loaded/observed 和宿主 effective 均未验收。当时会话工作根是爬虫父目录；2026-10-08 重构后仓库根就是工作根（见下一节），仍需在仓库根新开 Devin 会话并检查 `/hooks`，不能把对子进程的直接调用写成真实宿主触发。
+
+### 本次直接验证
+
+- 真实目标只读预检：`READY / official-07 / written=0 / differences=[]`；随后按明确授权完成 `INSTALLED`，runtime self-verify 与 installation anchor 校验通过。
+- 隔离 0.7 专用试升级与注入故障回退：通过；计划、leaf/stage、用户指令前缀和模拟业务文件保持不变。
+- Devin 适配：6/6 单测通过，覆盖只读上下文、Devin turn 字段映射（合成输入）、普通命令不拦截、push 默认拒绝、缺失 runtime 和不同 workspace 边界；配置中的实际命令另做合成 wire 校验，未把这些调用记录为真实宿主事件。
+- `autocapture`：154/154；`parser_candidate`：41/41；`collection_adapter`：58/58；`collection_core`：27/27，合计 280 项离线单测通过。
+- strict verifier：`AUTOCAPTURE_STRICT_VERIFY_PASS`，16 files / 15 manifest entries。
+- 保留上游限制：本机安装/历史指令选测为 10/13；历史 0.9/0.10 载体固定 Hook 摘要与本机生成值不一致，CLI 大段 JSON 输出会因提前退出被截断。本次真实升级不依赖该大段 JSON，并另行验证安装元数据；不把这些选测写成全量通过。
+- 没有启动真实采集、网络/UI、系统代理或 CA/keychain 动作，没有 commit、push 或发布。业务来源资格和真实运行结论不因本次升级而提升。
+
+## 2026-10-08 仓库根重构收据
+
+用户在项目线程明确要求：重构仓库结构，把 v3 作为实际产品 main；Harness 安装在仓库根而不是子目录；要把项目形状适配成 Harness 0.13，而不只是 Devin。下面是实际执行的结果。
+
+### 结构变化
+
+- 重构前：`/Users/yoyi/爬虫` 不是 Git 仓库。产品在子目录 `meituan-collection-agent-owned-v3/`（branch `codex/project-rebuild-20260811`，HEAD `19634a15a212d10be45bf0c2c79afe88c0d0f925`，无 remote），旁边并列 100 个旧条目和 3 个其它条目。
+- 重构后：`/Users/yoyi/爬虫` 就是仓库根，branch 和 HEAD 不变，Git 历史没有改写，没有 commit；未提交的工作保持未提交。v3 的 16 个顶层条目（`.codex .devin .git .gitignore AGENTS.md CLAUDE.md MIGRATION_MANIFEST.md README.md autocapture collection_adapter collection_core contracts docs historical_assets parser_candidate tmp`）原样提升到根，`.claude/` 由官方安装器重新创建。
+- 100 个旧并列条目用同卷重命名原样移入 `_archive/root-legacy-20261008/`：38 个 dispatch 目录、51 个 Stage 2 成果目录、旧 `meituan-collection-agent-owned-v2` 仓库和 10 份 handoff。4278 个文件移动前后的 SHA-256、大小和权限一致（清单 SHA-256 `0479b25e184d67076e2b2f8ce510b78d764a28b779dd0328e767ed98b5041988`）。
+- 不属于本产品的两项没有移动：`adaptive-harness-python-test-inventory-001/`（外部仓库的 Git worktree，搬动会破坏它的 worktree 登记）和 `ai-browser-crawling-platform-requirements.md`。它们只被本地 `.git/info/exclude` 忽略。
+- `.gitignore` 新增 `/_archive/`，本地 `.git/info/exclude` 有同样的兜底。移动记录、校验和与恢复脚本在 `_archive/root-legacy-20261008.receipt/`：`move-journal.json` SHA-256 `3300f479950bc86da8804f9ac8a48d34b59a2aa35cd19726388e7734444b685b`，`files.sha256` SHA-256 `ad8dcbe64f36f4f4b125fd3cb50dddd3fed4ef4adb162a45f7ab42c773e78250`。
+- 旧路径到新路径的映射见 `docs/archive-boundary.md`。
+
+### Harness Lite 0.13.0 在仓库根重新安装
+
+installation anchor 绑定安装路径，目录不能直接 `mv`，所以走官方路径：
+
+1. 在旧路径运行官方 uninstall：`UNINSTALLED`。只移除 36 个 Harness 自有文件（21 个 runtime 文件含 `ownership.json`、14 个 0.7 回退载体文件、1 个 installation anchor），以及 `AGENTS.md`、`CLAUDE.md` 中的受管块和 `.codex/hooks.json` 中的 Hook 组；其它文件零变化。
+2. 移动目录（见上）。
+3. 在仓库根用同一固定源码（`v0.13.0`，`aac6bd5fe721aa126cf6d9203e5d96d2db540913`）和同一 project profile 重新安装：`INSTALLED`，20 个受管文件，anchor `targetCanonical=/Users/yoyi/爬虫`，anchor digest `sha256:ebb63498bc5d83e1a664b55723fc11f50696f07719513f08592f32428173242a`。
+
+- package digest、instruction digest 和 Hook definition digest 与 2026-10-07 升级收据完全一致。
+- 2026-10-07 升级留下的回退载体随官方 uninstall 移除，新安装没有 rollback carrier；旧 runtime 仍在两份备份里。
+- 官方 uninstall/install 的文本级 Hook 合并在 `.codex/hooks.json` 里留下 4 个只含空格的行，使 `git diff --check` 失败。已整理成标准缩进：JSON 解析结果与重构前逐项相同，与 HEAD 的差异只剩 4 行 `command`。
+- `AGENTS.md` 的 Harness 受管块字节不变，但官方重新安装把它放到了文件末尾（原来在中间）。
+- Hook 命令里的 node 路径是安装时的真实路径 `/opt/homebrew/Cellar/node/23.11.0/bin/node`，`.devin/hooks.v1.json` 同。用 Homebrew 升级 node 后该路径会失效，需要用官方安装器刷新 Hook 命令，并同步改 Devin 适配。
+
+### 项目形状适配到 Harness 0.13
+
+- `docs/harness/plan.md` 新增 REQUIREMENT-BASELINE 块：确认来源是用户 2026-10-08 的明确要求，`hl status` 显示 `需求基线：current`。块内沿用的产品目标是 2026-08 既有计划的原文，本次没有重新确认其语义。
+- 当前 leaf `P23-fresh-listener-window-single-p0-attempt` 和排队中的 `P24-stage-acceptance`，验收字段由编号的“完成条件”改成 0.13 读取的“完成标准：”单行列表（P23 为 6 条，P24 为 5 条，措辞与原文一致）。0.13 只读取这种写法，原来的写法会被判为没有完成标准。
+- 两个 leaf 里折行的“目标”“来源收据”“证据”“产品”和 P24 折行的“不许动”条目合并成单行，否则 `hl status` 只显示第一行（P23 的证据曾在“不能把未接通的”处截断）。两处改动都只动换行和列表标记，去掉空白后的全文与原文一致；P23、P24 和 Stage 04S 的范围、语义和 latch 都未变。
+- 新增 `docs/harness/checks.json`：6 个按路径选测的 task 检查、1 个 quick 检查和 7 个 full 检查，对应 README 的离线验证命令。`hl verify` 不再显示“无登记检查”。
+- README、`AGENTS.md`（只改项目部分）、`docs/archive-boundary.md`、`docs/history/original-carriers.md` 更新为新布局；Harness 受管块没有手工改动。
+- Devin 适配不变：`$DEVIN_PROJECT_DIR` 现在就是仓库根。
+
+### 备份与回退
+
+- 重构前 v3 的 APFS 克隆：`/Users/yoyi/Library/Caches/meituan-restructure-backup-20261008/v3-before`（670 个文件，清单 SHA-256 `1fe78c732f0f62f39229f66eccc5a5887c72237b590c4d97e3f8cc5b1d626e82`）。2026-10-07 的升级前备份 `meituan-harness-backup-20261007-A46QNa` 在同一缓存目录。两者都可能被系统清理，需要长期保留请复制走。
+- 只把旧条目移回仓库根：`_archive/root-legacy-20261008.receipt/restore-neighbors.py`（默认只预检；已在沙箱上测试，并在真实布局上预检通过）。整体回退到重构前的步骤见同目录 `README.md`，该路径没有演练过。
+
+### 直接验证
+
+- 官方 uninstall 前后相比，只少了上述 36 个 Harness 自有文件，另有 `.codex/hooks.json`、`AGENTS.md`、`CLAUDE.md` 三个文件中的受管内容被移除；目录提升后，树与 uninstall 后的 v3 逐文件一致（`.git/index` 和 `.git/info/exclude` 除外）。
+- 现状与重构前备份逐文件比较：业务源码、合同、`historical_assets/` 和 `docs/history/` 字节不变，权限不变。变化只有 Harness 安装文件（`ownership.json`、anchor、已移除的回退载体）、本节列出的文档和 `.gitignore`、`docs/harness/` 下新增的 `checks.json` 与 `verify.jsonl`、`.codex/hooks.json` 的空白整理，以及 Git 索引和本地排除。`docs/history/` 中只有 `original-carriers.md` 增加了位置说明。`historical-assets-tree.sha256` 的 269 个文件仍全部匹配。
+- `hl status`：`healthy`；官方 uninstall 预检（只读）：`READY`。
+- `hl verify --profile full --run`：7 项登记检查全部通过。包括 280 项离线单测（autocapture 154、parser_candidate 41、collection_adapter 58、collection_core 27）、strict verifier `AUTOCAPTURE_STRICT_VERIFY_PASS`（16 files / 15 manifest entries）、Devin 适配 6/6 和 `git diff --check`。运行记录在 `docs/harness/verify.jsonl`。另在系统 Python 3.9.6 上跑过四组单测和 strict verifier，也通过。
+- `authorization.json` 仍为 `authorized=false`（权限 0600，被本地 Git 排除），两个采集 latch 仍关闭。没有真实采集、网络/UI、系统代理或 CA/keychain 动作，没有 commit、push 或发布。
+- 未验证：真实宿主的 Hook trust/observed/effective（需要在仓库根新开会话后用 `/hooks` 检查）；plan-review 仍为 missing；代码图谱不可用（140 个未提交代码文件未进入图谱）。
+
+## 2026-08-11 初始迁移直接验证（历史）
 
 - `autocapture`：154/154 通过；
 - strict verifier：`AUTOCAPTURE_STRICT_VERIFY_PASS`，16 files / 15 manifest entries；

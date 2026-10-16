@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "result_name",
+    "window_ref",
+    "record_count",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "store_record_count",
+    "files",
+    "coverage_status",
+    "complete_result_promotion",
+    "target_system_import_verified",
+    "live_attempts_consumed",
+    "public_text_record_count"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-business-manifest/v5"
+    },
+    "result_name": {
+      "type": "string",
+      "pattern": "^p31_initial_relation_[a-f0-9]{32}$"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "store_record_count": {
+      "const": 1
+    },
+    "files": {
+      "const": [
+        "records.json",
+        "records.csv",
+        "stores.json",
+        "stores.csv",
+        "public_texts.json",
+        "public_texts.csv",
+        "field_dictionary.json",
+        "coverage.json",
+        "manifest.json"
+      ]
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "complete_result_promotion": {
+      "const": false
+    },
+    "target_system_import_verified": {
+      "const": false
+    },
+    "live_attempts_consumed": {
+      "const": 0
+    },
+    "public_text_record_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

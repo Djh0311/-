@@ -1,0 +1,330 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "p29-category-render-inspection/v4"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "source_request_ref": {
+      "type": "string",
+      "pattern": "^request:[a-f0-9]{32}$"
+    },
+    "route": {
+      "const": "/weapp/poi/food/render"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_context_result_name": {
+      "type": "string",
+      "pattern": "^observation_[a-f0-9]{32}$"
+    },
+    "source_context_observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_field_keys": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "maxLength": 64,
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      }
+    },
+    "shop_scope_verified": {
+      "const": true
+    },
+    "poi_id_str_matches_context": {
+      "const": true,
+      "description": "Category request string matches the public string in the current completed merchant response; not the initial request-pair selector."
+    },
+    "wm_poi_id_matches_context": {
+      "const": true
+    },
+    "source_context_age_within_10_seconds": {
+      "type": "boolean"
+    },
+    "same_observation_record_ready": {
+      "const": false
+    },
+    "payload_family": {
+      "const": "UNKNOWN"
+    },
+    "payload_version": {
+      "const": "UNKNOWN"
+    },
+    "business_record_count": {
+      "const": 0
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "public_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fields",
+        "public_values",
+        "unavailable_fields",
+        "restricted_fields",
+        "sensitive_rejections",
+        "field_meanings",
+        "sensitive_values_processed",
+        "raw_payload_persisted"
+      ],
+      "properties": {
+        "fields": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "public_values": {
+          "type": "array",
+          "maxItems": 8000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "coordinates",
+              "value"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 32,
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+                    },
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 39999
+                    }
+                  ]
+                }
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ],
+                "maxLength": 256
+              }
+            }
+          }
+        },
+        "unavailable_fields": {
+          "type": "array",
+          "maxItems": 8000,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type",
+              "reason"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  "NONSCALAR",
+                  "STRING_LENGTH",
+                  "URL_VALUE",
+                  "LINE_BREAK",
+                  "NONFINITE_NUMBER"
+                ]
+              }
+            }
+          }
+        },
+        "restricted_fields": {
+          "type": "array",
+          "maxItems": 4096,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "type",
+              "category"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "maxLength": 512
+              },
+              "type": {
+                "enum": [
+                  "object",
+                  "array",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "category": {
+                "enum": [
+                  "CREDENTIAL_KEY",
+                  "SESSION_KEY",
+                  "PERSONAL_KEY",
+                  "TRANSPORT_KEY",
+                  "UNCLASSIFIED_KEY"
+                ]
+              }
+            }
+          }
+        },
+        "sensitive_rejections": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "CREDENTIAL_KEY",
+            "SESSION_KEY",
+            "PERSONAL_KEY",
+            "TRANSPORT_KEY",
+            "UNCLASSIFIED_KEY"
+          ],
+          "properties": {
+            "CREDENTIAL_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "SESSION_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "PERSONAL_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "TRANSPORT_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            },
+            "UNCLASSIFIED_KEY": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128
+            }
+          }
+        },
+        "field_meanings": {
+          "const": "DEVELOPER_REVIEW_REQUIRED"
+        },
+        "sensitive_values_processed": {
+          "const": false
+        },
+        "raw_payload_persisted": {
+          "const": false
+        }
+      }
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "response_code_status": {
+      "enum": [
+        "ZERO",
+        "NONZERO",
+        "ABSENT",
+        "INVALID_TYPE"
+      ]
+    },
+    "store_context_identity_basis": {
+      "const": "CURRENT_RESPONSE_NUMERIC_ID_MATCHES_BOTH_REQUESTS"
+    },
+    "string_context_basis": {
+      "const": "CURRENT_RESPONSE_PUBLIC_STRING"
+    }
+  },
+  "required": [
+    "schema_version",
+    "window_ref",
+    "source_request_ref",
+    "route",
+    "observed_at",
+    "source_context_result_name",
+    "source_context_observed_at",
+    "request_field_keys",
+    "shop_scope_verified",
+    "poi_id_str_matches_context",
+    "wm_poi_id_matches_context",
+    "source_context_age_within_10_seconds",
+    "same_observation_record_ready",
+    "payload_family",
+    "payload_version",
+    "business_record_count",
+    "coverage_status",
+    "public_analysis",
+    "raw_payload_persisted",
+    "sensitive_values_processed",
+    "response_code_status",
+    "store_context_identity_basis",
+    "string_context_basis"
+  ],
+  "$id": "p29-category-render-inspection-v4.schema.json"
+}

@@ -14,6 +14,7 @@ tmp/
 runtime-output/
 
 # 原始采集与隔离证据不得进入本仓
+/_archive/
 archive/
 evidence/
 raw/
@@ -22,3 +23,12 @@ raw/
 *.pcap
 *.pcapng
 *.saz
+
+# 历史归档与过程日志（保留在本地磁盘，不纳入版本库）
+historical_assets/
+docs/history/
+docs/harness/reports/
+docs/harness/done/
+docs/harness/superseded/
+docs/harness/delegation.json
+docs/harness/verify.jsonl

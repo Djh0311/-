@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p29-routing-id-relation-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "food_request_ref",
+    "product_request_ref",
+    "food_observed_at",
+    "product_observed_at",
+    "scope_basis",
+    "request_pair_equal",
+    "request_equals_response",
+    "mapping_rule_qualified",
+    "parameter_values_returned",
+    "raw_payload_persisted",
+    "sensitive_values_processed",
+    "request_string_kind",
+    "response_string_kind",
+    "request_string_length",
+    "response_string_length",
+    "request_contains_url_escape",
+    "response_contains_url_escape",
+    "nfkc_space_free_strings_equal",
+    "one_more_request_url_decode_equals_response",
+    "one_response_url_decode_equals_request",
+    "field_role_relation",
+    "business_record_count"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p29-routing-id-relation/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "food_request_ref": {
+      "type": "string",
+      "pattern": "^request:[a-f0-9]{32}$"
+    },
+    "product_request_ref": {
+      "type": "string",
+      "pattern": "^request:[a-f0-9]{32}$"
+    },
+    "food_observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "product_observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope_basis": {
+      "const": "CURRENT_PAIR_NAME_NUMERIC_IDS_SUCCESS_AND_WITHIN_10_SECONDS"
+    },
+    "request_pair_equal": {
+      "const": true
+    },
+    "request_equals_response": {
+      "const": false
+    },
+    "mapping_rule_qualified": {
+      "const": false
+    },
+    "parameter_values_returned": {
+      "const": false
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "request_string_kind": {
+      "enum": [
+        "ASCII_DECIMAL",
+        "ASCII_SIGNED_DECIMAL",
+        "ASCII_OTHER",
+        "NON_ASCII"
+      ]
+    },
+    "response_string_kind": {
+      "enum": [
+        "ASCII_DECIMAL",
+        "ASCII_SIGNED_DECIMAL",
+        "ASCII_OTHER",
+        "NON_ASCII"
+      ]
+    },
+    "request_string_length": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "response_string_length": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "request_contains_url_escape": {
+      "type": "boolean"
+    },
+    "response_contains_url_escape": {
+      "type": "boolean"
+    },
+    "nfkc_space_free_strings_equal": {
+      "type": "boolean"
+    },
+    "one_more_request_url_decode_equals_response": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "one_response_url_decode_equals_request": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "field_role_relation": {
+      "const": "UNCONFIRMED"
+    },
+    "business_record_count": {
+      "const": 0
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live-p0-run-receipt-v1.schema.json",
+  "title": "Closed P21 completed P0 result receipt",
+  "description": "Value-free receipt emitted only after one complete same-observation P0 result set has been published through the no-clobber local publisher.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "outcome", "run_ref", "attempt_ref", "source_attempt_consumed", "automatic_retry", "source_material_persisted", "business_publication_allowed", "live_capture_latch", "execution_latch", "result_published", "result_record_count"],
+  "properties": {
+    "schema_version": {"const": "collection-live-p0-run-receipt/v1"},
+    "outcome": {"const": "P0_PUBLISHED"},
+    "run_ref": {"type": "string", "pattern": "^run:[A-Za-z0-9_-]{8,96}$"},
+    "attempt_ref": {"type": "string", "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"},
+    "source_attempt_consumed": {"const": 1},
+    "automatic_retry": {"const": false},
+    "source_material_persisted": {"const": false},
+    "business_publication_allowed": {"const": true},
+    "live_capture_latch": {"const": "CLOSED"},
+    "execution_latch": {"const": "CLOSED"},
+    "result_published": {"const": true},
+    "result_record_count": {"type": "integer", "minimum": 1}
+  },
+  "$comment": "This receipt contains no source locator or source-derived values. Failed attempts use collection-live-p0-adapter-stop/v1 instead."
+}

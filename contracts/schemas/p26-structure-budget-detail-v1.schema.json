@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p26-structure-budget-detail-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dimension",
+    "stage",
+    "limit",
+    "observed"
+  ],
+  "properties": {
+    "dimension": {
+      "enum": [
+        "NODES",
+        "DEPTH",
+        "FIELD_DEFINITIONS",
+        "RESTRICTED_DEFINITIONS",
+        "PUBLIC_VALUES",
+        "CATALOG_DEFINITIONS"
+      ]
+    },
+    "stage": {
+      "enum": [
+        "LEXICAL_SCAN",
+        "STRICT_SCAN",
+        "PUBLIC_PROJECTION",
+        "FIELD_CATALOG"
+      ]
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "observed": {
+      "type": "integer",
+      "maximum": 40001
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "NODES"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 40000
+          },
+          "observed": {
+            "minimum": 40001
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "DEPTH"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 32
+          },
+          "observed": {
+            "minimum": 33
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "FIELD_DEFINITIONS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 4096
+          },
+          "observed": {
+            "minimum": 4097
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "RESTRICTED_DEFINITIONS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 4096
+          },
+          "observed": {
+            "minimum": 4097
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "PUBLIC_VALUES"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 8000
+          },
+          "observed": {
+            "minimum": 8001
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dimension": {
+            "const": "CATALOG_DEFINITIONS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "limit": {
+            "const": 4096
+          },
+          "observed": {
+            "minimum": 4097
+          }
+        }
+      }
+    }
+  ]
+}

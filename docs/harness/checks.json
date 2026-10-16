@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "checks": [
+    {
+      "id": "autocapture-unit",
+      "profile": "task",
+      "paths": ["autocapture/"],
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "autocapture/tests", "-p", "test_*.py"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "autocapture-strict-verify",
+      "profile": "task",
+      "paths": ["autocapture/", "docs/design/"],
+      "argv": ["python3", "-B", "autocapture/tools/verify_autocapture_build.py", "--repo-root", ".", "--strict"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "parser-candidate-unit",
+      "profile": "task",
+      "paths": ["parser_candidate/"],
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "parser_candidate/tests", "-p", "test_*.py"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "collection-adapter-unit",
+      "profile": "task",
+      "paths": ["collection_adapter/", "collection_core/", "parser_candidate/", "contracts/"],
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "collection_adapter/tests", "-p", "test_*.py"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "collection-core-unit",
+      "profile": "task",
+      "paths": ["collection_core/", "collection_adapter/", "parser_candidate/", "contracts/"],
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "collection_core/tests", "-p", "test_*.py"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "devin-adapter-unit",
+      "profile": "task",
+      "paths": [".devin/"],
+      "argv": ["node", "--test", ".devin/hooks/harness-lite.test.cjs"],
+      "timeoutMs": 120000
+    },
+    {
+      "id": "quick-git-diff-check",
+      "profile": "quick",
+      "argv": ["git", "diff", "--check"],
+      "timeoutMs": 30000
+    },
+    {
+      "id": "full-autocapture-unit",
+      "profile": "full",
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "autocapture/tests", "-p", "test_*.py"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-autocapture-strict-verify",
+      "profile": "full",
+      "argv": ["python3", "-B", "autocapture/tools/verify_autocapture_build.py", "--repo-root", ".", "--strict"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-parser-candidate-unit",
+      "profile": "full",
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "parser_candidate/tests", "-p", "test_*.py"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-collection-adapter-unit",
+      "profile": "full",
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "collection_adapter/tests", "-p", "test_*.py"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-collection-core-unit",
+      "profile": "full",
+      "argv": ["python3", "-B", "-m", "unittest", "discover", "-s", "collection_core/tests", "-p", "test_*.py"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-devin-adapter-unit",
+      "profile": "full",
+      "argv": ["node", "--test", ".devin/hooks/harness-lite.test.cjs"],
+      "timeoutMs": 300000
+    },
+    {
+      "id": "full-git-diff-check",
+      "profile": "full",
+      "argv": ["git", "diff", "--check"],
+      "timeoutMs": 60000
+    }
+  ]
+}

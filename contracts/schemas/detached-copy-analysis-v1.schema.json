@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detached-copy-analysis-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "accepting_copies",
+    "failure",
+    "queued_chunks",
+    "queued_bytes",
+    "skipped_headers",
+    "dropped_copies",
+    "completed_streams",
+    "counts_at_least",
+    "coverage_incomplete",
+    "recovery",
+    "raw_payload_persisted"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "detached-copy-analysis/v1"
+    },
+    "accepting_copies": {
+      "type": "boolean"
+    },
+    "failure": {
+      "enum": [
+        null,
+        "COPY_QUEUE_LIMIT",
+        "ANALYSIS_CLOSED",
+        "ANALYSIS_REJECTED",
+        "ANALYSIS_DIAGNOSTIC_FAILED",
+        "WORKER_UNAVAILABLE",
+        "COPY_METADATA_INVALID"
+      ]
+    },
+    "queued_chunks": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 256
+    },
+    "queued_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4194304
+    },
+    "skipped_headers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "dropped_copies": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "completed_streams": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "counts_at_least": {
+      "type": "boolean"
+    },
+    "coverage_incomplete": {
+      "type": "boolean"
+    },
+    "recovery": {
+      "enum": ["CONTINUING", "STOPPED"]
+    },
+    "raw_payload_persisted": {
+      "const": false
+    },
+    "structure_budget": {
+      "$ref": "p26-structure-budget-detail-v1.schema.json"
+    }
+  }
+}

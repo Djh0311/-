@@ -55,6 +55,7 @@
     },
     "source_kind": {
       "enum": [
+        "SYNTHETIC_OFFLINE_FIXTURE",
         "USER_OWNED_EXPORT",
         "OFFICIAL_PUBLIC_DATASET",
         "APPROVED_PUBLIC_DOCUMENT",

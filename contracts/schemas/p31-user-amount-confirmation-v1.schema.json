@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "confirmation_ref",
+    "window_ref",
+    "input_result_name",
+    "currency",
+    "amount_unit",
+    "evidence_kind",
+    "scope",
+    "source_unit_presence_unchanged",
+    "no_numeric_conversion"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-user-amount-confirmation/v1"
+    },
+    "confirmation_ref": {
+      "const": "user-confirmation:p31-cny-yuan"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "input_result_name": {
+      "type": "string",
+      "pattern": "^p31_context_codes_[a-f0-9]{32}$"
+    },
+    "currency": {
+      "const": "CNY"
+    },
+    "amount_unit": {
+      "const": "YUAN"
+    },
+    "evidence_kind": {
+      "const": "EXPLICIT_USER_CONFIRMATION"
+    },
+    "scope": {
+      "const": "EXACT_EXISTING_RESULT_PRICE_AND_FEE_FIELDS"
+    },
+    "source_unit_presence_unchanged": {
+      "const": true
+    },
+    "no_numeric_conversion": {
+      "const": true
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

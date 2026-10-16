@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "managedBy": "harness-lite",
+  "targetCanonical": "/Users/yoyi/爬虫",
+  "runtimeVersion": "0.13.0",
+  "sourceCommit": "working-copy:0.13.0-candidate",
+  "profile": "project",
+  "sourcePackageDigest": "sha256:0ab9bee59a2f151f129841d03b8e40e915a4804e573310f806fefbadb8709f32",
+  "hookDefinitionDigest": "sha256:b17ccf006df0b3c983b121614e3f5ea6ee732d3f050c92ea26a3d62514245188",
+  "manifestDigest": "sha256:b167511f47458711007824de36b682348f5165de97f0f35b6044c813415f65fe",
+  "managedPathsDigest": "sha256:bd4a6ef848e3245a6aaf16a16449ccd7a217b1add5ae1fb7590ed57e88f16caa",
+  "instructionOwnershipDigest": "sha256:cf6ff97d360fbaddcf1ef4e5ecf9f7257523ffe77b3f6bdfa65bb4c78ea9b69f",
+  "rollbackCarriersDigest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "extensionsDigest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "createdDirectories": [
+    ".claude",
+    ".codex/harness-lite"
+  ],
+  "anchorDigest": "sha256:ebb63498bc5d83e1a664b55723fc11f50696f07719513f08592f32428173242a"
+}

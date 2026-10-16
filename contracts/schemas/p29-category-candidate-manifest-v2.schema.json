@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "window_ref", "profile_family", "profile_version", "profile_kind",
+    "response_count", "input_candidate_rows", "deduplicated_candidate_rows", "product_count",
+    "sku_count", "category_count", "deduplication", "record_kind", "record_count",
+    "coverage_status", "coverage_scope", "can_publish_complete_result",
+    "cross_observation_fields_copied", "raw_payload_persisted", "sensitive_values_processed",
+    "currency_inferred", "amount_unit_inferred", "initial_pair_currency_borrowed",
+    "currency_path_status", "amount_unit_path_status", "activity_price_path_status",
+    "price_desc_tag_path_status", "unknown_facts", "sources", "result_name", "files"
+  ],
+  "properties": {
+    "schema_version": {"const": "p29-category-candidate-manifest/v2"},
+    "window_ref": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/window"},
+    "profile_family": {"const": "meituan_wechat_miniprogram"},
+    "profile_version": {"const": "p29-observed-category-price-v1"},
+    "profile_kind": {"const": "LOCAL_OBSERVED_PRICE_EVIDENCE"},
+    "response_count": {"type": "integer", "minimum": 1, "maximum": 32},
+    "input_candidate_rows": {"type": "integer", "minimum": 0, "maximum": 40000},
+    "deduplicated_candidate_rows": {"type": "integer", "minimum": 0, "maximum": 40000},
+    "product_count": {"type": "integer", "minimum": 0, "maximum": 40000},
+    "sku_count": {"type": "integer", "minimum": 0, "maximum": 40000},
+    "category_count": {"type": "integer", "minimum": 0, "maximum": 256},
+    "deduplication": {"const": "LATEST_OWN_CANDIDATE_PER_SKU_CATEGORY"},
+    "record_kind": {"const": "PARTIAL_CATEGORY_CANDIDATE"},
+    "record_count": {"type": "integer", "minimum": 1, "maximum": 40000},
+    "coverage_status": {"const": "PARTIAL"},
+    "coverage_scope": {"const": "OBSERVED_MATCHED_CATEGORY_RESPONSES_ONLY"},
+    "can_publish_complete_result": {"const": false},
+    "cross_observation_fields_copied": {"const": false},
+    "raw_payload_persisted": {"const": false},
+    "sensitive_values_processed": {"const": false},
+    "currency_inferred": {"const": false},
+    "amount_unit_inferred": {"const": false},
+    "initial_pair_currency_borrowed": {"const": false},
+    "currency_path_status": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/path_status"},
+    "amount_unit_path_status": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/path_status"},
+    "activity_price_path_status": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/path_status"},
+    "price_desc_tag_path_status": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/path_status"},
+    "unknown_facts": {
+      "const": [
+        "MERCHANT_NAME_IN_RESPONSE", "CATEGORY_NAME_IN_RESPONSE", "CURRENCY_CODE",
+        "AMOUNT_UNIT", "BUSINESS_SEMANTICS_OF_UNCONFIRMED_PRICE_COMPONENTS",
+        "CATEGORY_TERMINATION", "TAG_TYPE_SEMANTICS", "CHILD_TAG_SEMANTICS"
+      ]
+    },
+    "sources": {
+      "type": "array", "minItems": 1, "maxItems": 32,
+      "items": {"$ref": "p29-category-candidate-result-v2.schema.json#/$defs/source"}
+    },
+    "result_name": {"type": "string", "pattern": "^category_price_[a-f0-9]{32}$"},
+    "files": {"const": ["records.json", "records.csv", "manifest.json"]}
+  }
+}

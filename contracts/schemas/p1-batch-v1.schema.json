@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p1-batch-v1.schema.json",
+  "title": "Synthetic P1 batch v1",
+  "description": "A closed P1 extension over an already validated P0 result; synthetic fixture only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "p0_result", "p1_records"],
+  "properties": {
+    "schema_version": {"const": "collection-p1-batch/v1"},
+    "p0_result": {"type": "object"},
+    "p1_records": {
+      "type": "array",
+      "items": {"$ref": "p1-record-v1.schema.json"},
+      "minItems": 1
+    }
+  },
+  "$comment": "Semantic validation must validate p0_result first, preserve all P0 bindings, and refuse cross-observation, cross-entity, cross-time and cross-source P1 values."
+}

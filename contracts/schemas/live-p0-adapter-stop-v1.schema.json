@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live-p0-adapter-stop-v1.schema.json",
+  "title": "Closed P16 live P0 Adapter stop receipt",
+  "description": "Value-free result for one consumed P15 source attempt. It never contains source material, endpoint details, secrets, sessions or free diagnostic text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "stop_code",
+    "run_ref",
+    "attempt_ref",
+    "source_ref",
+    "provider_contract_ref",
+    "authorization_ref",
+    "capability_ref",
+    "source_attempt_consumed",
+    "automatic_retry",
+    "business_publication_allowed",
+    "source_material_persisted",
+    "latch_state"
+  ],
+  "properties": {
+    "schema_version": {"const": "collection-live-p0-adapter-stop/v1"},
+    "stop_code": {
+      "enum": [
+        "LIVE_SOURCE_READ_FAILED",
+        "LIVE_ADAPTER_READER_INVALID",
+        "LIVE_ADAPTER_OBSERVATION_INVALID",
+        "LIVE_ADAPTER_SCOPE_INVALID",
+        "LIVE_P0_CONSUMER_REJECTED",
+        "LIVE_PARSE_REJECTED",
+        "LIVE_PUBLISH_REJECTED",
+        "LIVE_INPUT_LOCK_EXPIRED",
+        "LIVE_INPUT_LOCK_USED",
+        "LIVE_INPUT_DRIFT",
+        "MITMPROXY_BRIDGE_ENDPOINT_REJECTED",
+        "MITMPROXY_BRIDGE_RESPONSE_BUDGET",
+        "MITMPROXY_BRIDGE_EVENT_BUDGET",
+        "MITMPROXY_BRIDGE_SENSITIVE_REJECTED",
+        "MITMPROXY_BRIDGE_TARGET_DRIFT",
+        "MITMPROXY_BRIDGE_PROJECTION_REJECTED",
+        "MITMPROXY_BRIDGE_TIMEOUT",
+        "MITMPROXY_BRIDGE_REQUEST_DRIFT",
+        "MITMPROXY_BRIDGE_LEASE_CLOSED",
+        "MITMPROXY_BRIDGE_CANCELLED"
+      ]
+    },
+    "run_ref": {"type": "string", "pattern": "^run:[A-Za-z0-9_-]{8,96}$"},
+    "attempt_ref": {"type": "string", "pattern": "^attempt:[A-Za-z0-9_-]{8,96}$"},
+    "source_ref": {"type": "string", "pattern": "^source:[A-Za-z0-9_-]{8,96}$"},
+    "provider_contract_ref": {"type": "string", "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"},
+    "authorization_ref": {"type": "string", "pattern": "^authorization:[A-Za-z0-9_-]{8,96}$"},
+    "capability_ref": {"type": "string", "pattern": "^capability:[A-Za-z0-9_-]{8,96}$"},
+    "source_attempt_consumed": {"const": 1},
+    "automatic_retry": {"const": false},
+    "business_publication_allowed": {"const": false},
+    "source_material_persisted": {"const": false},
+    "latch_state": {"const": "CLOSED"}
+  },
+  "$comment": "The actual runtime must release the reader and observation references before emitting this receipt. The receipt records failure classification only; it cannot authorize another read."
+}

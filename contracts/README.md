@@ -41,6 +41,11 @@ NO_PROVIDER_OR_PARSER_BUILD_AUTHORITY
 | `value-free-sensitive-stop.schema.json` | 不含敏感值的硬停止收据 |
 | `capability-ledger.schema.json` | Provider、Parser、Publisher、Core 能力账本 |
 | `adapter-checkpoint.schema.json` | 不重开真实来源的 Adapter 检查点 |
+| `live-p0-execution-request-v1.schema.json` | P15 单目标、一次性 application-local 真实 P0 运行请求 |
+| `live-p0-adapter-stop-v1.schema.json` | P16 单次读取后的无值关闭收据 |
+| `live-p0-entry-stop-v1.schema.json` | P17 source entry 未绑定时的零尝试无值结论 |
+| `mitmproxy-source-entry-binding-v1.schema.json` | P20 被动 callback reader 的当前绑定和 P21 即时工厂边界 |
+| `live-p0-run-receipt-v1.schema.json` | P21 完整 P0 无覆盖结果集成功后的闭合收据 |
 | `evidence-manifest.schema.json` | 值安全证据与正式导出清单 |
 | `error-status-code.schema.json` | 稳定、无原始诊断文本的错误状态 |
 
@@ -51,9 +56,11 @@ ID 集合、分类集合与计数精确一致；不得把两类字段合并为�
 
 ## 尚未定义
 
-真实 `payload_family`、`payload_version`、字段树和专属 Parser 输入 Schema 仍由
-`S2-02-OWNED-SOURCE-QUALIFICATION-001` 阻塞。只有主管接受
-`PROVIDER_QUALIFIED_FOR_BUILD` 和冻结的 value-free shape 后，才能在新的版本化文件中增加对应 Schema。
+真实 `payload_family`、`payload_version`、字段树和专属 Parser 输入 Schema 尚未由当前获准事实冻结。
+`S2-02-OWNED-SOURCE-QUALIFICATION-001` 是历史资格任务引用，不是需要恢复的当前任务。
+[后续计划](../docs/harness/plan.md)由 P26 取得获准的真实结构与语义依据，并完成首份基础结果所需的
+版本化映射；P28/P31 再扩充关联与业务字段。具体合同须以新事实和对应资格裁定为依据，任务编号、
+计划通过或合成验证均不等于 `PROVIDER_QUALIFIED_FOR_BUILD`，也不能提升正式 Parser/Provider 定位。
 
 不得为了提前实现 Parser 而在这些通用合同中加入猜测字段、示例业务值或宽松透传对象。
 

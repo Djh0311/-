@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p28-sku-record-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "p0_business_record_ref",
+    "store_id",
+    "product_id",
+    "sku_id",
+    "category_ref",
+    "category_name",
+    "sku_spec",
+    "sku_spec_state",
+    "sku_description",
+    "sku_description_state",
+    "product_unit_text",
+    "product_unit_state",
+    "sku_price_minor",
+    "product_display_price_minor",
+    "source_origin_price_number",
+    "source_origin_price_state",
+    "original_price_minor",
+    "original_price_state",
+    "activity_price_minor",
+    "activity_price_state",
+    "packaging_fee_minor",
+    "packaging_fee_state",
+    "availability_status",
+    "availability_status_state",
+    "promotion_state",
+    "run_ref",
+    "batch_ref",
+    "observation_ref",
+    "observed_at"
+  ],
+  "properties": {
+    "p0_business_record_ref": {
+      "type": "string",
+      "pattern": "^business-record:[A-Za-z0-9_-]{8,96}$"
+    },
+    "store_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,88}$"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^-?[0-9]+$"
+    },
+    "sku_id": {
+      "type": "string",
+      "pattern": "^-?[0-9]+$"
+    },
+    "category_ref": {
+      "type": "string",
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$",
+      "minLength": 1
+    },
+    "category_name": {
+      "type": "string",
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$",
+      "minLength": 1
+    },
+    "sku_spec": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$"
+    },
+    "sku_spec_state": {
+      "enum": [
+        "PRESENT",
+        "SOURCE_EMPTY",
+        "NOT_OBSERVED"
+      ]
+    },
+    "sku_description": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$"
+    },
+    "sku_description_state": {
+      "enum": [
+        "PRESENT",
+        "SOURCE_EMPTY",
+        "NOT_OBSERVED"
+      ]
+    },
+    "product_unit_text": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$"
+    },
+    "product_unit_state": {
+      "enum": [
+        "PRESENT",
+        "SOURCE_EMPTY",
+        "NOT_OBSERVED"
+      ]
+    },
+    "sku_price_minor": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "product_display_price_minor": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "source_origin_price_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256,
+      "pattern": "^-?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$"
+    },
+    "source_origin_price_state": {
+      "enum": [
+        "NOT_OBSERVED",
+        "SEMANTICS_UNCONFIRMED"
+      ]
+    },
+    "original_price_minor": {
+      "type": "null"
+    },
+    "original_price_state": {
+      "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+    },
+    "activity_price_minor": {
+      "type": "null"
+    },
+    "activity_price_state": {
+      "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+    },
+    "packaging_fee_minor": {
+      "type": "null"
+    },
+    "packaging_fee_state": {
+      "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+    },
+    "availability_status": {
+      "type": "null"
+    },
+    "availability_status_state": {
+      "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+    },
+    "promotion_state": {
+      "const": "NOT_ADAPTED_OR_UNCONFIRMED"
+    },
+    "run_ref": {
+      "type": "string",
+      "pattern": "^run:[A-Za-z0-9_-]{8,96}$"
+    },
+    "batch_ref": {
+      "type": "string",
+      "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observation_ref": {
+      "type": "string",
+      "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "sku_spec_state": {
+            "const": "NOT_OBSERVED"
+          }
+        },
+        "required": [
+          "sku_spec_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_spec": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sku_spec_state": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "sku_spec_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_spec": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sku_spec_state": {
+            "const": "SOURCE_EMPTY"
+          }
+        },
+        "required": [
+          "sku_spec_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_spec": {
+            "const": ""
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sku_description_state": {
+            "const": "NOT_OBSERVED"
+          }
+        },
+        "required": [
+          "sku_description_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_description": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sku_description_state": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "sku_description_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sku_description_state": {
+            "const": "SOURCE_EMPTY"
+          }
+        },
+        "required": [
+          "sku_description_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sku_description": {
+            "const": ""
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_unit_state": {
+            "const": "NOT_OBSERVED"
+          }
+        },
+        "required": [
+          "product_unit_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "product_unit_text": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_unit_state": {
+            "const": "PRESENT"
+          }
+        },
+        "required": [
+          "product_unit_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "product_unit_text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "product_unit_state": {
+            "const": "SOURCE_EMPTY"
+          }
+        },
+        "required": [
+          "product_unit_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "product_unit_text": {
+            "const": ""
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_origin_price_state": {
+            "const": "NOT_OBSERVED"
+          }
+        },
+        "required": [
+          "source_origin_price_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_origin_price_number": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_origin_price_state": {
+            "const": "SEMANTICS_UNCONFIRMED"
+          }
+        },
+        "required": [
+          "source_origin_price_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_origin_price_number": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

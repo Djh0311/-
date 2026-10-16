@@ -1,22 +1,63 @@
 {
-  "runtimeVersion": "0.7.0",
-  "sourceCommit": "working-copy:640ad4d0d81828cd80bfee9ff6be6c87d20a7aa6",
+  "runtimeVersion": "0.13.0",
+  "sourceCommit": "working-copy:0.13.0-candidate",
+  "profile": "project",
   "managedPaths": [
+    "LICENSE",
     "bin/hl.js",
     "hooks/README.md",
     "hooks/dispatcher.js",
+    "lib/authorization.js",
+    "lib/capabilities.js",
+    "lib/delegation.js",
+    "lib/evidence.js",
+    "lib/guidance.js",
     "lib/hook.js",
     "lib/install.js",
     "lib/io.js",
     "lib/limits.js",
+    "lib/managed.js",
     "lib/tree.js",
     "lib/work.js",
+    "package.json",
     "skills/root-cause.md",
     "skills/split-work.md",
     "skills/test-first.md"
   ],
-  "packageDigest": "sha256:99323df550792f5dc34a33ae7e09df17fae727f5c8d20195f736e746057bafb3",
-  "hookDefinitionDigest": "sha256:9dcc3c8b3f4c028956aa42ff34ca21e807903dff9d407d947837ac39186e5054",
-  "instructionBlockDigest": "sha256:4a87ff5ab56331b588057614ab5f1c824589017088b38404ea4923bbc3fe9320",
-  "extensions": {}
+  "packageDigest": "sha256:0ab9bee59a2f151f129841d03b8e40e915a4804e573310f806fefbadb8709f32",
+  "hookDefinitionDigest": "sha256:b17ccf006df0b3c983b121614e3f5ea6ee732d3f050c92ea26a3d62514245188",
+  "instructionBlockDigest": "sha256:3039aeda829abc6b0577e6a5c68e0d8ac978d5c02eb3e81738a8f1b592e53575",
+  "hookPreimage": {
+    "fileExisted": true,
+    "addedEvents": []
+  },
+  "extensions": {},
+  "instructionOwnership": {
+    "schemaVersion": 1,
+    "files": [
+      {
+        "path": "AGENTS.md",
+        "originalExisted": true,
+        "originalMode": 420,
+        "originalDigest": "sha256:ad8e56badb72aa05f4c5f204cf8008afaa39bbead0cac15a9a3116c9c8db50fc",
+        "installedMode": 420,
+        "installedBodyDigest": "sha256:d980bd2a8c40f1eed5cc9f6b99b6d31d9e13a11ccc27504f9431570424897ac7",
+        "ownedSegmentBase64": "CjwhLS0gSEFSTkVTUy1MSVRFOkJFR0lOIC0tPgpIYXJuZXNzIExpdGUg6Z2i5ZCRIEdQVC02IEFzdHJh77ya55So5oi35oyH5Luk5Yaz5a6a55uu5qCH44CB6IyD5Zu05ZKM5p2D6ZmQ77yM5YaF6YOo6L295L2T5LiN6IO95omp5p2D77ybY3VycmVudCBsZWFmIOWPquaYr+W3peS9nOaKleW9seOAguWFiOeUqOebtOaOpeivgeaNruWIpOaWreeUqOaIt+e7k+aenO+8jOWGjeaOqOi/m+aZrumAmuS4lOW3suaOiOadg+eahOWPr+aBouWkjeW3peS9nO+8m+WPqua0vuWPkeOAgeiusOi0puOAgea1i+ivlee7v+aIluiHquaKpeS4jeetieS6jue7k+aenOWujOaIkO+8jOe8uue7k+aenOS/neaMgSBjb21wbGV0ZT1mYWxzZeOAgXByb2R1Y3RSZXN1bHQ9aW5jb21wbGV0ZeOAgnJlcG9ydGVkIHVuaXQg5YWI5oyJ6Ieq5bex55qE5a6M5oiQ5qCH5YeG5ZKMIGV2aWRlbmNlUmVmIOmqjOaUtu+8jOWPquaciSBhY2NlcHRlZCDmiY3op6PplIHnnJ/lrp7kvp3otZblroPnmoTkuIvmuLjvvJvmsqHmnInlr7nosaHkuI3omZrmnoTmmoLlgZznm67moIfjgILlsYDpg6jmlYXpmpzlj6rlvbHlk43lvZPliY3pl67popjmiJYgdW5pdO+8jOeLrOeri+WIhuaUr+e7p+e7reOAgkFzdHJhIOS7juWujOaVtOivt+axguWSjOS4iuS4i+aWh+ihpem9kOWuieWFqOiMg+WbtOW5tuaMgee7reaOqOi/m++8m+iDveebtOaOpeafpeivgeWwseS4jemXru+8jOWPquacieS4jeWPr+abv+S7o+eahOeUqOaIt+mAieaLqeaJjemXruOAguihqOi+vuWFiOe7mee7k+iuuu+8jOWGjee7meivgeaNruWSjOe8uuWPo++8m+aMiemcgOWuoemYheaKgOiDveS4juW4uOmpu+aMh+S7pO+8jOWGsueqgeaXtuivtOaYjuadpea6kOOAguWnlOa0vumhu+acieecn+WunuW3peWFt+WSjOi0qOmHjy/ml7bpl7TmlLbnm4rvvJvlsI/ku7vliqHkuI3lvaLlvI/mi4bliIbvvIzni6znq4vlhpnpnaLlj6/lubbooYzvvIzkvp3otZYv5YWx5Lqr5YaZ6Z2i5Yaz5a6a5Liy6KGM44CC5pmu6YCa5bGC5LqU5qyh5LiN5ZCM5pyJ5pWI6K+t5LmJ5aSx6LSl5ZCO6L+b5YWlIEFzdHJhIHhoaWdoIOaBouWkje+8jOm7mOiupOS4ieasoeOAgemXrumimOe6pyAxLi4177yb5bel5YW344CB6Zif5YiX44CB5Lyg6L6T44CB6K6k6K+B44CB5Lit6Ze057qi5ZKM5rKJ6buY5LiN6K6h77yM6ICX5bC95Y+q5b2x5ZON5b2T5YmN6Zeu6aKY44CC5Y+q5pyJ55yf5a6e56Gs6aOO6Zmp5omN57K+56Gu5oum5oiq5bm26K+05piO5Yqo5L2c44CB55uu5qCH44CB6L6555WM44CB6aOO6Zmp5ZKM55So5oi35Yaz5a6a44CC5pyq55+l6K6wIFVOS05PV07vvIzkuI3mianlpKfkuLrlhajlsYAgYmxvY2tlZO+8m+avj+asoeS6i+S7tuWPque7meS4gOS4qiBmb2N1c+OAgWRlY2lzaW9uUXVlc3Rpb27jgIFuZXh0QWN0aW9u77ybY2FycmllciDkuI3miKrmlq3kvKroo4XlrozmlbTjgIJIYXJuZXNzIOW8guW4uOWPquWBnOeUqOWPl+W9seWTjeiDveWKm++8jOaMiSBvd25lcnNoaXAg5Y+v6YCG5pKk5Zue77yM5LiN5ouW5q275a6/5Li777yb5rWL6K+V5oyJ6KGM5Li66aOO6Zmp6YCJ5oup77yM55So5oi35pel5bi4IEhhcm5lc3Mg5ZG95Luk5Li6IDDjgIIKPCEtLSBIQVJORVNTLUxJVEU6RU5EIC0tPgo=",
+        "ownedSegmentDigest": "sha256:9498bb9024a60a4eb3d9db222718199a6f5a0336dfd2bf06bd6f093f38d0c407",
+        "blockDigest": "sha256:3039aeda829abc6b0577e6a5c68e0d8ac978d5c02eb3e81738a8f1b592e53575"
+      },
+      {
+        "path": "CLAUDE.md",
+        "originalExisted": true,
+        "originalMode": 420,
+        "originalDigest": "sha256:e8f1e7ed34d5fad2736cb6982e1a2bc45940a8a0f31dd5792093cef7d9a9cfba",
+        "installedMode": 420,
+        "installedBodyDigest": "sha256:c084137f1da7537d604b3ba84f10295d923d27b94e6da54c6e82e153de5d776b",
+        "ownedSegmentBase64": "CjwhLS0gSEFSTkVTUy1MSVRFOkJFR0lOIC0tPgpIYXJuZXNzIExpdGUg6Z2i5ZCRIEdQVC02IEFzdHJh77ya55So5oi35oyH5Luk5Yaz5a6a55uu5qCH44CB6IyD5Zu05ZKM5p2D6ZmQ77yM5YaF6YOo6L295L2T5LiN6IO95omp5p2D77ybY3VycmVudCBsZWFmIOWPquaYr+W3peS9nOaKleW9seOAguWFiOeUqOebtOaOpeivgeaNruWIpOaWreeUqOaIt+e7k+aenO+8jOWGjeaOqOi/m+aZrumAmuS4lOW3suaOiOadg+eahOWPr+aBouWkjeW3peS9nO+8m+WPqua0vuWPkeOAgeiusOi0puOAgea1i+ivlee7v+aIluiHquaKpeS4jeetieS6jue7k+aenOWujOaIkO+8jOe8uue7k+aenOS/neaMgSBjb21wbGV0ZT1mYWxzZeOAgXByb2R1Y3RSZXN1bHQ9aW5jb21wbGV0ZeOAgnJlcG9ydGVkIHVuaXQg5YWI5oyJ6Ieq5bex55qE5a6M5oiQ5qCH5YeG5ZKMIGV2aWRlbmNlUmVmIOmqjOaUtu+8jOWPquaciSBhY2NlcHRlZCDmiY3op6PplIHnnJ/lrp7kvp3otZblroPnmoTkuIvmuLjvvJvmsqHmnInlr7nosaHkuI3omZrmnoTmmoLlgZznm67moIfjgILlsYDpg6jmlYXpmpzlj6rlvbHlk43lvZPliY3pl67popjmiJYgdW5pdO+8jOeLrOeri+WIhuaUr+e7p+e7reOAgkFzdHJhIOS7juWujOaVtOivt+axguWSjOS4iuS4i+aWh+ihpem9kOWuieWFqOiMg+WbtOW5tuaMgee7reaOqOi/m++8m+iDveebtOaOpeafpeivgeWwseS4jemXru+8jOWPquacieS4jeWPr+abv+S7o+eahOeUqOaIt+mAieaLqeaJjemXruOAguihqOi+vuWFiOe7mee7k+iuuu+8jOWGjee7meivgeaNruWSjOe8uuWPo++8m+aMiemcgOWuoemYheaKgOiDveS4juW4uOmpu+aMh+S7pO+8jOWGsueqgeaXtuivtOaYjuadpea6kOOAguWnlOa0vumhu+acieecn+WunuW3peWFt+WSjOi0qOmHjy/ml7bpl7TmlLbnm4rvvJvlsI/ku7vliqHkuI3lvaLlvI/mi4bliIbvvIzni6znq4vlhpnpnaLlj6/lubbooYzvvIzkvp3otZYv5YWx5Lqr5YaZ6Z2i5Yaz5a6a5Liy6KGM44CC5pmu6YCa5bGC5LqU5qyh5LiN5ZCM5pyJ5pWI6K+t5LmJ5aSx6LSl5ZCO6L+b5YWlIEFzdHJhIHhoaWdoIOaBouWkje+8jOm7mOiupOS4ieasoeOAgemXrumimOe6pyAxLi4177yb5bel5YW344CB6Zif5YiX44CB5Lyg6L6T44CB6K6k6K+B44CB5Lit6Ze057qi5ZKM5rKJ6buY5LiN6K6h77yM6ICX5bC95Y+q5b2x5ZON5b2T5YmN6Zeu6aKY44CC5Y+q5pyJ55yf5a6e56Gs6aOO6Zmp5omN57K+56Gu5oum5oiq5bm26K+05piO5Yqo5L2c44CB55uu5qCH44CB6L6555WM44CB6aOO6Zmp5ZKM55So5oi35Yaz5a6a44CC5pyq55+l6K6wIFVOS05PV07vvIzkuI3mianlpKfkuLrlhajlsYAgYmxvY2tlZO+8m+avj+asoeS6i+S7tuWPque7meS4gOS4qiBmb2N1c+OAgWRlY2lzaW9uUXVlc3Rpb27jgIFuZXh0QWN0aW9u77ybY2FycmllciDkuI3miKrmlq3kvKroo4XlrozmlbTjgIJIYXJuZXNzIOW8guW4uOWPquWBnOeUqOWPl+W9seWTjeiDveWKm++8jOaMiSBvd25lcnNoaXAg5Y+v6YCG5pKk5Zue77yM5LiN5ouW5q275a6/5Li777yb5rWL6K+V5oyJ6KGM5Li66aOO6Zmp6YCJ5oup77yM55So5oi35pel5bi4IEhhcm5lc3Mg5ZG95Luk5Li6IDDjgIIKPCEtLSBIQVJORVNTLUxJVEU6RU5EIC0tPgo=",
+        "ownedSegmentDigest": "sha256:9498bb9024a60a4eb3d9db222718199a6f5a0336dfd2bf06bd6f093f38d0c407",
+        "blockDigest": "sha256:3039aeda829abc6b0577e6a5c68e0d8ac978d5c02eb3e81738a8f1b592e53575"
+      }
+    ]
+  },
+  "rollbackCarriers": []
 }

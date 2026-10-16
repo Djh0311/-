@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "category_ref",
+    "category_name",
+    "source_page_number",
+    "source_has_next_page",
+    "source_reported_product_count",
+    "loaded_product_ids",
+    "folded_product_ids",
+    "page_semantics",
+    "termination_semantics"
+  ],
+  "properties": {
+    "category_ref": {
+      "type": "string",
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$",
+      "minLength": 1
+    },
+    "category_name": {
+      "type": "string",
+      "maxLength": 256,
+      "pattern": "^[^\\r\\n\\u0000]*$",
+      "minLength": 1
+    },
+    "source_page_number": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "source_has_next_page": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "source_reported_product_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "loaded_product_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^-?[0-9]+$"
+      },
+      "maxItems": 40000,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "folded_product_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^-?[0-9]+$"
+      },
+      "maxItems": 40000,
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "page_semantics": {
+      "const": "UNCONFIRMED"
+    },
+    "termination_semantics": {
+      "const": "UNCONFIRMED"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p29-category-coverage-v1.schema.json"
+}

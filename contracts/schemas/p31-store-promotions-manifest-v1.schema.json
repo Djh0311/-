@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "result_name",
+    "window_ref",
+    "record_count",
+    "files",
+    "source_kind",
+    "scope",
+    "customer_eligibility_confirmed",
+    "stacking_confirmed",
+    "validity_confirmed",
+    "screenshot_values_used",
+    "live_attempts_consumed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p31-store-promotions-manifest/v1"
+    },
+    "result_name": {
+      "type": "string",
+      "pattern": "^p31_store_promotions_[a-f0-9]{32}$"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "record_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8000
+    },
+    "files": {
+      "const": [
+        "records.json",
+        "records.csv",
+        "manifest.json"
+      ]
+    },
+    "source_kind": {
+      "const": "OWN_INITIAL_FOOD_PUBLIC_PROJECTION"
+    },
+    "scope": {
+      "const": "STORE_DISPLAY"
+    },
+    "customer_eligibility_confirmed": {
+      "const": false
+    },
+    "stacking_confirmed": {
+      "const": false
+    },
+    "validity_confirmed": {
+      "const": false
+    },
+    "screenshot_values_used": {
+      "const": false
+    },
+    "live_attempts_consumed": {
+      "const": 0
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

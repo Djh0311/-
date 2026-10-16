@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "amount_unit": {
+      "const": "YUAN"
+    },
+    "capability_ref": {
+      "pattern": "^capability:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "currency": {
+      "const": "CNY"
+    },
+    "formal_qualification": {
+      "const": false
+    },
+    "payload_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "payload_version": {
+      "const": "p26-observed-shop-v2"
+    },
+    "price_relation": {
+      "const": "SPU_MIN_EQUALS_RENDER_AND_MIN_SKU"
+    },
+    "profile_ref": {
+      "pattern": "^profile:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "routing_parameter_key": {
+      "const": "poi_id_str"
+    },
+    "runtime_target_ref": {
+      "pattern": "^target:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "same_observation_rule": {
+      "const": "FRESH_WINDOW_FIRST_PAIR_SAME_PUBLIC_STORE_WITHIN_10_SECONDS"
+    },
+    "schema_version": {
+      "const": "p26-real-result-profile/v2"
+    },
+    "source_identification_window_ref": {
+      "pattern": "^identification:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "source_identity_evidence": {
+      "const": "CURRENT_STORE_NAME_BOTH_STRING_AND_NUMERIC_FORM_MATCHES"
+    },
+    "target_binding_ref": {
+      "pattern": "^target-binding:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "target_confirmation_ref": {
+      "pattern": "^target-confirmation:[a-f0-9]{32}$",
+      "type": "string"
+    },
+    "unit_evidence": {
+      "const": "CURRENT_USER_PUBLIC_PAGE_CONFIRMATION_WITH_PRICE_MATCH"
+    },
+    "merchant_container": {
+      "const": "$.data.poi_info"
+    },
+    "secondary_routing_parameter_key": {
+      "const": "wm_poi_id"
+    },
+    "secondary_response_id_path": {
+      "const": "$.data.poi_info.id"
+    }
+  },
+  "required": [
+    "schema_version",
+    "profile_ref",
+    "runtime_target_ref",
+    "target_binding_ref",
+    "target_confirmation_ref",
+    "capability_ref",
+    "source_identification_window_ref",
+    "payload_family",
+    "payload_version",
+    "routing_parameter_key",
+    "currency",
+    "amount_unit",
+    "unit_evidence",
+    "source_identity_evidence",
+    "price_relation",
+    "same_observation_rule",
+    "formal_qualification",
+    "merchant_container",
+    "secondary_routing_parameter_key",
+    "secondary_response_id_path"
+  ],
+  "type": "object"
+}

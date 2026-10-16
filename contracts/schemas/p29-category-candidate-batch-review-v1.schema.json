@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "window_ref",
+    "profile_family",
+    "profile_version",
+    "profile_kind",
+    "response_count",
+    "input_candidate_rows",
+    "candidate_row_count",
+    "deduplicated_candidate_rows",
+    "product_count",
+    "sku_count",
+    "category_count",
+    "fresh_source_context_response_count",
+    "response_code_status_counts",
+    "deduplication",
+    "sources",
+    "source_observation_time_preserved",
+    "cross_observation_fields_copied",
+    "business_result_rows_added",
+    "can_publish_complete_result",
+    "coverage_status",
+    "raw_payload_read",
+    "business_values_in_report",
+    "sensitive_values_processed",
+    "product_result"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "p29-category-candidate-batch-review/v1"
+    },
+    "window_ref": {
+      "type": "string",
+      "pattern": "^result:[a-f0-9]{32}$"
+    },
+    "profile_family": {
+      "const": "meituan_wechat_miniprogram"
+    },
+    "profile_version": {
+      "const": "p29-observed-category-render-v1"
+    },
+    "profile_kind": {
+      "const": "LOCAL_OBSERVED_CANDIDATE_RULES"
+    },
+    "response_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32
+    },
+    "input_candidate_rows": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "candidate_row_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "deduplicated_candidate_rows": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40000
+    },
+    "product_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "sku_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40000
+    },
+    "category_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "fresh_source_context_response_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 32
+    },
+    "response_code_status_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ZERO",
+        "UNOBSERVED"
+      ],
+      "properties": {
+        "ZERO": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "UNOBSERVED": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        }
+      }
+    },
+    "deduplication": {
+      "const": "LATEST_OWN_CANDIDATE_PER_SKU_CATEGORY"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "p29-category-candidate-review-v1.schema.json"
+      }
+    },
+    "source_observation_time_preserved": {
+      "const": true
+    },
+    "cross_observation_fields_copied": {
+      "const": false
+    },
+    "business_result_rows_added": {
+      "const": 0
+    },
+    "can_publish_complete_result": {
+      "const": false
+    },
+    "coverage_status": {
+      "const": "PARTIAL"
+    },
+    "raw_payload_read": {
+      "const": false
+    },
+    "business_values_in_report": {
+      "const": false
+    },
+    "sensitive_values_processed": {
+      "const": false
+    },
+    "product_result": {
+      "const": "incomplete"
+    }
+  }
+}

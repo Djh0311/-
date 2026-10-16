@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p1-record-v1.schema.json",
+  "title": "Synthetic P1 record v1",
+  "description": "One same-observation P1 SKU record linked to one frozen P0 business record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "p1_record_ref",
+    "p0_business_record_ref",
+    "run_ref",
+    "batch_ref",
+    "observation_ref",
+    "provider_contract_ref",
+    "source_integrity_ref",
+    "observed_at",
+    "store_entity_ref",
+    "product_entity_ref",
+    "sku_entity_ref",
+    "category_entity_ref",
+    "promotion_entity_ref",
+    "delivery_entity_ref",
+    "p1_fields"
+  ],
+  "properties": {
+    "schema_version": {"const": "collection-p1-record/v1"},
+    "p1_record_ref": {"type": "string", "pattern": "^p1-record:[A-Za-z0-9_-]{8,96}$"},
+    "p0_business_record_ref": {"type": "string", "pattern": "^business-record:[A-Za-z0-9_-]{8,96}$"},
+    "run_ref": {"type": "string", "pattern": "^run:[A-Za-z0-9_-]{8,96}$"},
+    "batch_ref": {"type": "string", "pattern": "^batch:[A-Za-z0-9_-]{8,96}$"},
+    "observation_ref": {"type": "string", "pattern": "^observation:[A-Za-z0-9_-]{8,96}$"},
+    "provider_contract_ref": {"type": "string", "pattern": "^provider-contract:[A-Za-z0-9_-]{8,96}$"},
+    "source_integrity_ref": {"type": "string", "pattern": "^source-integrity:[A-Za-z0-9_-]{8,96}$"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "store_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "product_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "sku_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "category_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "promotion_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "delivery_entity_ref": {"type": "string", "pattern": "^source-local:[A-Za-z0-9_-]{8,96}$"},
+    "p1_fields": {
+      "type": "array",
+      "items": {"$ref": "p1-field-value-v1.schema.json"},
+      "minItems": 14,
+      "maxItems": 14
+    }
+  },
+  "$comment": "Semantic validation must require every P1 field to share the record observation and must resolve owner_entity_ref inside the linked P0 record's store/product/SKU scope."
+}
